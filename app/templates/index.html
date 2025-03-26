@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Startup Analyzer - Dashboard{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1 class="section-title">Startup Dashboard</h1>
+        <p class="lead">Click on a startup to view detailed analysis.</p>
+    </div>
+</div>
+
+{% if startups %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for name, data in startups.items() %}
+    <div class="col">
+        <div class="card startup-card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ data.startup.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ data.startup.industry }}</h6>
+                <p class="card-text">{{ data.startup.country }}</p>
+                {% if data.startup.website %}
+                <a href="{{ data.startup.website }}" target="_blank" class="card-link">Website</a>
+                {% endif %}
+                <a href="{{ url_for('startup_detail', name=name) }}" class="btn btn-primary mt-2">View Analysis</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-warning">
+    <h4>No startup data found</h4>
+    <p>Please make sure you have run the research pipeline and have generated startup reference files.</p>
+    <p>You can run the pipeline using the command:</p>
+    <pre>python app/run_research.py</pre>
+</div>
+{% endif %}
+{% endblock %} 

@@ -1,22 +1,30 @@
-# Startup Research Pipeline
+# Startup Analyzer Suite
 
-A streamlined system for extracting, analyzing, and managing startup data through web scraping and AI-powered analysis with Google Search integration.
+A comprehensive suite for startup analysis, including a research pipeline for data gathering and a web application for visualization and interaction.
 
 ## Overview
 
-This application provides an end-to-end solution for researching startups:
+This solution consists of two main components:
 
-1. **Web Scraping**: Extracts content from startup websites including about pages, team information, social media links, and contact details
-2. **AI Analysis**: Uses Google's Gemini 2.0 Flash with mandatory Google Search integration to generate comprehensive startup insights
-3. **Data Management**: Creates structured JSON outputs for historical reference and consumption
+1. **Research Pipeline**: Extracts and analyzes startup data using AI-powered analysis with Google Search integration
+2. **Web Application**: Visualizes startup data and provides an interactive chat interface for data exploration
 
 ## Features
+
+### Research Pipeline
 
 - **Comprehensive Web Scraping**: Intelligent extraction of key pages and information
 - **AI-Powered Analysis**: Structured analysis of business model, market position, SWOT, investment potential, and technology
 - **Required Google Search Grounding**: Enhances analysis with real-time web search data using Google's official API
 - **Efficient Data Processing**: Asynchronous operations for optimized performance
 - **Smart File Management**: Automatic archiving of old data and generation of reference files
+
+### Web Application
+
+- **Dashboard with clickable startup cards**: Quick access to all analyzed startups
+- **Detailed startup analysis pages**: Comprehensive view of all analysis data
+- **AI chat assistant using Gemini 2.0**: Interactive query functionality with search grounding
+- **Cross-reference information between startups**: Compare and analyze multiple startups
 
 ## Directory Structure
 
@@ -28,6 +36,12 @@ This application provides an end-to-end solution for researching startups:
 └── app                                 # Application code
     ├── __init__.py                     # Application initialization
     ├── run_research.py                 # Entry point for research pipeline
+    ├── run_webapp.py                   # Entry point for web application
+    ├── web_app.py                      # Main web application implementation
+    ├── templates/                      # Web templates
+    │   ├── base.html                   # Base template with layout and styling
+    │   ├── index.html                  # Dashboard template
+    │   └── detail.html                 # Startup detail template with chat
     └── research/                       # Research module
         ├── __init__.py                 # Module initialization
         ├── __main__.py                 # Module entry point
@@ -61,14 +75,41 @@ client = genai.Client(api_key=api_key)
 tools = [types.Tool(google_search=types.GoogleSearch())]
 ```
 
+## Requirements
+
+- Python 3.8+
+- Google Gemini API key
+
+## Installation
+
+1. Clone this repository
+2. Install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Set your Gemini API key as an environment variable:
+
+```bash
+export GEMINI_API_KEY='your-api-key'
+```
+
 ## Usage
 
-1. Create a `.env` file with your Gemini API key (already provided):
-```
-GEMINI_API_KEY=your_api_key_here
+### Running the Web Application
+
+Execute the web application:
+
+```bash
+./app/run_webapp.py
 ```
 
-2. Prepare your startup data in one of two formats:
+Then open your browser and navigate to `http://localhost:5000`
+
+### Running the Research Pipeline
+
+1. Prepare your startup data in one of two formats:
 
    a. **Tab-separated text file** (like the provided `startups.txt`):
    ```
@@ -88,33 +129,16 @@ GEMINI_API_KEY=your_api_key_here
    ]
    ```
 
-3. Run the research pipeline:
+2. Run the research pipeline:
 
 ```bash
 # Run with default startups.txt
-python app/run_research.py
+./app/run_research.py
 
 # Run with custom input file
-python app/run_research.py path/to/your/startups.txt
+./app/run_research.py path/to/your/startups.txt
 # OR
-python app/run_research.py path/to/your/startups.json
-```
-
-4. Alternatively, you can use the Python module directly:
-
-```bash
-# Run with default startups.txt
-python -m app.research
-
-# Run with custom input file
-python -m app.research path/to/your/startups.txt
-```
-
-5. To convert a startups.txt file to JSON format:
-
-```bash
-# Run the converter directly
-python app/research/convert_startups.py input.txt output.json
+./app/run_research.py path/to/your/startups.json
 ```
 
 ## Output Files
@@ -140,17 +164,11 @@ For each startup, the pipeline generates:
 - **SWOT Analysis**: Detailed strengths, weaknesses, opportunities, and threats
 - **Mentoring Recommendations**: Strategic priorities, development focus areas
 
-## Dependencies
+## Web App Navigation
 
-- Python 3.8+
-- aiohttp
-- BeautifulSoup4
-- google-generativeai
-- python-dotenv
-- requests
-
-## Installation
-
-```bash
-pip install -r requirements.txt
-```
+1. **Home Page**: Displays cards for all startups in the database.
+2. **Startup Detail Page**: Shows comprehensive analysis of a selected startup.
+3. **Chat Interface**: Available on the detail page, allowing you to:
+   - Ask questions about the current startup
+   - Compare with other startups in the database
+   - Get insights grounded in the startup data
