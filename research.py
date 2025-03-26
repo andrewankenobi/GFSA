@@ -9,6 +9,8 @@ from google.generativeai import types
 import backoff
 from pathlib import Path
 from dotenv import load_dotenv
+import concurrent.futures
+from tqdm import tqdm
 
 # Configure logging
 logging.basicConfig(
@@ -366,21 +368,22 @@ class StartupResearch:
 
             # Save raw response
             raw_filename = raw_dir / f"{startup['Startup Name'].replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}_raw.json"
+            
+            # Clean the response text before saving
+            response_text = response.text.strip()
+            if response_text.startswith("```json"):
+                response_text = response_text[7:]
+            if response_text.endswith("```"):
+                response_text = response_text[:-3]
+            response_text = response_text.strip()
+            
             with open(raw_filename, 'w') as f:
-                f.write(response.text)
+                f.write(response_text)
             self.logger.info(f"Saved raw response to {raw_filename}")
 
             # Extract and parse the JSON response
             try:
-                # Clean the response text
-                response_text = response.text.strip()
-                if response_text.startswith("```json"):
-                    response_text = response_text[7:]
-                if response_text.endswith("```"):
-                    response_text = response_text[:-3]
-                response_text = response_text.strip()
-                
-                # Parse JSON
+                # Parse JSON (using already cleaned response_text)
                 analysis_data = json.loads(response_text)
                 self.logger.info(f"Successfully analyzed startup: {startup['Startup Name']}")
                 return analysis_data
@@ -409,16 +412,31 @@ class StartupResearch:
             self.logger.error(f"Error analyzing startup {startup['Startup Name']}: {e}")
             return None
 
-    def process_batch(self, startups, batch_size=10):
-        self.logger.info(f"Processing batch of {len(startups)} startups")
+    def process_batch(self, startups, batch_size=20, max_workers=20):
+        self.logger.info(f"Processing batch of {len(startups)} startups with {max_workers} parallel workers")
         results = []
-        for i in range(0, len(startups), batch_size):
-            batch = startups[i:i + batch_size]
-            self.logger.info(f"Processing batch starting at index {i}")
-            for startup in batch:
-                result = self.analyze_startup(startup)
-                if result:
-                    results.append(result)
+        
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            # Create a progress bar
+            with tqdm(total=len(startups), desc="Analyzing startups") as pbar:
+                # Submit all tasks
+                future_to_startup = {
+                    executor.submit(self.analyze_startup, startup): startup 
+                    for startup in startups
+                }
+                
+                # Process completed tasks as they finish
+                for future in concurrent.futures.as_completed(future_to_startup):
+                    startup = future_to_startup[future]
+                    try:
+                        result = future.result()
+                        if result:
+                            results.append(result)
+                    except Exception as e:
+                        self.logger.error(f"Error processing {startup['Startup Name']}: {e}")
+                    finally:
+                        pbar.update(1)
+        
         return results
 
     def save_results(self, results):
@@ -447,14 +465,14 @@ class StartupResearch:
                 except Exception as e:
                     self.logger.error(f"Error archiving {file.name}: {e}")
 
-    def run_research(self, batch_size=10):
+    def run_research(self, batch_size=20, max_workers=20):
         self.logger.info("Starting research process")
         startups = load_startups()
         if not startups:
             self.logger.error("No startups loaded")
             return
         
-        results = self.process_batch(startups, batch_size)
+        results = self.process_batch(startups, batch_size, max_workers)
         self.save_results(results)
         self.archive_old_files()
         self.logger.info("Research process completed")

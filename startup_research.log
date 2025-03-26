@@ -186,3 +186,181 @@
 2025-03-26 14:32:20,233 - INFO - Results saved to data/results/analysis_20250326_143220.json
 2025-03-26 14:32:20,233 - INFO - Archiving old result files
 2025-03-26 14:32:20,234 - INFO - Research process completed
+2025-03-26 14:35:44,792 - INFO - Initializing StartupResearch
+2025-03-26 14:35:44,792 - INFO - Created directory: data
+2025-03-26 14:35:44,792 - INFO - Created directory: data/archive
+2025-03-26 14:35:44,792 - INFO - Created directory: data/results
+2025-03-26 14:35:44,792 - INFO - Starting research process
+2025-03-26 14:35:44,792 - INFO - Loaded 15 startups
+2025-03-26 14:35:44,793 - INFO - Processing batch of 15 startups
+2025-03-26 14:35:44,793 - INFO - Processing batch starting at index 0
+2025-03-26 14:35:44,793 - INFO - Starting analysis for startup: Ambr AI
+2025-03-26 14:36:06,077 - INFO - Saved raw response to data/raw/Ambr_AI_20250326_143606_raw.json
+2025-03-26 14:36:06,077 - INFO - Successfully analyzed startup: Ambr AI
+2025-03-26 14:36:06,077 - INFO - Starting analysis for startup: Connect by Circular-Lab
+2025-03-26 14:36:34,993 - INFO - Saved raw response to data/raw/Connect_by_Circular-Lab_20250326_143634_raw.json
+2025-03-26 14:36:34,993 - INFO - Successfully analyzed startup: Connect by Circular-Lab
+2025-03-26 14:36:34,993 - INFO - Starting analysis for startup: Dana Health
+2025-03-26 14:36:57,843 - INFO - Saved raw response to data/raw/Dana_Health_20250326_143657_raw.json
+2025-03-26 14:36:57,843 - INFO - Successfully analyzed startup: Dana Health
+2025-03-26 14:36:57,843 - INFO - Starting analysis for startup: Folio
+2025-03-26 14:37:17,154 - INFO - Saved raw response to data/raw/Folio_20250326_143717_raw.json
+2025-03-26 14:37:17,154 - INFO - Successfully analyzed startup: Folio
+2025-03-26 14:37:17,154 - INFO - Starting analysis for startup: Good With
+2025-03-26 14:37:48,630 - INFO - Saved raw response to data/raw/Good_With_20250326_143748_raw.json
+2025-03-26 14:37:48,630 - INFO - Successfully analyzed startup: Good With
+2025-03-26 14:37:48,630 - INFO - Starting analysis for startup: Hybr
+2025-03-26 14:38:14,261 - INFO - Saved raw response to data/raw/Hybr_20250326_143814_raw.json
+2025-03-26 14:38:14,261 - INFO - Successfully analyzed startup: Hybr
+2025-03-26 14:38:14,261 - INFO - Starting analysis for startup: iVerse
+2025-03-26 14:38:38,938 - INFO - Saved raw response to data/raw/iVerse_20250326_143838_raw.json
+2025-03-26 14:38:38,938 - INFO - Successfully analyzed startup: iVerse
+2025-03-26 14:38:38,939 - INFO - Starting analysis for startup: Material Evolution
+2025-03-26 14:39:06,037 - INFO - Saved raw response to data/raw/Material_Evolution_20250326_143906_raw.json
+2025-03-26 14:39:06,038 - INFO - Successfully analyzed startup: Material Evolution
+2025-03-26 14:39:06,038 - INFO - Starting analysis for startup: Metsystem
+2025-03-26 14:39:30,751 - INFO - Saved raw response to data/raw/Metsystem_20250326_143930_raw.json
+2025-03-26 14:39:30,752 - INFO - Successfully analyzed startup: Metsystem
+2025-03-26 14:39:30,753 - INFO - Starting analysis for startup: Noxon
+2025-03-26 14:40:03,880 - INFO - Saved raw response to data/raw/Noxon_20250326_144003_raw.json
+2025-03-26 14:40:03,880 - INFO - Successfully analyzed startup: Noxon
+2025-03-26 14:40:03,880 - INFO - Processing batch starting at index 10
+2025-03-26 14:40:03,881 - INFO - Starting analysis for startup: Punto Health
+2025-03-26 14:40:17,636 - INFO - Saved raw response to data/raw/Punto_Health_20250326_144017_raw.json
+2025-03-26 14:40:17,638 - INFO - Successfully analyzed startup: Punto Health
+2025-03-26 14:40:17,638 - INFO - Starting analysis for startup: ShareID
+2025-03-26 14:40:41,525 - INFO - Saved raw response to data/raw/ShareID_20250326_144041_raw.json
+2025-03-26 14:40:41,525 - INFO - Successfully analyzed startup: ShareID
+2025-03-26 14:40:41,525 - INFO - Starting analysis for startup: Tech1M
+2025-03-26 14:41:05,269 - INFO - Saved raw response to data/raw/Tech1M_20250326_144105_raw.json
+2025-03-26 14:41:05,269 - INFO - Successfully analyzed startup: Tech1M
+2025-03-26 14:41:05,269 - INFO - Starting analysis for startup: V-Art
+2025-03-26 14:41:26,783 - INFO - Initializing StartupResearch
+2025-03-26 14:41:26,783 - INFO - Created directory: data
+2025-03-26 14:41:26,783 - INFO - Created directory: data/archive
+2025-03-26 14:41:26,783 - INFO - Created directory: data/results
+2025-03-26 14:41:26,783 - INFO - Starting research process
+2025-03-26 14:41:26,784 - INFO - Loaded 15 startups
+2025-03-26 14:41:26,784 - INFO - Processing batch of 15 startups
+2025-03-26 14:41:26,785 - INFO - Processing batch starting at index 0
+2025-03-26 14:41:26,785 - INFO - Starting analysis for startup: Ambr AI
+2025-03-26 14:41:36,443 - INFO - Saved raw response to data/raw/V-Art_20250326_144136_raw.json
+2025-03-26 14:41:36,443 - ERROR - Failed to parse JSON response for V-Art: Expecting ',' delimiter: line 144 column 9 (char 7074)
+2025-03-26 14:41:36,443 - INFO - Starting analysis for startup: Whering
+2025-03-26 14:42:10,774 - INFO - Saved raw response to data/raw/Whering_20250326_144210_raw.json
+2025-03-26 14:42:10,774 - INFO - Successfully analyzed startup: Whering
+2025-03-26 14:42:10,784 - INFO - Results saved to data/results/analysis_20250326_144210.json
+2025-03-26 14:42:10,784 - INFO - Archiving old result files
+2025-03-26 14:42:10,784 - INFO - Research process completed
+2025-03-26 14:44:46,730 - INFO - Initializing StartupResearch
+2025-03-26 14:44:46,730 - INFO - Created directory: data
+2025-03-26 14:44:46,730 - INFO - Created directory: data/archive
+2025-03-26 14:44:46,730 - INFO - Created directory: data/results
+2025-03-26 14:44:46,730 - INFO - Starting research process
+2025-03-26 14:44:46,731 - INFO - Loaded 15 startups
+2025-03-26 14:44:46,731 - INFO - Processing batch of 15 startups with 10 parallel workers
+2025-03-26 14:44:46,779 - INFO - Starting analysis for startup: Ambr AI
+2025-03-26 14:44:46,779 - INFO - Starting analysis for startup: Connect by Circular-Lab
+2025-03-26 14:44:46,779 - INFO - Starting analysis for startup: Dana Health
+2025-03-26 14:44:46,780 - INFO - Starting analysis for startup: Folio
+2025-03-26 14:44:46,781 - INFO - Starting analysis for startup: Good With
+2025-03-26 14:44:46,781 - INFO - Starting analysis for startup: Hybr
+2025-03-26 14:44:46,782 - INFO - Starting analysis for startup: iVerse
+2025-03-26 14:44:46,782 - INFO - Starting analysis for startup: Material Evolution
+2025-03-26 14:44:46,783 - INFO - Starting analysis for startup: Metsystem
+2025-03-26 14:44:46,783 - INFO - Starting analysis for startup: Noxon
+2025-03-26 14:44:57,761 - INFO - Saved raw response to data/raw/Folio_20250326_144457_raw.json
+2025-03-26 14:44:57,762 - INFO - Successfully analyzed startup: Folio
+2025-03-26 14:44:57,762 - INFO - Starting analysis for startup: Punto Health
+2025-03-26 14:45:10,727 - INFO - Saved raw response to data/raw/Dana_Health_20250326_144510_raw.json
+2025-03-26 14:45:10,728 - INFO - Successfully analyzed startup: Dana Health
+2025-03-26 14:45:10,729 - INFO - Starting analysis for startup: ShareID
+2025-03-26 14:45:11,305 - INFO - Saved raw response to data/raw/Connect_by_Circular-Lab_20250326_144511_raw.json
+2025-03-26 14:45:11,305 - INFO - Successfully analyzed startup: Connect by Circular-Lab
+2025-03-26 14:45:11,305 - INFO - Starting analysis for startup: Tech1M
+2025-03-26 14:45:12,917 - INFO - Saved raw response to data/raw/Material_Evolution_20250326_144512_raw.json
+2025-03-26 14:45:12,917 - INFO - Successfully analyzed startup: Material Evolution
+2025-03-26 14:45:12,917 - INFO - Starting analysis for startup: V-Art
+2025-03-26 14:45:13,287 - INFO - Saved raw response to data/raw/Good_With_20250326_144513_raw.json
+2025-03-26 14:45:13,288 - INFO - Successfully analyzed startup: Good With
+2025-03-26 14:45:13,871 - INFO - Saved raw response to data/raw/iVerse_20250326_144513_raw.json
+2025-03-26 14:45:13,871 - INFO - Successfully analyzed startup: iVerse
+2025-03-26 14:45:13,871 - INFO - Starting analysis for startup: Whering
+2025-03-26 14:45:15,098 - INFO - Saved raw response to data/raw/Ambr_AI_20250326_144515_raw.json
+2025-03-26 14:45:15,098 - INFO - Successfully analyzed startup: Ambr AI
+2025-03-26 14:45:16,539 - INFO - Saved raw response to data/raw/Noxon_20250326_144516_raw.json
+2025-03-26 14:45:16,539 - INFO - Successfully analyzed startup: Noxon
+2025-03-26 14:45:16,637 - INFO - Saved raw response to data/raw/Hybr_20250326_144516_raw.json
+2025-03-26 14:45:16,637 - INFO - Successfully analyzed startup: Hybr
+2025-03-26 14:45:34,813 - INFO - Initializing StartupResearch
+2025-03-26 14:45:34,814 - INFO - Created directory: data
+2025-03-26 14:45:34,814 - INFO - Created directory: data/archive
+2025-03-26 14:45:34,814 - INFO - Created directory: data/results
+2025-03-26 14:45:34,814 - INFO - Starting research process
+2025-03-26 14:45:34,814 - INFO - Loaded 15 startups
+2025-03-26 14:45:34,814 - INFO - Processing batch of 15 startups with 10 parallel workers
+2025-03-26 14:45:34,823 - INFO - Starting analysis for startup: Ambr AI
+2025-03-26 14:45:34,823 - INFO - Starting analysis for startup: Connect by Circular-Lab
+2025-03-26 14:45:34,824 - INFO - Starting analysis for startup: Dana Health
+2025-03-26 14:45:34,825 - INFO - Starting analysis for startup: Folio
+2025-03-26 14:45:34,825 - INFO - Starting analysis for startup: Good With
+2025-03-26 14:45:34,825 - INFO - Starting analysis for startup: Hybr
+2025-03-26 14:45:34,825 - INFO - Starting analysis for startup: iVerse
+2025-03-26 14:45:34,826 - INFO - Starting analysis for startup: Material Evolution
+2025-03-26 14:45:34,826 - INFO - Starting analysis for startup: Metsystem
+2025-03-26 14:45:34,826 - INFO - Starting analysis for startup: Noxon
+2025-03-26 14:46:33,374 - INFO - Initializing StartupResearch
+2025-03-26 14:46:33,375 - INFO - Created directory: data
+2025-03-26 14:46:33,375 - INFO - Created directory: data/archive
+2025-03-26 14:46:33,375 - INFO - Created directory: data/results
+2025-03-26 14:46:33,375 - INFO - Starting research process
+2025-03-26 14:46:33,375 - INFO - Loaded 15 startups
+2025-03-26 14:46:33,375 - INFO - Processing batch of 15 startups with 20 parallel workers
+2025-03-26 14:46:33,386 - INFO - Starting analysis for startup: Ambr AI
+2025-03-26 14:46:33,386 - INFO - Starting analysis for startup: Connect by Circular-Lab
+2025-03-26 14:46:33,386 - INFO - Starting analysis for startup: Dana Health
+2025-03-26 14:46:33,387 - INFO - Starting analysis for startup: Folio
+2025-03-26 14:46:33,387 - INFO - Starting analysis for startup: Good With
+2025-03-26 14:46:33,388 - INFO - Starting analysis for startup: Hybr
+2025-03-26 14:46:33,388 - INFO - Starting analysis for startup: iVerse
+2025-03-26 14:46:33,388 - INFO - Starting analysis for startup: Material Evolution
+2025-03-26 14:46:33,389 - INFO - Starting analysis for startup: Metsystem
+2025-03-26 14:46:33,389 - INFO - Starting analysis for startup: Noxon
+2025-03-26 14:46:33,389 - INFO - Starting analysis for startup: Punto Health
+2025-03-26 14:46:33,390 - INFO - Starting analysis for startup: ShareID
+2025-03-26 14:46:33,393 - INFO - Starting analysis for startup: Tech1M
+2025-03-26 14:46:33,393 - INFO - Starting analysis for startup: V-Art
+2025-03-26 14:46:33,396 - INFO - Starting analysis for startup: Whering
+2025-03-26 14:46:53,425 - INFO - Saved raw response to data/raw/Dana_Health_20250326_144653_raw.json
+2025-03-26 14:46:53,425 - INFO - Successfully analyzed startup: Dana Health
+2025-03-26 14:46:54,427 - INFO - Saved raw response to data/raw/iVerse_20250326_144654_raw.json
+2025-03-26 14:46:54,428 - INFO - Successfully analyzed startup: iVerse
+2025-03-26 14:46:54,989 - INFO - Saved raw response to data/raw/Hybr_20250326_144654_raw.json
+2025-03-26 14:46:54,989 - INFO - Successfully analyzed startup: Hybr
+2025-03-26 14:46:56,719 - INFO - Saved raw response to data/raw/Metsystem_20250326_144656_raw.json
+2025-03-26 14:46:56,720 - INFO - Successfully analyzed startup: Metsystem
+2025-03-26 14:46:57,035 - INFO - Saved raw response to data/raw/Good_With_20250326_144657_raw.json
+2025-03-26 14:46:57,035 - INFO - Successfully analyzed startup: Good With
+2025-03-26 14:46:58,368 - INFO - Saved raw response to data/raw/Tech1M_20250326_144658_raw.json
+2025-03-26 14:46:58,368 - ERROR - Failed to parse JSON response for Tech1M: Expecting ',' delimiter: line 142 column 9 (char 5641)
+2025-03-26 14:47:01,676 - INFO - Saved raw response to data/raw/Punto_Health_20250326_144701_raw.json
+2025-03-26 14:47:01,677 - INFO - Successfully analyzed startup: Punto Health
+2025-03-26 14:47:01,701 - INFO - Saved raw response to data/raw/Connect_by_Circular-Lab_20250326_144701_raw.json
+2025-03-26 14:47:01,701 - INFO - Successfully analyzed startup: Connect by Circular-Lab
+2025-03-26 14:47:01,732 - INFO - Saved raw response to data/raw/Material_Evolution_20250326_144701_raw.json
+2025-03-26 14:47:01,732 - INFO - Successfully analyzed startup: Material Evolution
+2025-03-26 14:47:01,997 - INFO - Saved raw response to data/raw/Whering_20250326_144701_raw.json
+2025-03-26 14:47:01,997 - INFO - Successfully analyzed startup: Whering
+2025-03-26 14:47:02,155 - INFO - Saved raw response to data/raw/Folio_20250326_144702_raw.json
+2025-03-26 14:47:02,155 - INFO - Successfully analyzed startup: Folio
+2025-03-26 14:47:02,775 - INFO - Saved raw response to data/raw/ShareID_20250326_144702_raw.json
+2025-03-26 14:47:02,775 - INFO - Successfully analyzed startup: ShareID
+2025-03-26 14:47:02,987 - INFO - Saved raw response to data/raw/Ambr_AI_20250326_144702_raw.json
+2025-03-26 14:47:02,988 - INFO - Successfully analyzed startup: Ambr AI
+2025-03-26 14:47:07,339 - INFO - Saved raw response to data/raw/V-Art_20250326_144707_raw.json
+2025-03-26 14:47:07,340 - INFO - Successfully analyzed startup: V-Art
+2025-03-26 14:47:12,017 - INFO - Saved raw response to data/raw/Noxon_20250326_144712_raw.json
+2025-03-26 14:47:12,017 - INFO - Successfully analyzed startup: Noxon
+2025-03-26 14:47:12,025 - INFO - Results saved to data/results/analysis_20250326_144712.json
+2025-03-26 14:47:12,025 - INFO - Archiving old result files
+2025-03-26 14:47:12,025 - INFO - Research process completed
