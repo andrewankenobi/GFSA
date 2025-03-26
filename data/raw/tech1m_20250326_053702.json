@@ -1,0 +1,12 @@
+{
+  "startup": {
+    "name": "Tech1M",
+    "country": "United Kingdom",
+    "industry": "SaaS, HRtech",
+    "website": "www.tech1m.com"
+  },
+  "analysis": {
+    "error": "Failed to parse analysis: Expecting ',' delimiter: line 139 column 2 (char 16603)"
+  },
+  "processed_at": "2025-03-26T05:37:02.043030"
+}

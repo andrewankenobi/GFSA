@@ -1,0 +1,12 @@
+{
+  "startup": {
+    "name": "iVerse",
+    "country": "Israel",
+    "industry": "HRtech",
+    "website": "www.i-verse.online"
+  },
+  "analysis": {
+    "error": "Failed to parse analysis: Expecting ',' delimiter: line 131 column 15 (char 16151)"
+  },
+  "processed_at": "2025-03-26T05:28:51.044021"
+}
