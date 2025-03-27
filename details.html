@@ -623,9 +623,9 @@
                     throw new Error('No startup specified');
                 }
 
-                const response = await fetch('data/results/analysis_20250327_084704.json');
+                const response = await fetch('analysis_20250327_084704.json');
                 if (!response.ok) {
-                    throw new Error(`Could not load analysis file. Please ensure it exists in the data/results/ directory.`);
+                    throw new Error(`Could not load analysis file. Please ensure it exists in the root directory.`);
                 }
                 
                 const data = await response.json();
