@@ -10,6 +10,8 @@ A comprehensive analysis platform for the Google for Startups Accelerator AI Fir
 - 💡 AI-powered insights and recommendations
 - 🤖 Interactive AI assistant (Ment-hoff) for startup-specific queries
 - 📈 Comprehensive market and business analysis
+- 🔄 Automatic data archiving and version control
+- 🌍 Multi-country startup coverage (UK, Spain, Israel, Denmark, Germany, France, Ukraine)
 
 ### Task Management
 - ✨ Beautiful dark theme UI matching the existing application
@@ -90,6 +92,8 @@ GFSA/
 - `index.html`: Main startup listing and search interface
 - `details.html`: Detailed startup view with AI analysis
 - Responsive design with modern UI/UX
+- Real-time search functionality
+- Dynamic data loading
 
 ### Analysis Features
 - AI-powered startup analysis
@@ -97,12 +101,17 @@ GFSA/
 - Competitive analysis
 - Risk evaluation
 - Growth trajectory prediction
+- Founder background analysis
+- Funding stage assessment
+- Product development stage tracking
 
 ### Data Management
 - Automatic archiving of old analyses
 - Version control of analysis results
 - Raw data preservation
 - Structured JSON data format
+- Startup metadata tracking
+- Historical analysis preservation
 
 ## Built With
 
@@ -110,12 +119,15 @@ GFSA/
 - [Python](https://www.python.org/) - Backend language
 - [Google Cloud AI](https://cloud.google.com/ai-platform) - AI/ML capabilities
 - [Flask-Assets](https://flask-assets.readthedocs.io/) - Asset management
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Frontend interactivity
 
 ## API Endpoints
 
 ### Analysis API
 - `/api/analyze-startup` - Generate AI analysis for a startup
 - `/api/chat` - Interactive AI assistant endpoint
+- `/api/startups` - List all startups
+- `/api/startup/<id>` - Get detailed startup information
 
 ### Task Management API
 - `GET /api/tasks` - List all tasks
@@ -131,6 +143,7 @@ GFSA/
 4. Web interface presentation
 5. AI-powered insights generation
 6. Interactive user queries
+7. Automatic data archiving
 
 ## Contributing
 
@@ -147,5 +160,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgments
 
 - Google for Startups Accelerator
-- All participating startups
-- Contributors and maintainers 
+- All participating startups in the AI First 2025 Berlin Cohort
+- Contributors and maintainers
+- The startup founders and teams for their valuable insights 
