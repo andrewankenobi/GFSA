@@ -105,33 +105,36 @@ IMPORTANT:
 - Do not include any markdown formatting"""
 
 def format_response(text):
-    """Format the response text with simple HTML."""
-    # Convert markdown-style formatting to HTML
-    formatted = text.replace('###', '<h3>').replace('\n\n', '<br><br>')
-    formatted = formatted.replace('**', '<strong>')  # Bold text
-    formatted = formatted.replace('•', '&bull;')  # Bullet points
-    
-    # Convert lists
-    lines = formatted.split('\n')
-    in_list = False
+    """Format the response text with minimal HTML for chat-like appearance."""
+    # Handle bullet points and paragraphs
+    lines = text.split('\n')
     result = []
+    in_list = False
     
     for line in lines:
-        if line.strip().startswith('- '):
+        line = line.strip()
+        if not line:  # Handle blank lines
+            if in_list:
+                result.append('</ul>')
+                in_list = False
+            result.append('<br>')
+            continue
+            
+        if line.startswith('- '):
             if not in_list:
-                result.append('<ul>')
+                result.append('<ul class="chat-list">')
                 in_list = True
-            result.append(f'<li>{line.strip()[2:]}</li>')
+            result.append(f'<li>{line[2:]}</li>')
         else:
             if in_list:
                 result.append('</ul>')
                 in_list = False
-            result.append(line)
+            result.append(f'<p>{line}</p>')
     
     if in_list:
         result.append('</ul>')
     
-    return '<div class="formatted-response">' + '\n'.join(result) + '</div>'
+    return '<div class="chat-message">' + '\n'.join(result) + '</div>'
 
 def async_route(f):
     @wraps(f)
