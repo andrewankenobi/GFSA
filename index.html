@@ -370,7 +370,7 @@
             try {
                 console.log('Attempting to load startup data...');
                 // Try to load the most recent analysis file
-                const response = await fetch('data/results/analysis_20250327_084704.json');
+                const response = await fetch('public/analysis_20250327_084704.json');
                 
                 if (!response.ok) {
                     console.error('Failed to load data:', {
@@ -378,7 +378,7 @@
                         statusText: response.statusText,
                         url: response.url
                     });
-                    throw new Error(`Could not load analysis file (Status: ${response.status}). Please ensure it exists at: data/results/analysis_20250327_084704.json`);
+                    throw new Error(`Could not load analysis file (Status: ${response.status}). Please ensure it exists at: public/analysis_20250327_084704.json`);
                 }
 
                 const contentType = response.headers.get("content-type");
@@ -406,7 +406,7 @@
                         ${error.message}<br><br>
                         <small>Please check:</small>
                         <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-                            <li>The file exists at: data/results/analysis_20250327_084704.json</li>
+                            <li>The file exists at: public/analysis_20250327_084704.json</li>
                             <li>You're running a local server (e.g., python -m http.server 8000)</li>
                             <li>The JSON file is valid and contains an array of startups</li>
                         </ul>
