@@ -1,9 +1,17 @@
-# Task Manager
+# GFSA AI First 2025 Berlin Cohort Analysis
 
-A simple task management feature integrated into the Startup Analysis Flask application. This allows you to manage tasks while analyzing startup data.
+A comprehensive analysis platform for the Google for Startups Accelerator AI First 2025 Berlin Cohort, featuring startup analysis, task management, and AI-powered insights.
 
 ## Features
 
+### Startup Analysis
+- 🔍 Detailed startup information analysis using AI
+- 📊 Interactive web interface for viewing startup details
+- 💡 AI-powered insights and recommendations
+- 🤖 Interactive AI assistant (Ment-hoff) for startup-specific queries
+- 📈 Comprehensive market and business analysis
+
+### Task Management
 - ✨ Beautiful dark theme UI matching the existing application
 - 📝 Create, read, update, and delete tasks
 - ✅ Mark tasks as completed
@@ -17,13 +25,15 @@ A simple task management feature integrated into the Startup Analysis Flask appl
 
 - Python 3.8 or later
 - pip
+- Node.js (for web interface)
+- Google Cloud API key (for AI features)
 
 ### Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/startup-analysis.git
-cd startup-analysis
+git clone https://github.com/yourusername/GFSA.git
+cd GFSA
 ```
 
 2. Create a virtual environment:
@@ -37,29 +47,105 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Run the application:
+4. Set up environment variables:
+```bash
+cp .env.example .env
+# Edit .env with your API keys and configuration
+```
+
+5. Run the analysis:
+```bash
+python research.py
+```
+
+6. Start the web server:
 ```bash
 flask run
 ```
 
-5. Open [http://localhost:5000](http://localhost:5000) with your browser to see the application.
+7. Open [http://localhost:5000](http://localhost:5000) with your browser to see the application.
 
 ## Project Structure
 
 ```
-startup-analysis/
+GFSA/
 ├── app/
-│   ├── models.py        # Data models including Todo
-│   ├── static/          # Static assets (CSS, JavaScript)
-│   ├── templates/       # HTML templates
+│   ├── models.py          # Data models including Todo
+│   ├── static/           # Static assets (CSS, JavaScript)
+│   ├── templates/        # HTML templates
 │   └── views/           # Flask route definitions
 ├── data/                # Data storage
-├── requirements.txt     # Python dependencies
+│   ├── results/         # Analysis results
+│   ├── raw/            # Raw analysis data
+│   └── archive/        # Archived analysis files
+├── research.py         # Main analysis script
+├── startups.json       # Source startup data
+├── requirements.txt    # Python dependencies
 └── README.md
 ```
 
+## Key Components
+
+### Web Interface
+- `index.html`: Main startup listing and search interface
+- `details.html`: Detailed startup view with AI analysis
+- Responsive design with modern UI/UX
+
+### Analysis Features
+- AI-powered startup analysis
+- Market opportunity assessment
+- Competitive analysis
+- Risk evaluation
+- Growth trajectory prediction
+
+### Data Management
+- Automatic archiving of old analyses
+- Version control of analysis results
+- Raw data preservation
+- Structured JSON data format
+
 ## Built With
 
-- [Flask](https://flask.palletsprojects.com/) - The web framework used
+- [Flask](https://flask.palletsprojects.com/) - Web framework
 - [Python](https://www.python.org/) - Backend language
-- [Flask-Assets](https://flask-assets.readthedocs.io/) - Asset management 
+- [Google Cloud AI](https://cloud.google.com/ai-platform) - AI/ML capabilities
+- [Flask-Assets](https://flask-assets.readthedocs.io/) - Asset management
+
+## API Endpoints
+
+### Analysis API
+- `/api/analyze-startup` - Generate AI analysis for a startup
+- `/api/chat` - Interactive AI assistant endpoint
+
+### Task Management API
+- `GET /api/tasks` - List all tasks
+- `POST /api/tasks` - Create new task
+- `PUT /api/tasks/<id>` - Update task
+- `DELETE /api/tasks/<id>` - Delete task
+
+## Data Flow
+
+1. Raw startup data (`startups.json`)
+2. Analysis processing (`research.py`)
+3. Results storage (`data/results/`)
+4. Web interface presentation
+5. AI-powered insights generation
+6. Interactive user queries
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details
+
+## Acknowledgments
+
+- Google for Startups Accelerator
+- All participating startups
+- Contributors and maintainers 

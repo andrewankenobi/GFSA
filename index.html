@@ -234,9 +234,10 @@
 
         async function loadData() {
             try {
-                const response = await fetch('data/results/analysis_20250326_144712.json');
+                // Try to load the most recent analysis file
+                const response = await fetch('data/results/analysis_20250327_084704.json');
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    throw new Error(`Could not load analysis file. Please ensure it exists in the data/results/ directory.`);
                 }
                 const data = await response.json();
                 console.log(`Loaded ${data.length} startups from JSON file`);
@@ -247,7 +248,9 @@
                 console.error('Error loading data:', error);
                 document.getElementById('startupGrid').innerHTML = `
                     <div class="error">
-                        Error loading data: ${error.message}
+                        <strong>Error loading startup data</strong><br>
+                        ${error.message}<br><br>
+                        <small>If you just ran the analysis, make sure the file exists at: data/results/analysis_20250327_084704.json</small>
                     </div>
                 `;
             }

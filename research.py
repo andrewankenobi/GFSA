@@ -68,7 +68,7 @@ class StartupResearch:
         raw_dir = self.data_dir / 'raw'
         raw_dir.mkdir(exist_ok=True)
         
-        # Create the prompt with search context
+        # Create the prompt with search context and additional information
         prompt = f"""
         Analyze the following startup and provide an extremely detailed report. Use web search extensively to gather comprehensive information.
         
@@ -76,6 +76,21 @@ class StartupResearch:
         Name: {startup['Startup Name']}
         Industry: {startup['Industry']}
         Country: {startup['Country']}
+        
+        Additional Information:
+        Founders: {', '.join(startup['Additional Info']['founders'])}
+        Founded: {startup['Additional Info']['date_founded']}
+        Stage: {startup['Additional Info']['stage']}
+        Website: {startup['Additional Info']['website']}
+        Fundraising: {startup['Additional Info']['fundraising']}
+        Product Stage: {startup['Additional Info']['product_stage']}
+        Employees: {startup['Additional Info']['no_of_employees']}
+        
+        Overview:
+        {startup['Additional Info']['overview']}
+        
+        Program Expectations:
+        {startup['Additional Info']['expectations_for_the_program']}
         
         IMPORTANT INSTRUCTIONS:
         1. Your response must be a valid JSON object
@@ -479,23 +494,34 @@ class StartupResearch:
 
 def load_startups():
     try:
+        with open('startups.json', 'r') as f:
+            startups_data = json.load(f)
+            
+        # Transform the data to match the expected format
         startups = []
-        with open('startups.txt', 'r') as f:
-            lines = f.readlines()
-            # Skip header
-            for line in lines[1:]:
-                parts = line.strip().split('\t')
-                if len(parts) >= 3:
-                    startup = {
-                        'Startup Name': parts[0].strip(),
-                        'Country': parts[1].strip(),
-                        'Industry': parts[2].strip()
-                    }
-                    startups.append(startup)
-        logging.info(f"Loaded {len(startups)} startups")
+        for startup in startups_data:
+            transformed_startup = {
+                'Startup Name': startup['startup_name'],
+                'Country': startup['country'],
+                'Industry': startup['business_model'],  # Using business_model as industry
+                'Additional Info': {  # Store additional fields for potential use in analysis
+                    'founders': startup['founders'],
+                    'date_founded': startup['date_founded'],
+                    'stage': startup['stage'],
+                    'website': startup['website'],
+                    'fundraising': startup['fundraising'],
+                    'product_stage': startup['product_stage'],
+                    'no_of_employees': startup['no_of_employees'],
+                    'overview': startup['overview'],
+                    'expectations_for_the_program': startup['expectations_for_the_program']
+                }
+            }
+            startups.append(transformed_startup)
+            
+        logging.info(f"Loaded {len(startups)} startups from JSON")
         return startups
     except Exception as e:
-        logging.error(f"Error loading startups: {e}")
+        logging.error(f"Error loading startups from JSON: {e}")
         return None
 
 if __name__ == "__main__":
