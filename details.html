@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Details</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f3f4f6;
+            --card-background: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 14px;
+        }
+
+        body {
+            background-color: var(--background-color);
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .back-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .back-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1rem;
+        }
+
+        .detail-card {
+            background: var(--card-background);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .detail-item {
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.125rem;
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            color: #4b5563;
+            line-height: 1.4;
+            font-size: 0.875rem;
+        }
+
+        .list-item {
+            margin-bottom: 0.25rem;
+            padding-left: 0.75rem;
+            position: relative;
+            font-size: 0.875rem;
+        }
+
+        .list-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .founder-card {
+            background: #f8fafc;
+            border-radius: 0.25rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub-section {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .sub-title {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .ai-analysis-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .ai-badge::before {
+            content: "⚡";
+            margin-right: 0.5rem;
+        }
+
+        .follow-up-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .follow-up-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .follow-up-icon {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.75rem;
+            color: var(--primary-color);
+        }
+
+        .follow-up-content {
+            flex-grow: 1;
+        }
+
+        .follow-up-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #1f2937;
+        }
+
+        .follow-up-description {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            background: #f3f4f6;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            color: #374151;
+            margin-left: 0.5rem;
+        }
+
+        .loading-animation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .loading-animation::after {
+            content: "";
+            width: 2rem;
+            height: 2rem;
+            border: 2px solid #e5e7eb;
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Startup Details</h1>
+            <a href="index.html" class="back-button">← Back to List</a>
+        </div>
+        <div id="aiAnalysisContainer">
+            <div class="loading-animation"></div>
+        </div>
+        <div id="detailsContainer">
+            <div class="loading">Loading...</div>
+        </div>
+    </div>
+
+    <script>
+        async function loadStartupDetails() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const startupName = urlParams.get('startup');
+                
+                if (!startupName) {
+                    throw new Error('No startup specified');
+                }
+
+                const response = await fetch('data/results/analysis_20250326_144712.json');
+                const data = await response.json();
+                
+                const startup = data.find(s => s.metadata.startup_name === startupName);
+                
+                if (!startup) {
+                    throw new Error('Startup not found');
+                }
+
+                displayStartupDetails(startup);
+            } catch (error) {
+                document.getElementById('detailsContainer').innerHTML = `
+                    <div class="error">Error loading startup details: ${error.message}</div>
+                `;
+            }
+        }
+
+        function displayStartupDetails(startup) {
+            const { metadata, analysis } = startup;
+            const container = document.getElementById('detailsContainer');
+            
+            document.title = `${metadata.startup_name} - Details`;
+
+            let html = `
+                <div class="grid-container">
+                    <!-- Basic Info Card -->
+                    <div class="detail-card">
+                        <div class="section-title">Basic Information</div>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Company Name</span>
+                                <div class="detail-value">${metadata.startup_name}</div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Industry</span>
+                                <div class="detail-value">${metadata.industry}</div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Country</span>
+                                <div class="detail-value">${metadata.country}</div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Founded</span>
+                                <div class="detail-value">${analysis.company_overview.founding_date}</div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Stage</span>
+                                <div class="detail-value">${analysis.company_overview.company_stage}</div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Employees</span>
+                                <div class="detail-value">${analysis.company_overview.employee_count}</div>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <span class="detail-label">Description</span>
+                            <div class="detail-value">${analysis.company_overview.description}</div>
+                        </div>
+                    </div>
+
+                    <!-- Founders Card -->
+                    <div class="detail-card">
+                        <div class="section-title">Founders</div>
+                        ${renderFounders(analysis.company_overview.founders)}
+                    </div>
+
+                    <!-- Product Analysis Card -->
+                    <div class="detail-card">
+                        <div class="section-title">Products</div>
+                        ${renderProducts(analysis.product_analysis)}
+                    </div>
+
+                    <!-- Market Analysis Card -->
+                    <div class="detail-card">
+                        <div class="section-title">Market Analysis</div>
+                        ${renderMarketAnalysis(analysis.market_analysis)}
+                    </div>
+
+                    <!-- Business Model Card -->
+                    <div class="detail-card">
+                        <div class="section-title">Business Model</div>
+                        ${renderBusinessModel(analysis.business_model)}
+                    </div>
+
+                    <!-- Technology Stack Card -->
+                    <div class="detail-card">
+                        <div class="section-title">Technology Stack</div>
+                        ${renderTechStack(analysis.product_analysis?.technology_stack)}
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function renderFounders(founders) {
+            if (!founders || founders.length === 0) return '<div class="detail-value">No founder information available</div>';
+
+            return founders.map((founder, index) => `
+                <div class="founder-card">
+                    <div class="detail-item">
+                        <span class="detail-label">Name</span>
+                        <div class="detail-value">${founder.name}</div>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Title</span>
+                        <div class="detail-value">${founder.title}</div>
+                    </div>
+                    ${founder.education && founder.education.length > 0 ? `
+                        <div class="detail-item">
+                            <span class="detail-label">Education</span>
+                            ${renderList(founder.education)}
+                        </div>
+                    ` : ''}
+                    ${founder.work_experience && founder.work_experience.length > 0 ? `
+                        <div class="detail-item">
+                            <span class="detail-label">Work Experience</span>
+                            ${renderList(founder.work_experience)}
+                        </div>
+                    ` : ''}
+                    ${founder.achievements && founder.achievements.length > 0 ? `
+                        <div class="detail-item">
+                            <span class="detail-label">Achievements</span>
+                            ${renderList(founder.achievements)}
+                        </div>
+                    ` : ''}
+                    ${founder.expertise && founder.expertise.length > 0 ? `
+                        <div class="detail-item">
+                            <span class="detail-label">Expertise</span>
+                            ${renderList(founder.expertise)}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function renderProducts(productAnalysis) {
+            if (!productAnalysis || !productAnalysis.main_products) return '<div class="detail-value">No product information available</div>';
+
+            let html = '';
+            if (productAnalysis.main_products && productAnalysis.main_products.length > 0) {
+                html += productAnalysis.main_products.map((product, index) => `
+                    <div class="detail-item">
+                        <div class="sub-title">Product ${index + 1}: ${product.name}</div>
+                        <div class="detail-value">${product.description}</div>
+                        ${product.key_features ? `
+                            <div class="sub-section">
+                                <span class="detail-label">Key Features</span>
+                                ${renderList(product.key_features)}
+                            </div>
+                        ` : ''}
+                        ${product.target_users ? `
+                            <div class="sub-section">
+                                <span class="detail-label">Target Users</span>
+                                <div class="detail-value">${product.target_users}</div>
+                            </div>
+                        ` : ''}
+                        ${product.pricing ? `
+                            <div class="sub-section">
+                                <span class="detail-label">Pricing</span>
+                                <div class="detail-value">${product.pricing}</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('<hr style="margin: 1rem 0; border: none; border-top: 1px solid #e5e7eb;">');
+            }
+
+            if (productAnalysis.unique_features) {
+                html += `
+                    <div class="sub-section">
+                        <span class="detail-label">Unique Features</span>
+                        ${renderList(productAnalysis.unique_features)}
+                    </div>
+                `;
+            }
+
+            return html;
+        }
+
+        function renderMarketAnalysis(marketAnalysis) {
+            if (!marketAnalysis) return '<div class="detail-value">No market analysis available</div>';
+
+            let html = '';
+
+            // Market Size
+            if (marketAnalysis.market_size) {
+                html += `
+                    <div class="detail-item">
+                        <span class="detail-label">Market Size</span>
+                        <div class="detail-value">
+                            ${marketAnalysis.market_size.total_addressable_market || 'N/A'}
+                        </div>
+                    </div>
+                    ${marketAnalysis.market_size.growth_rate ? `
+                        <div class="detail-item">
+                            <span class="detail-label">Growth Rate</span>
+                            <div class="detail-value">${marketAnalysis.market_size.growth_rate}</div>
+                        </div>
+                    ` : ''}
+                `;
+            }
+
+            // Market Trends
+            if (marketAnalysis.market_trends) {
+                html += `
+                    <div class="sub-section">
+                        <span class="detail-label">Market Trends</span>
+                        ${renderList(marketAnalysis.market_trends)}
+                    </div>
+                `;
+            }
+
+            // Competitors
+            if (marketAnalysis.competitors) {
+                html += `
+                    <div class="sub-section">
+                        <span class="detail-label">Competitors</span>
+                        ${renderCompetitors(marketAnalysis.competitors)}
+                    </div>
+                `;
+            }
+
+            // Regulatory Environment
+            if (marketAnalysis.regulatory_environment) {
+                html += `
+                    <div class="sub-section">
+                        <span class="detail-label">Regulatory Environment</span>
+                        ${renderRegulatoryEnvironment(marketAnalysis.regulatory_environment)}
+                    </div>
+                `;
+            }
+
+            return html;
+        }
+
+        function renderBusinessModel(businessModel) {
+            if (!businessModel) return '<div class="detail-value">No business model information available</div>';
+
+            let html = '';
+
+            // Revenue Streams
+            if (businessModel.revenue_streams) {
+                html += `
+                    <div class="detail-item">
+                        <span class="detail-label">Revenue Streams</span>
+                        ${renderRevenueStreams(businessModel.revenue_streams)}
+                    </div>
+                `;
+            }
+
+            // Pricing Strategy
+            if (businessModel.pricing_strategy) {
+                html += `
+                    <div class="sub-section">
+                        <span class="detail-label">Pricing Strategy</span>
+                        <div class="detail-value">${businessModel.pricing_strategy.model || ''}</div>
+                        ${businessModel.pricing_strategy.price_points ? `
+                            <div class="detail-value">
+                                ${renderList(businessModel.pricing_strategy.price_points)}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+
+            // Customer Acquisition
+            if (businessModel.customer_acquisition) {
+                html += `
+                    <div class="sub-section">
+                        <span class="detail-label">Customer Acquisition</span>
+                        ${renderList(businessModel.customer_acquisition.channels)}
+                    </div>
+                `;
+            }
+
+            // Partnerships
+            if (businessModel.partnerships) {
+                html += `
+                    <div class="sub-section">
+                        <span class="detail-label">Partnerships</span>
+                        ${renderPartnerships(businessModel.partnerships)}
+                    </div>
+                `;
+            }
+
+            return html;
+        }
+
+        function renderTechStack(techStack) {
+            if (!techStack) return '<div class="detail-value">No technology stack information available</div>';
+
+            let html = '';
+
+            for (const [category, technologies] of Object.entries(techStack)) {
+                if (Array.isArray(technologies) && technologies.length > 0) {
+                    html += `
+                        <div class="detail-item">
+                            <span class="detail-label">${category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
+                            ${renderList(technologies)}
+                        </div>
+                    `;
+                }
+            }
+
+            return html;
+        }
+
+        function renderList(items) {
+            if (!items || items.length === 0) return '<div class="detail-value">No data available</div>';
+            
+            return `
+                <div class="detail-value">
+                    ${items.map(item => `<div class="list-item">${item}</div>`).join('')}
+                </div>
+            `;
+        }
+
+        function renderCompetitors(competitors) {
+            if (!competitors || competitors.length === 0) return '<div class="detail-value">No competitor data available</div>';
+            
+            return competitors.map(competitor => `
+                <div class="detail-value">
+                    <strong>${competitor.name}</strong>
+                    <div class="detail-value">${competitor.description}</div>
+                    <div class="sub-section">
+                        <span class="detail-label">Strengths</span>
+                        ${renderList(competitor.strengths)}
+                    </div>
+                    <div class="sub-section">
+                        <span class="detail-label">Weaknesses</span>
+                        ${renderList(competitor.weaknesses)}
+                    </div>
+                </div>
+            `).join('<hr style="margin: 0.75rem 0; border: none; border-top: 1px solid #e5e7eb;">');
+        }
+
+        function renderRevenueStreams(streams) {
+            if (!streams || streams.length === 0) return '<div class="detail-value">No revenue stream data available</div>';
+            
+            return streams.map(stream => `
+                <div class="detail-value">
+                    <strong>${stream.type}</strong>
+                    <div class="detail-value">${stream.description}</div>
+                    <div class="detail-value"><strong>Contribution:</strong> ${stream.contribution}</div>
+                    <div class="detail-value"><strong>Growth Potential:</strong> ${stream.growth_potential}</div>
+                </div>
+            `).join('<hr style="margin: 0.75rem 0; border: none; border-top: 1px solid #e5e7eb;">');
+        }
+
+        function renderRegulatoryEnvironment(regulatory) {
+            if (!regulatory) return '';
+
+            let html = '';
+            
+            if (regulatory.current_regulations) {
+                html += `
+                    <div class="detail-value">
+                        <span class="sub-title">Current Regulations</span>
+                        ${renderList(regulatory.current_regulations)}
+                    </div>
+                `;
+            }
+
+            if (regulatory.upcoming_changes) {
+                html += `
+                    <div class="detail-value">
+                        <span class="sub-title">Upcoming Changes</span>
+                        ${renderList(regulatory.upcoming_changes)}
+                    </div>
+                `;
+            }
+
+            if (regulatory.compliance_requirements) {
+                html += `
+                    <div class="detail-value">
+                        <span class="sub-title">Compliance Requirements</span>
+                        ${renderList(regulatory.compliance_requirements)}
+                    </div>
+                `;
+            }
+
+            return html;
+        }
+
+        function renderPartnerships(partnerships) {
+            if (!partnerships || partnerships.length === 0) return '<div class="detail-value">No partnership data available</div>';
+            
+            return partnerships.map(partnership => `
+                <div class="detail-value">
+                    <strong>${partnership.partner}</strong>
+                    <div class="detail-value"><strong>Type:</strong> ${partnership.type}</div>
+                    <div class="detail-value">
+                        <span class="sub-title">Benefits</span>
+                        ${renderList(partnership.benefits)}
+                    </div>
+                    <div class="detail-value"><strong>Status:</strong> ${partnership.status}</div>
+                </div>
+            `).join('<hr style="margin: 0.75rem 0; border: none; border-top: 1px solid #e5e7eb;">');
+        }
+
+        async function generateAIAnalysis(startup) {
+            const { metadata, analysis } = startup;
+            
+            // Show loading state
+            document.getElementById('aiAnalysisContainer').innerHTML = `
+                <div class="ai-analysis-card">
+                    <div class="ai-badge">AI Analysis in Progress</div>
+                    <div class="loading-animation"></div>
+                </div>
+            `;
+            
+            // Prepare the data for the API
+            const analysisData = {
+                startup_name: metadata.startup_name,
+                industry: metadata.industry,
+                country: metadata.country,
+                description: analysis.company_overview.description,
+                product_info: analysis.product_analysis,
+                market_info: analysis.market_analysis,
+                business_model: analysis.business_model
+            };
+
+            try {
+                console.log('Preparing to send data to API:', {
+                    url: 'http://localhost:5000/api/analyze-startup',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    data: analysisData
+                });
+                
+                const response = await fetch('http://localhost:5000/api/analyze-startup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(analysisData)
+                });
+
+                console.log('Received response:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: Object.fromEntries(response.headers.entries())
+                });
+
+                let responseData;
+                const contentType = response.headers.get("content-type");
+                
+                if (contentType && contentType.indexOf("application/json") !== -1) {
+                    responseData = await response.json();
+                    console.log('Parsed JSON response:', responseData);
+                } else {
+                    // If response is not JSON, get the text and log it
+                    const text = await response.text();
+                    console.error('Received non-JSON response:', {
+                        contentType,
+                        text,
+                        status: response.status
+                    });
+                    throw new Error(`Server returned non-JSON response (${contentType}): ${text}`);
+                }
+
+                if (!response.ok) {
+                    const errorMessage = responseData.error || responseData.details || `HTTP error! status: ${response.status}`;
+                    console.error('Response not OK:', {
+                        status: response.status,
+                        error: errorMessage,
+                        response: responseData
+                    });
+                    throw new Error(errorMessage);
+                }
+
+                if (responseData.error) {
+                    console.error('Response contains error:', responseData.error);
+                    throw new Error(responseData.error);
+                }
+
+                // Validate response structure
+                if (!responseData.executive_summary || !responseData.follow_up_items) {
+                    console.error('Invalid response structure:', responseData);
+                    throw new Error('Invalid response structure from server');
+                }
+
+                console.log('Successfully processed API response');
+                displayAIAnalysis(responseData);
+            } catch (error) {
+                console.error('Error generating AI analysis:', {
+                    error: error.message,
+                    stack: error.stack,
+                    originalError: error
+                });
+                
+                document.getElementById('aiAnalysisContainer').innerHTML = `
+                    <div class="ai-analysis-card">
+                        <div class="ai-badge">Analysis Error</div>
+                        <div class="error" style="margin-top: 1rem;">
+                            <strong>Error generating AI analysis:</strong><br>
+                            ${error.message}<br><br>
+                            <small>Please ensure the server is running at http://localhost:5000 and try refreshing the page.</small>
+                            <br><br>
+                            <small>Technical details: Check browser console (F12) for more information.</small>
+                            <br><br>
+                            <button onclick="generateAIAnalysis(window.currentStartup)" class="retry-button" style="
+                                padding: 0.5rem 1rem;
+                                background-color: var(--primary-color);
+                                color: white;
+                                border: none;
+                                border-radius: 0.5rem;
+                                cursor: pointer;
+                                margin-top: 1rem;
+                            ">
+                                Retry Analysis
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function displayAIAnalysis(aiAnalysis) {
+            const container = document.getElementById('aiAnalysisContainer');
+            
+            const html = `
+                <div class="ai-analysis-card">
+                    <div class="ai-badge">AI-Powered Analysis</div>
+                    <div class="section-title">Executive Summary</div>
+                    <div class="detail-value" style="margin-bottom: 1rem;">
+                        ${aiAnalysis.executive_summary.market_opportunity}<br><br>
+                        ${aiAnalysis.executive_summary.competitive_advantage}<br>
+                        ${aiAnalysis.executive_summary.growth_trajectory}<br>
+                        ${aiAnalysis.executive_summary.risk_assessment}
+                    </div>
+                    
+                    <div class="section-title">Recommended Follow-up Items</div>
+                    <ul class="follow-up-list">
+                        ${aiAnalysis.follow_up_items.map(item => `
+                            <li class="follow-up-item">
+                                <div class="follow-up-icon">
+                                    ${item.category === 'Technical' ? '🔧' : '💼'}
+                                </div>
+                                <div class="follow-up-content">
+                                    <div class="follow-up-title">
+                                        ${item.title}
+                                        <span class="category-tag">${item.category}</span>
+                                        <span class="category-tag" style="background: ${item.priority === 'High' ? '#fee2e2' : '#f3f4f6'}">
+                                            ${item.priority}
+                                        </span>
+                                    </div>
+                                    <div class="follow-up-description">
+                                        ${item.description}
+                                        <ul style="margin-top: 0.5rem; margin-left: 1rem;">
+                                            ${item.key_points.map(point => `
+                                                <li style="font-size: 0.8rem; color: #6b7280; margin-bottom: 0.25rem;">
+                                                    ${point}
+                                                </li>
+                                            `).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        // Modify the existing displayStartupDetails function to include AI analysis
+        const originalDisplayStartupDetails = displayStartupDetails;
+        displayStartupDetails = function(startup) {
+            // Store the startup data for retry functionality
+            window.currentStartup = startup;
+            originalDisplayStartupDetails(startup);
+            generateAIAnalysis(startup);
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', loadStartupDetails);
+    </script>
+</body>
+</html>

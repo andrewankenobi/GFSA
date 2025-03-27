@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Analysis Dashboard</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #f3f4f6;
+            --card-background: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .search-container {
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .startup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .startup-card {
+            background: var(--card-background);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            min-height: 300px;
+        }
+
+        .startup-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .startup-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .startup-industry {
+            color: #4b5563;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .startup-details {
+            margin-top: auto;
+        }
+
+        .detail-item {
+            margin-bottom: 0.75rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #374151;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Startup Analysis Dashboard</h1>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search by startup name, industry, or country..." id="searchInput">
+            </div>
+        </div>
+        <div id="startupGrid" class="startup-grid">
+            <div class="loading">Loading data...</div>
+        </div>
+    </div>
+
+    <script>
+        async function loadData() {
+            try {
+                const response = await fetch('data/results/analysis_20250326_144712.json');
+                const data = await response.json();
+                displayStartups(data);
+            } catch (error) {
+                document.getElementById('startupGrid').innerHTML = `
+                    <div class="error">
+                        Error loading data: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        function displayStartups(startups) {
+            const grid = document.getElementById('startupGrid');
+            grid.innerHTML = '';
+
+            // Sort startups alphabetically by name
+            const sortedStartups = [...startups].sort((a, b) => 
+                a.metadata.startup_name.localeCompare(b.metadata.startup_name)
+            );
+
+            sortedStartups.forEach(startup => {
+                const { metadata, analysis } = startup;
+                const card = document.createElement('div');
+                card.className = 'startup-card';
+
+                const overview = analysis.company_overview;
+                const productAnalysis = analysis.product_analysis;
+
+                // Create a truncated description (first 150 characters)
+                const truncatedDescription = overview.description.length > 150 
+                    ? overview.description.substring(0, 150) + '...' 
+                    : overview.description;
+
+                card.innerHTML = `
+                    <div class="startup-name">
+                        <a href="details.html?startup=${encodeURIComponent(metadata.startup_name)}" style="text-decoration: none; color: inherit;">
+                            ${metadata.startup_name}
+                        </a>
+                    </div>
+                    <div class="startup-industry">${metadata.industry} | ${metadata.country}</div>
+                    <div class="startup-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Stage:</span> ${overview.company_stage}
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Employees:</span> ${overview.employee_count}
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Description:</span> ${truncatedDescription}
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Founded:</span> ${overview.founding_date}
+                        </div>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            let startups = [];
+
+            // Load initial data
+            fetch('data/results/analysis_20250326_144712.json')
+                .then(response => response.json())
+                .then(data => {
+                    startups = data;
+                    displayStartups(startups);
+                });
+
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredStartups = startups.filter(startup => {
+                    const { metadata } = startup;
+                    return metadata.startup_name.toLowerCase().includes(searchTerm) ||
+                           metadata.industry.toLowerCase().includes(searchTerm) ||
+                           metadata.country.toLowerCase().includes(searchTerm);
+                });
+                displayStartups(filteredStartups);
+            });
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            setupSearch();
+        });
+    </script>
+</body>
+</html> 
