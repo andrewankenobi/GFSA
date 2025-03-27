@@ -3,61 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GFSA AI First 2025 Berlin Cohort</title>
+    <title>AI First 2025 Berlin Cohort</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --background-color: #f3f4f6;
+            --primary-color: #1a73e8;
+            --secondary-color: #185abc;
+            --background-color: #ffffff;
             --card-background: #ffffff;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --border-color: #dadce0;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
 
         body {
             background-color: var(--background-color);
-            padding: 2rem;
+            color: var(--text-primary);
+            line-height: 1.4;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 0 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+            opacity: 0.95;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-container img:hover {
+            opacity: 1;
         }
 
         .header {
             margin-bottom: 2rem;
+            text-align: center;
         }
 
         .header h1 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
+        }
+
+        .berlin-illustration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1rem auto 2rem;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .berlin-illustration img {
+            width: 100%;
+            height: auto;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+
+        .berlin-illustration img:hover {
+            opacity: 1;
+            transform: translateY(-2px);
         }
 
         .search-container {
-            margin-bottom: 2rem;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+            margin-bottom: 1.5rem;
         }
 
         .search-input {
-            flex-grow: 1;
-            padding: 0.75rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 0.5rem;
+            width: 100%;
+            padding: 0.75rem 1.25rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             font-size: 1rem;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
+            color: var(--text-primary);
+            background: #f8f9fa;
         }
 
         .search-input:focus {
             outline: none;
             border-color: var(--primary-color);
+            background: white;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         }
 
         .notification {
@@ -94,41 +148,46 @@
         .startup-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+            gap: 1.25rem;
             margin-bottom: 2rem;
         }
 
         .startup-card {
             background: var(--card-background);
-            border-radius: 0.75rem;
+            border-radius: 12px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            min-height: 300px;
-            height: auto;
+            min-height: 280px;
         }
 
         .startup-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-color: transparent;
         }
 
         .startup-name {
             font-size: 1.25rem;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--primary-color);
             margin-bottom: 0.5rem;
-            line-height: 1.4;
+            line-height: 1.3;
+        }
+
+        .startup-name a {
+            text-decoration: none;
+            color: inherit;
         }
 
         .startup-industry {
-            color: #4b5563;
+            color: var(--text-secondary);
             font-size: 0.875rem;
             margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .startup-details {
@@ -137,36 +196,153 @@
 
         .detail-item {
             margin-bottom: 0.75rem;
-            font-size: 0.875rem;
-            line-height: 1.5;
         }
 
         .detail-label {
-            font-weight: 600;
-            color: #374151;
-            display: block;
-            margin-bottom: 0.25rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            margin-bottom: 0.125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+
+        #statusMessage {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 0.75rem;
+            background: #f8f9fa;
+            border-radius: 6px;
         }
 
         .loading {
             text-align: center;
-            padding: 2rem;
-            color: #6b7280;
+            padding: 3rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
         }
 
         .error {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 1rem;
-            border-radius: 0.5rem;
+            background: #fce8e6;
+            color: #c5221f;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
             margin-bottom: 1rem;
+            font-size: 0.9375rem;
+            border: 1px solid rgba(197, 34, 31, 0.2);
+        }
+
+        .credits {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .credits p {
+            margin: 0.5rem 0;
+        }
+
+        .credits strong {
+            color: var(--text-primary);
+        }
+
+        .credits a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .credits a:hover {
+            text-decoration: underline;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .material-button {
+            padding: 0.75rem 1.25rem;
+            background-color: #f8f9fa;
+            color: var(--text-primary);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-size: 0.9375rem;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 160px;
+            justify-content: center;
+        }
+
+        .material-button:hover {
+            background-color: #e8f0fe;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .material-button i {
+            font-size: 1.125rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="logo-container">
+            <img src="gfsa.png" alt="Google for Startups" />
+        </div>
         <div class="header">
-            <h1>GFSA AI First 2025 Berlin Cohort</h1>
+            <h1>AI First 2025 Berlin Cohort</h1>
+            <div class="header-buttons">
+                <a href="https://drive.google.com/corp/drive/u/0/folders/1OnF_htznYaqXK2r3Lr-E9lVRptJhx5vz" class="material-button" target="_blank">
+                    <i>📚</i> Reports & Booklet
+                </a>
+                <a href="https://notebooklm.google.com/notebook/844748b8-7149-4315-afb3-1eea9f9d9a48" class="material-button" target="_blank">
+                    <i>📝</i> NotebookLM
+                </a>
+                <a href="https://notebooklm.google.com/notebook/844748b8-7149-4315-afb3-1eea9f9d9a48/audio" class="material-button" target="_blank">
+                    <i>🎧</i> Listen to Podcast
+                </a>
+            </div>
+            <div class="berlin-illustration">
+                <img src="berlin.gif" alt="Berlin Skyline" />
+            </div>
             <div class="search-container">
                 <input type="text" class="search-input" placeholder="Search by startup name, industry, or country..." id="searchInput">
             </div>
@@ -176,7 +352,97 @@
         </div>
     </div>
 
+    <div class="credits">
+        <p><strong>Google for Startups AI First 2025 Berlin Cohort</strong></p>
+        <p>A program designed to accelerate the growth of seed to Series A startups leveraging AI/ML technology.</p>
+        <p>Equity-free support • Technical mentorship • Strategic guidance</p>
+        <p>Learn more at <a href="https://startup.google.com/programs/accelerator/" target="_blank">Google for Startups Accelerator</a></p>
+    </div>
+
+    <footer>
+        &copy; <script>document.write(new Date().getFullYear());</script> Copyright. Made with love by <a href="https://github.com/andrewankenobi/GFSA" style="color: var(--primary-color); text-decoration: none;">andre wan kenobi</a>
+    </footer>
+
     <script>
+        let globalStartups = [];
+
+        async function loadData() {
+            try {
+                console.log('Attempting to load startup data...');
+                // Try to load the most recent analysis file
+                const response = await fetch('data/results/analysis_20250327_084704.json');
+                
+                if (!response.ok) {
+                    console.error('Failed to load data:', {
+                        status: response.status,
+                        statusText: response.statusText,
+                        url: response.url
+                    });
+                    throw new Error(`Could not load analysis file (Status: ${response.status}). Please ensure it exists at: data/results/analysis_20250327_084704.json`);
+                }
+
+                const contentType = response.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    console.error('Invalid content type:', contentType);
+                    throw new Error(`Expected JSON but got ${contentType}`);
+                }
+                
+                const data = await response.json();
+                console.log(`Successfully loaded ${data.length} startups from JSON file`);
+                
+                if (!Array.isArray(data)) {
+                    console.error('Data is not an array:', data);
+                    throw new Error('Invalid data format: expected an array of startups');
+                }
+
+                globalStartups = data;
+                displayStartups(data);
+                setupSearch();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('startupGrid').innerHTML = `
+                    <div class="error">
+                        <strong>Error loading startup data</strong><br>
+                        ${error.message}<br><br>
+                        <small>Please check:</small>
+                        <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                            <li>The file exists at: data/results/analysis_20250327_084704.json</li>
+                            <li>You're running a local server (e.g., python -m http.server 8000)</li>
+                            <li>The JSON file is valid and contains an array of startups</li>
+                        </ul>
+                        <div style="margin-top: 1rem;">
+                            <button onclick="loadData()" style="
+                                padding: 0.5rem 1rem;
+                                background-color: var(--primary-color);
+                                color: white;
+                                border: none;
+                                border-radius: 8px;
+                                cursor: pointer;
+                            ">
+                                Retry Loading
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredStartups = globalStartups.filter(startup => {
+                    const { metadata } = startup;
+                    return metadata.startup_name.toLowerCase().includes(searchTerm) ||
+                           metadata.industry.toLowerCase().includes(searchTerm) ||
+                           metadata.country.toLowerCase().includes(searchTerm);
+                });
+                console.log(`Found ${filteredStartups.length} startups matching search: "${searchTerm}"`);
+                displayStartups(filteredStartups);
+            });
+        }
+
         function displayStartups(startups) {
             const grid = document.getElementById('startupGrid');
             grid.innerHTML = '';
@@ -261,72 +527,16 @@
             statusDiv.style.textAlign = 'center';
             statusDiv.style.marginTop = '1rem';
             statusDiv.style.color = '#6b7280';
-            statusDiv.innerHTML = `Displaying ${sortedStartups.length} startups`;
-            grid.parentElement.appendChild(statusDiv);
-        }
-
-        let globalStartups = [];
-
-        async function loadData() {
-            try {
-                // Try to load the most recent analysis file
-                const response = await fetch('data/results/analysis_20250327_084704.json');
-                if (!response.ok) {
-                    throw new Error(`Could not load analysis file. Please ensure it exists in the data/results/ directory.`);
-                }
-                const data = await response.json();
-                console.log(`Loaded ${data.length} startups from JSON file`);
-                globalStartups = data;
-                displayStartups(data);
-                setupSearch();
-            } catch (error) {
-                console.error('Error loading data:', error);
-                document.getElementById('startupGrid').innerHTML = `
-                    <div class="error">
-                        <strong>Error loading startup data</strong><br>
-                        ${error.message}<br><br>
-                        <small>If you just ran the analysis, make sure the file exists at: data/results/analysis_20250327_084704.json</small>
-                    </div>
-                `;
-            }
-        }
-
-        function setupSearch() {
-            const searchInput = document.getElementById('searchInput');
-
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                const filteredStartups = globalStartups.filter(startup => {
-                    const { metadata } = startup;
-                    return metadata.startup_name.toLowerCase().includes(searchTerm) ||
-                           metadata.industry.toLowerCase().includes(searchTerm) ||
-                           metadata.country.toLowerCase().includes(searchTerm);
-                });
-                console.log(`Found ${filteredStartups.length} startups matching search: "${searchTerm}"`);
-                displayStartups(filteredStartups);
-            });
+            statusDiv.innerHTML = `
+                ${sortedStartups.length} startups displayed
+            `;
+            grid.appendChild(statusDiv);
         }
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
         });
-
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease-out';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
     </script>
-    
-    <footer style="text-align: center; margin-top: 2rem; padding: 1rem; color: #6b7280; font-size: 0.875rem; border-top: 1px solid #e5e7eb;">
-        &copy; <script>document.write(new Date().getFullYear());</script> Copyright. Made with love by <a href="https://github.com/andrewankenobi/GFSA" style="color: var(--primary-color); text-decoration: none;">andre wan kenobi</a>
-    </footer>
 </body>
-</html> 
+</html>
