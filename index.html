@@ -60,6 +60,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .startup-card {
@@ -68,10 +69,10 @@
             padding: 1.5rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
-            height: 100%;
             display: flex;
             flex-direction: column;
             min-height: 300px;
+            height: auto;
         }
 
         .startup-card:hover {
@@ -141,20 +142,6 @@
     </div>
 
     <script>
-        async function loadData() {
-            try {
-                const response = await fetch('data/results/analysis_20250326_144712.json');
-                const data = await response.json();
-                displayStartups(data);
-            } catch (error) {
-                document.getElementById('startupGrid').innerHTML = `
-                    <div class="error">
-                        Error loading data: ${error.message}
-                    </div>
-                `;
-            }
-        }
-
         function displayStartups(startups) {
             const grid = document.getElementById('startupGrid');
             grid.innerHTML = '';
@@ -164,66 +151,120 @@
                 a.metadata.startup_name.localeCompare(b.metadata.startup_name)
             );
 
-            sortedStartups.forEach(startup => {
-                const { metadata, analysis } = startup;
-                const card = document.createElement('div');
-                card.className = 'startup-card';
+            // Log the total number of startups for debugging
+            console.log(`Total startups to display: ${sortedStartups.length}`);
 
-                const overview = analysis.company_overview;
-                const productAnalysis = analysis.product_analysis;
+            sortedStartups.forEach((startup, index) => {
+                try {
+                    console.log(`Displaying startup ${index + 1}: ${startup.metadata.startup_name}`);
+                    const { metadata, analysis } = startup;
+                    const card = document.createElement('div');
+                    card.className = 'startup-card';
 
-                // Create a truncated description (first 150 characters)
-                const truncatedDescription = overview.description.length > 150 
-                    ? overview.description.substring(0, 150) + '...' 
-                    : overview.description;
+                    // Safely access nested properties
+                    const overview = analysis?.company_overview || {};
+                    const description = overview?.description || 'No description available';
+                    
+                    // Create a truncated description (first 150 characters)
+                    const truncatedDescription = description.length > 150 
+                        ? description.substring(0, 150) + '...' 
+                        : description;
 
-                card.innerHTML = `
-                    <div class="startup-name">
-                        <a href="details.html?startup=${encodeURIComponent(metadata.startup_name)}" style="text-decoration: none; color: inherit;">
-                            ${metadata.startup_name}
-                        </a>
-                    </div>
-                    <div class="startup-industry">${metadata.industry} | ${metadata.country}</div>
-                    <div class="startup-details">
-                        <div class="detail-item">
-                            <span class="detail-label">Stage:</span> ${overview.company_stage}
+                    card.innerHTML = `
+                        <div class="startup-name">
+                            <a href="details.html?startup=${encodeURIComponent(metadata.startup_name)}" style="text-decoration: none; color: inherit;">
+                                ${metadata.startup_name}
+                            </a>
                         </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Employees:</span> ${overview.employee_count}
+                        <div class="startup-industry">${metadata.industry || 'Unknown Industry'} | ${metadata.country || 'Unknown Location'}</div>
+                        <div class="startup-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Stage:</span> ${overview.company_stage || 'N/A'}
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Employees:</span> ${overview.employee_count || 'N/A'}
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Description:</span> ${truncatedDescription}
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Founded:</span> ${overview.founding_date || 'N/A'}
+                            </div>
                         </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Description:</span> ${truncatedDescription}
+                    `;
+
+                    grid.appendChild(card);
+                } catch (error) {
+                    console.error(`Error displaying startup ${index + 1}:`, error);
+                    // Create an error card for this startup
+                    const errorCard = document.createElement('div');
+                    errorCard.className = 'startup-card';
+                    errorCard.innerHTML = `
+                        <div class="startup-name">
+                            Error Displaying Startup
                         </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Founded:</span> ${overview.founding_date}
+                        <div class="startup-industry">Data Error</div>
+                        <div class="startup-details">
+                            <div class="detail-item error">
+                                There was an error displaying this startup's information.
+                            </div>
                         </div>
+                    `;
+                    grid.appendChild(errorCard);
+                }
+            });
+
+            // Remove any existing status message
+            const existingStatus = document.getElementById('statusMessage');
+            if (existingStatus) {
+                existingStatus.remove();
+            }
+
+            // Add a status message showing total startups displayed
+            const statusDiv = document.createElement('div');
+            statusDiv.id = 'statusMessage';
+            statusDiv.style.textAlign = 'center';
+            statusDiv.style.marginTop = '1rem';
+            statusDiv.style.color = '#6b7280';
+            statusDiv.innerHTML = `Displaying ${sortedStartups.length} startups`;
+            grid.parentElement.appendChild(statusDiv);
+        }
+
+        let globalStartups = [];
+
+        async function loadData() {
+            try {
+                const response = await fetch('data/results/analysis_20250326_144712.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log(`Loaded ${data.length} startups from JSON file`);
+                globalStartups = data;
+                displayStartups(data);
+                setupSearch();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('startupGrid').innerHTML = `
+                    <div class="error">
+                        Error loading data: ${error.message}
                     </div>
                 `;
-
-                grid.appendChild(card);
-            });
+            }
         }
 
         function setupSearch() {
             const searchInput = document.getElementById('searchInput');
-            let startups = [];
-
-            // Load initial data
-            fetch('data/results/analysis_20250326_144712.json')
-                .then(response => response.json())
-                .then(data => {
-                    startups = data;
-                    displayStartups(startups);
-                });
 
             searchInput.addEventListener('input', (e) => {
                 const searchTerm = e.target.value.toLowerCase();
-                const filteredStartups = startups.filter(startup => {
+                const filteredStartups = globalStartups.filter(startup => {
                     const { metadata } = startup;
                     return metadata.startup_name.toLowerCase().includes(searchTerm) ||
                            metadata.industry.toLowerCase().includes(searchTerm) ||
                            metadata.country.toLowerCase().includes(searchTerm);
                 });
+                console.log(`Found ${filteredStartups.length} startups matching search: "${searchTerm}"`);
                 displayStartups(filteredStartups);
             });
         }
@@ -231,7 +272,6 @@
         // Initialize the application
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
-            setupSearch();
         });
     </script>
 </body>

@@ -1,21 +1,18 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import google.generativeai as genai
-import os
+from google.generativeai import types
 import json
-from dotenv import load_dotenv
-import traceback
 import logging
+from chat_agent import agent, get_agent_response
+import asyncio
+import os
+import traceback
+from functools import wraps
 
 # Configure logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-# Load environment variables
-load_dotenv()
 
 # Configure Flask app
 app = Flask(__name__, static_folder='.')
@@ -107,99 +104,138 @@ IMPORTANT:
 - Ensure the JSON is properly formatted
 - Do not include any markdown formatting"""
 
-@app.route('/api/analyze-startup', methods=['POST', 'OPTIONS'])
-def analyze_startup():
-    # Handle preflight requests
-    if request.method == 'OPTIONS':
-        response = app.make_default_options_response()
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-        response.headers.add('Access-Control-Allow-Methods', 'POST,OPTIONS')
-        response.headers.add('Access-Control-Allow-Origin', request.headers.get('Origin', '*'))
-        return response
-
-    if not request.is_json:
-        logger.error("Request Content-Type is not application/json")
-        return jsonify({'error': 'Content-Type must be application/json'}), 400
+def format_response(text):
+    """Format the response text with simple HTML."""
+    # Convert markdown-style formatting to HTML
+    formatted = text.replace('###', '<h3>').replace('\n\n', '<br><br>')
+    formatted = formatted.replace('**', '<strong>')  # Bold text
+    formatted = formatted.replace('•', '&bull;')  # Bullet points
     
-    try:
-        startup_data = request.get_json()
-        logger.info(f"Received request for startup: {startup_data.get('startup_name', 'unknown')}")
-        logger.debug(f"Received data: {json.dumps(startup_data, indent=2)}")
-        
-        # Validate required fields
-        required_fields = ['startup_name', 'industry', 'country']
-        missing_fields = [field for field in required_fields if field not in startup_data]
-        if missing_fields:
-            error_msg = f'Missing required fields: {", ".join(missing_fields)}'
-            logger.error(error_msg)
-            return jsonify({'error': error_msg}), 400
-        
-        # Create the prompt
-        prompt = create_analysis_prompt(startup_data)
-        logger.debug(f"Generated prompt: {prompt}")
-        
+    # Convert lists
+    lines = formatted.split('\n')
+    in_list = False
+    result = []
+    
+    for line in lines:
+        if line.strip().startswith('- '):
+            if not in_list:
+                result.append('<ul>')
+                in_list = True
+            result.append(f'<li>{line.strip()[2:]}</li>')
+        else:
+            if in_list:
+                result.append('</ul>')
+                in_list = False
+            result.append(line)
+    
+    if in_list:
+        result.append('</ul>')
+    
+    return '<div class="formatted-response">' + '\n'.join(result) + '</div>'
+
+def async_route(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         try:
-            # Generate response with Gemini
-            logger.info("Sending request to Gemini API")
-            response = model.generate_content(
-                prompt,
-                generation_config={
-                    'temperature': 0.7,
-                    'top_p': 1,
-                    'top_k': 32,
-                    'max_output_tokens': 2048,
-                }
-            )
+            return loop.run_until_complete(f(*args, **kwargs))
+        finally:
+            loop.close()
+    return wrapper
+
+@app.route('/api/analyze-startup', methods=['POST'])
+def analyze_startup():
+    try:
+        data = request.get_json()
+        logger.info("Received analysis request for startup: %s", data.get('startup_name'))
+
+        # Validate request data
+        required_fields = ['startup_name', 'industry', 'description']
+        if not all(field in data for field in required_fields):
+            return jsonify({'error': 'Missing required fields'}), 400
+
+        # Create detailed analysis prompt
+        prompt = create_analysis_prompt(data)
+
+        # Generate response using Gemini
+        response = model.generate_content(
+            prompt,
+            generation_config={
+                'temperature': 0.7,
+                'top_p': 1,
+                'top_k': 32,
+                'max_output_tokens': 2048,
+            },
+            safety_settings={
+                'HARM_CATEGORY_HARASSMENT': 'block_none',
+                'HARM_CATEGORY_HATE_SPEECH': 'block_none',
+                'HARM_CATEGORY_SEXUALLY_EXPLICIT': 'block_none',
+                'HARM_CATEGORY_DANGEROUS_CONTENT': 'block_none'
+            }
+        )
+
+        try:
+            # Clean the response text to handle markdown formatting
+            response_text = response.text.strip()
             
-            # Get the response text and clean it
-            analysis_text = response.text.strip()
-            logger.debug(f"Raw Gemini response: {analysis_text}")
+            # Remove markdown code block markers if present
+            if response_text.startswith('```json'):
+                response_text = response_text[7:]
+            if response_text.endswith('```'):
+                response_text = response_text[:-3]
+            response_text = response_text.strip()
             
-            # Remove any markdown formatting if present
-            if analysis_text.startswith("```json"):
-                analysis_text = analysis_text[7:]
-            if analysis_text.endswith("```"):
-                analysis_text = analysis_text[:-3]
-            analysis_text = analysis_text.strip()
+            # Parse the cleaned response as JSON
+            analysis_result = json.loads(response_text)
             
-            try:
-                # Parse the response as JSON
-                analysis_data = json.loads(analysis_text)
-                logger.debug(f"Parsed JSON response: {json.dumps(analysis_data, indent=2)}")
-                
-                # Validate the response structure
-                required_keys = ['executive_summary', 'follow_up_items']
-                if not all(key in analysis_data for key in required_keys):
-                    raise ValueError("Invalid response structure from AI model")
-                
-                response = jsonify(analysis_data)
-                response.headers.add('Access-Control-Allow-Origin', request.headers.get('Origin', '*'))
-                logger.info("Successfully generated and returned analysis")
-                return response
-                
-            except json.JSONDecodeError as e:
-                logger.error(f"Failed to parse Gemini response as JSON: {str(e)}")
-                logger.error(f"Response text: {analysis_text}")
-                return jsonify({
-                    'error': 'Failed to parse AI response',
-                    'details': str(e)
-                }), 500
-                
-        except Exception as e:
-            logger.error(f"Gemini API error: {str(e)}")
-            logger.error(traceback.format_exc())
+            # Validate the response structure
+            required_keys = ['executive_summary', 'follow_up_items']
+            if not all(key in analysis_result for key in required_keys):
+                raise ValueError("Invalid response structure from AI model")
+            
+            return jsonify(analysis_result)
+            
+        except json.JSONDecodeError as e:
+            logger.error(f"Failed to parse Gemini response as JSON: {str(e)}")
+            logger.error(f"Response text: {response.text}")
             return jsonify({
-                'error': 'Error generating AI analysis',
+                'error': 'Failed to parse AI response',
                 'details': str(e)
             }), 500
-            
+
     except Exception as e:
-        logger.error(f"Server error: {str(e)}")
-        logger.error(traceback.format_exc())
+        logger.error("Error analyzing startup: %s", str(e), exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/chat', methods=['POST'])
+@async_route
+async def chat():
+    try:
+        data = request.get_json()
+        logger.info("Received chat request with query: %s", data.get('query'))
+
+        # Validate request data
+        if 'query' not in data:
+            return jsonify({'error': 'Missing query in request'}), 400
+
+        # Get response from the agent
+        response = await get_agent_response(
+            query=data['query'],
+            startup_context=data.get('startup_context')
+        )
+
+        # Format the response with HTML
+        formatted_response = format_response(response)
+
         return jsonify({
-            'error': 'Internal server error',
-            'details': str(e)
-        }), 500
+            'response': formatted_response,
+            'raw_response': response  # Include raw response for debugging
+        })
+
+    except Exception as e:
+        logger.error("Error in chat endpoint: %s", str(e), exc_info=True)
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/')
 def serve_index():

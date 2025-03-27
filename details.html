@@ -242,6 +242,127 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        /* Chat Interface Styles */
+        .chat-container {
+            background: var(--card-background);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .chat-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .chat-messages {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 0.5rem;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .user-message {
+            background: #e5e7eb;
+            margin-left: 2rem;
+        }
+
+        .assistant-message {
+            background: #dbeafe;
+            margin-right: 2rem;
+        }
+
+        /* Markdown formatting styles */
+        .assistant-message h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 1rem 0 0.5rem 0;
+            color: var(--primary-color);
+        }
+
+        .assistant-message ul, 
+        .assistant-message ol {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .assistant-message li {
+            margin: 0.25rem 0;
+        }
+
+        .assistant-message strong {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .assistant-message code {
+            background: #f1f5f9;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+            font-size: 0.875em;
+        }
+
+        .assistant-message blockquote {
+            border-left: 3px solid var(--primary-color);
+            margin: 0.5rem 0;
+            padding-left: 1rem;
+            color: #4b5563;
+            font-style: italic;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .chat-submit {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .chat-submit:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .chat-submit:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -255,6 +376,16 @@
         </div>
         <div id="detailsContainer">
             <div class="loading">Loading...</div>
+        </div>
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-title">AI Assistant Chat</div>
+            </div>
+            <div id="chatMessages" class="chat-messages"></div>
+            <div class="chat-input-container">
+                <input type="text" id="chatInput" class="chat-input" placeholder="Ask me anything about this startup..." />
+                <button id="chatSubmit" class="chat-submit">Send</button>
+            </div>
         </div>
     </div>
 
@@ -847,6 +978,90 @@
             originalDisplayStartupDetails(startup);
             generateAIAnalysis(startup);
         };
+
+        async function handleChatSubmit() {
+            const input = document.getElementById('chatInput');
+            const submit = document.getElementById('chatSubmit');
+            const messages = document.getElementById('chatMessages');
+            
+            const query = input.value.trim();
+            if (!query) return;
+            
+            // Disable input and button while processing
+            input.disabled = true;
+            submit.disabled = true;
+            
+            // Add user message
+            messages.innerHTML += `
+                <div class="message user-message">
+                    ${query}
+                </div>
+            `;
+            
+            try {
+                // Get current startup context
+                const urlParams = new URLSearchParams(window.location.search);
+                const startupName = urlParams.get('startup');
+                const startup = window.currentStartup;
+                
+                // Call the chat agent API
+                const response = await fetch('http://localhost:5000/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        query,
+                        startup_context: startup
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Add assistant message
+                messages.innerHTML += `
+                    <div class="message assistant-message">
+                        ${data.response}
+                    </div>
+                `;
+                
+                // Clear input
+                input.value = '';
+                
+            } catch (error) {
+                console.error('Chat error:', error);
+                messages.innerHTML += `
+                    <div class="message assistant-message" style="background: #fee2e2; color: #991b1b;">
+                        Sorry, I encountered an error: ${error.message}
+                    </div>
+                `;
+            } finally {
+                // Re-enable input and button
+                input.disabled = false;
+                submit.disabled = false;
+                input.focus();
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+            }
+        }
+
+        // Initialize chat functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatInput = document.getElementById('chatInput');
+            const chatSubmit = document.getElementById('chatSubmit');
+            
+            chatSubmit.addEventListener('click', handleChatSubmit);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleChatSubmit();
+                }
+            });
+        });
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', loadStartupDetails);
