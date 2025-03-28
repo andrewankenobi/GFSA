@@ -2,6 +2,33 @@
 
 A comprehensive analysis platform for the Google for Startups Accelerator AI First 2025 Berlin Cohort, featuring startup analysis, task management, and AI-powered insights.
 
+![GFSA Logo](gfsa.png)
+![Berlin Skyline](berlin.gif)
+
+## Overview
+
+This application provides a comprehensive analysis platform for the Google for Startups Accelerator AI First 2025 Berlin Cohort. It combines AI-powered analysis with an interactive web interface to provide detailed insights about participating startups.
+
+## Application Flow
+
+1. **Data Collection & Analysis**
+   - Run `research.py` to analyze startup data
+   - Generates detailed analysis in JSON format
+   - Creates `analysis_YYYYMMDD_HHMMSS.json` in root directory
+
+2. **Web Interface**
+   - Frontend server serves static files (HTML, CSS, JS)
+   - Backend server provides API endpoints for analysis and chat
+   - Interactive startup cards with detailed information
+   - Real-time search functionality
+
+3. **AI Features**
+   - AI-powered startup analysis
+   - Interactive chat assistant (Ment-hoff)
+   - Market opportunity assessment
+   - Competitive analysis
+   - Risk evaluation
+
 ## Features
 
 ### Startup Analysis
@@ -27,7 +54,6 @@ A comprehensive analysis platform for the Google for Startups Accelerator AI Fir
 
 - Python 3.8 or later
 - pip
-- Node.js (for web interface)
 - Google Cloud API key (for AI features)
 
 ### Installation
@@ -52,74 +78,50 @@ pip install -r requirements.txt
 4. Set up environment variables:
 ```bash
 cp .env.example .env
-# Edit .env with your API keys and configuration
+# Edit .env with your GEMINI_API_KEY
 ```
 
-5. Run the analysis:
+### Running the Application
+
+1. **First Time Setup - Run Research Analysis**
 ```bash
 python research.py
 ```
+This will:
+- Analyze startup data
+- Generate analysis JSON files
+- Create necessary directories
 
-6. Start the web server:
+2. **Start the Application**
 ```bash
-flask run
+./start.sh
 ```
+This will:
+- Start the backend server (port 5000)
+- Start the frontend server (port 8000)
+- Open the application in your browser
 
-7. Open [http://localhost:5000](http://localhost:5000) with your browser to see the application.
+3. **Access the Application**
+- Frontend: http://localhost:8000
+- Backend API: http://localhost:5000
 
 ## Project Structure
 
 ```
 GFSA/
-├── app/
-│   ├── models.py          # Data models including Todo
-│   ├── static/           # Static assets (CSS, JavaScript)
-│   ├── templates/        # HTML templates
-│   └── views/           # Flask route definitions
-├── data/                # Data storage
-│   ├── results/         # Analysis results
-│   ├── raw/            # Raw analysis data
-│   └── archive/        # Archived analysis files
-├── research.py         # Main analysis script
+├── index.html           # Main startup listing interface
+├── details.html         # Detailed startup view
+├── server.py           # Flask backend server
+├── research.py         # Startup analysis script
+├── chat_agent.py       # AI chat assistant
 ├── startups.json       # Source startup data
+├── analysis_*.json     # Generated analysis files
 ├── requirements.txt    # Python dependencies
+├── start.sh           # Main startup script
+├── start_backend.sh   # Backend server script
+├── start_frontend.sh  # Frontend server script
 └── README.md
 ```
-
-## Key Components
-
-### Web Interface
-- `index.html`: Main startup listing and search interface
-- `details.html`: Detailed startup view with AI analysis
-- Responsive design with modern UI/UX
-- Real-time search functionality
-- Dynamic data loading
-
-### Analysis Features
-- AI-powered startup analysis
-- Market opportunity assessment
-- Competitive analysis
-- Risk evaluation
-- Growth trajectory prediction
-- Founder background analysis
-- Funding stage assessment
-- Product development stage tracking
-
-### Data Management
-- Automatic archiving of old analyses
-- Version control of analysis results
-- Raw data preservation
-- Structured JSON data format
-- Startup metadata tracking
-- Historical analysis preservation
-
-## Built With
-
-- [Flask](https://flask.palletsprojects.com/) - Web framework
-- [Python](https://www.python.org/) - Backend language
-- [Google Cloud AI](https://cloud.google.com/ai-platform) - AI/ML capabilities
-- [Flask-Assets](https://flask-assets.readthedocs.io/) - Asset management
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Frontend interactivity
 
 ## API Endpoints
 
@@ -139,11 +141,31 @@ GFSA/
 
 1. Raw startup data (`startups.json`)
 2. Analysis processing (`research.py`)
-3. Results storage (`data/results/`)
+3. Results storage (`analysis_*.json`)
 4. Web interface presentation
 5. AI-powered insights generation
 6. Interactive user queries
 7. Automatic data archiving
+
+## Development
+
+### Running Individual Components
+
+1. **Backend Server Only**
+```bash
+./start_backend.sh
+```
+
+2. **Frontend Server Only**
+```bash
+./start_frontend.sh
+```
+
+### Debugging
+
+- Backend logs are available in the terminal
+- Frontend console logs are available in browser dev tools
+- Check `startup_research.log` for research analysis logs
 
 ## Contributing
 

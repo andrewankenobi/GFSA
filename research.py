@@ -460,7 +460,7 @@ class StartupResearch:
             return
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = self.results_dir / f"analysis_{timestamp}.json"
+        filename = f"analysis_{timestamp}.json"  # Save directly in root directory
         
         try:
             with open(filename, 'w') as f:

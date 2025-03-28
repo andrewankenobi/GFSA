@@ -24,7 +24,7 @@ genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-2.0-flash')
 
 # Load startup data
-with open('data/results/analysis_20250326_144712.json', 'r') as f:
+with open('data/results/analysis_20250327_084704.json', 'r') as f:
     STARTUP_DATA = json.load(f)
 
 # Create a dictionary for quick startup lookups
