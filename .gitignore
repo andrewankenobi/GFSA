@@ -22,6 +22,8 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+venv
+
 
 # Logs
 *.log
@@ -68,6 +70,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env.*
 
 # vercel
 .vercel
