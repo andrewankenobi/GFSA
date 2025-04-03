@@ -460,7 +460,7 @@ class StartupResearch:
             return
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"analysis_{timestamp}.json"  # Save directly in root directory
+        filename = f"data/results/analysis_{timestamp}.json"  # Save to results
         
         try:
             with open(filename, 'w') as f:
@@ -471,7 +471,7 @@ class StartupResearch:
 
     def archive_old_files(self, max_files=10):
         self.logger.info("Archiving old result files")
-        result_files = sorted(self.results_dir.glob('analysis_*.json'))
+        result_files = sorted(self.results_dir.glob('data/results/analysis_*.json'))
         if len(result_files) > max_files:
             for file in result_files[:-max_files]:
                 try:

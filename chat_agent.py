@@ -24,7 +24,20 @@ genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-2.0-flash')
 
 # Load startup data
-with open('data/results/analysis_20250327_084704.json', 'r') as f:
+def get_latest_analysis_file():
+    import glob
+    import os
+    import shutil
+    pattern = 'data/results/analysis_*.json'
+    files = glob.glob(pattern)
+    if not files:
+        raise FileNotFoundError(f'No analysis files found matching pattern: {pattern}')
+    latest_file = max(files, key=os.path.getctime)
+    root_copy = 'analysis_20250327_084704.json'
+    shutil.copy2(latest_file, root_copy)
+    return latest_file
+
+with open(get_latest_analysis_file(), 'r') as f:
     STARTUP_DATA = json.load(f)
 
 # Create a dictionary for quick startup lookups
