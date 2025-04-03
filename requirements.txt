@@ -7,3 +7,4 @@ gunicorn==21.2.0
 flask-cors==4.0.0
 google-generativeai==0.3.2
 langchain==0.1.12 
+backoff==2.2.1
