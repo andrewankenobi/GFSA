@@ -12,6 +12,7 @@ from functools import wraps
 from pathlib import Path
 import subprocess
 import html
+import sys
 
 # Configure logging
 logging.basicConfig(
@@ -54,6 +55,10 @@ try:
 except Exception as e:
     logger.error(f"Failed to configure Gemini API: {str(e)}")
     raise
+
+# --- Define Lock File Path (must match research.py) --- START
+LOCK_FILE_PATH = Path('data') / '.research.lock'
+# --- Define Lock File Path --- END
 
 def create_analysis_prompt(startup_data):
     # Convert complex objects to pretty-printed JSON strings
@@ -274,6 +279,92 @@ def chat():
 @app.route('/')
 def serve_index():
     return send_from_directory('.', 'index.html')
+
+@app.route('/api/run-research', methods=['POST'])
+def run_research():
+    """
+    Endpoint to trigger the research.py script for a specific startup.
+    Runs the script as a background process.
+    """
+    try:
+        data = request.get_json()
+        startup_name = data.get('startup_name')
+        workers = data.get('workers', 1) # Default to 1 worker if not provided
+
+        if not startup_name:
+            logger.error("Missing 'startup_name' in /api/run-research request")
+            return jsonify({'error': "Missing 'startup_name' parameter"}), 400
+
+        # Validate workers to be an integer
+        try:
+            workers = int(workers)
+        except (ValueError, TypeError):
+            logger.error(f"Invalid 'workers' value received: {workers}")
+            return jsonify({'error': "Invalid 'workers' parameter, must be an integer"}), 400
+
+        # --- Check for existing lock file --- START
+        if LOCK_FILE_PATH.exists():
+            logger.warning(f"Research lock file {LOCK_FILE_PATH} exists. Preventing concurrent run.")
+            # Return 409 Conflict status code
+            return jsonify({'error': 'Another research process is already running. Please wait.'}), 409
+        # --- Check for existing lock file --- END
+
+        # Construct the command
+        # Use sys.executable to ensure the correct Python interpreter is used
+        command = [
+            sys.executable, # Use the same python that's running the server
+            'research.py',
+            '--startup', startup_name,
+            '--workers', str(workers)
+        ]
+        
+        logger.info(f"Executing command: {' '.join(command)}")
+
+        # Run the command as a background process
+        # Use Popen for non-blocking execution
+        process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        
+        # We don't wait for completion here (process.wait())
+        # Return immediately to the client
+        logger.info(f"Started background research process for {startup_name} with PID: {process.pid}")
+        
+        # Return 202 Accepted: The request has been accepted for processing,
+        # but the processing has not been completed.
+        return jsonify({
+            'message': f'Research process started successfully for {startup_name}.',
+            'pid': process.pid 
+        }), 202
+
+    except FileNotFoundError as e:
+        logger.error(f"Error starting research process: {e}. Is research.py in the correct path? Is Python installed?", exc_info=True)
+        return jsonify({'error': 'Failed to start research process. Script or interpreter not found.', 'details': str(e)}), 500
+    except Exception as e:
+        logger.error(f"Error in /api/run-research endpoint: {str(e)}", exc_info=True)
+        return jsonify({'error': f'An internal server error occurred: {str(e)}'}), 500
+
+@app.route('/api/research-status', methods=['GET'])
+def get_research_status():
+    """Checks the status of a specific research process."""
+    startup_name = request.args.get('startup')
+    if not startup_name:
+        return jsonify({'error': 'Missing startup parameter'}), 400
+
+    startup_dir_name = startup_name.lower().replace(' ', '_')
+    status_file = Path('data') / f'.research_status_{startup_dir_name}.json'
+
+    if status_file.exists():
+        try:
+            with open(status_file, 'r') as f:
+                status_data = json.load(f)
+            status_data['is_running'] = True
+            return jsonify(status_data), 200
+        except Exception as e:
+            logger.error(f"Error reading status file {status_file}: {e}")
+            # Return error but indicate it might still be running
+            return jsonify({'error': 'Could not read status file', 'is_running': True}), 500
+    else:
+        # If status file doesn't exist, assume it's not running or completed
+        return jsonify({'is_running': False, 'status': 'not_running_or_completed'}), 200
 
 @app.route('/details.html')
 def details():

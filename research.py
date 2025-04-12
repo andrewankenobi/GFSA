@@ -20,6 +20,7 @@ import concurrent.futures
 from tqdm import tqdm
 import argparse
 import shutil
+from collections import defaultdict
 
 # Define the analysis structure
 ANALYSIS_STRUCTURE = {
@@ -165,6 +166,37 @@ logger.info("Google Generative AI library configured.")
 # Need to make sure the model uses the correct genai reference now
 # from google import generativeai as genai # <-- Import with alias for the class # REMOVE
 
+# Define the number of versions to keep
+ARCHIVE_VERSIONS_TO_KEEP = 5
+
+# --- Define Lock File Path --- START
+# Place the lock file in the data directory
+LOCK_FILE_PATH = Path('data') / '.research.lock'
+# --- Define Lock File Path --- END
+
+# --- Define Status File Function --- START
+def get_status_file_path(startup_dir_name):
+    return Path('data') / f'.research_status_{startup_dir_name}.json'
+
+def update_status_file(startup_dir_name, status_data):
+    status_file = get_status_file_path(startup_dir_name)
+    try:
+        with open(status_file, 'w') as f:
+            json.dump(status_data, f)
+    except Exception as e:
+        # Log error but don't necessarily stop the main process
+        logging.error(f"Could not update status file {status_file}: {e}")
+
+def remove_status_file(startup_dir_name):
+    status_file = get_status_file_path(startup_dir_name)
+    try:
+        if status_file.exists():
+            status_file.unlink()
+            logging.info(f"Removed status file: {status_file}")
+    except Exception as e:
+        logging.error(f"Could not remove status file {status_file}: {e}")
+# --- Define Status File Function --- END
+
 class StartupResearch:
     def __init__(self):
         # Set up logging (ensure it's initialized if not done globally)
@@ -262,6 +294,52 @@ class StartupResearch:
             #     self.logger.error(f"Could not remove directory {startup_path}: {e}")
         else:
             self.logger.info(f"No existing data directory found for startup: {startup_name} at {startup_path}")
+
+    def cleanup_archive_by_version(self):
+        """Cleans the archive directory, keeping only the last N versions of each file type."""
+        self.logger.info(f"Starting archive cleanup. Keeping last {ARCHIVE_VERSIONS_TO_KEEP} versions of each file type.")
+        files_by_base = defaultdict(list)
+
+        # Regex to capture the base name and the timestamp
+        # Example: analysis_noxon_company_overview_20240726_123456.json
+        # Base name: analysis_noxon_company_overview
+        # Timestamp: 20240726_123456
+        # Note: This regex might need adjustment if filenames have multiple timestamps or different structures
+        # Pattern to capture the base filename and the *last* timestamp before the extension
+        pattern = re.compile(r"^(.*?)_(\d{8}_\d{6})(\.[^.]+)$")
+
+        if not self.archive_dir.exists():
+            self.logger.warning(f"Archive directory {self.archive_dir} does not exist. Skipping cleanup.")
+            return
+
+        for file_path in self.archive_dir.iterdir():
+            if file_path.is_file():
+                match = pattern.match(file_path.name)
+                if match:
+                    base_name = match.group(1)
+                    timestamp_str = match.group(2)
+                    # Store the path and timestamp for sorting
+                    files_by_base[base_name].append((timestamp_str, file_path))
+                else:
+                    self.logger.debug(f"Could not parse base name/timestamp from archive file: {file_path.name}")
+
+        files_deleted = 0
+        for base_name, file_list in files_by_base.items():
+            # Sort files by timestamp (descending - newest first)
+            file_list.sort(key=lambda x: x[0], reverse=True)
+
+            # Identify files to delete (beyond the Nth newest)
+            files_to_delete = file_list[ARCHIVE_VERSIONS_TO_KEEP:]
+
+            for _timestamp, file_path in files_to_delete:
+                try:
+                    file_path.unlink() # Delete the file
+                    self.logger.info(f"Deleted old archive file: {file_path.name}")
+                    files_deleted += 1
+                except Exception as e:
+                    self.logger.error(f"Error deleting archive file {file_path.name}: {e}")
+
+        self.logger.info(f"Archive cleanup complete. Deleted {files_deleted} old files.")
 
     def _extract_and_parse_json(self, response_text, area_name="aggregation"):
         """Extracts JSON from text, cleaning Markdown fences and common issues."""
@@ -391,7 +469,8 @@ class StartupResearch:
 
     def analyze_startup(self, startup_data):
         """Analyze a single startup using Gemini API for areas, then assemble."""
-        startup_dir_name = "" # Initialize for use in final saving
+        startup_dir_name = "" # Initialize for use in final saving and status updates
+        completed_areas = [] # Track completed areas for status
         try:
             # Ensure startup_dir uses Path object and correct naming
             startup_dir_name = startup_data['startup_name'].lower().replace(' ', '_')
@@ -433,8 +512,26 @@ class StartupResearch:
                     analysis_gen_config = self.default_generation_params # Use default dict if no grounding
             # --- Prepare GenerationConfig with tools --- END
 
+            # --- Initial Status Update --- START
+            update_status_file(startup_dir_name, {
+                "status": "starting_analysis", 
+                "startup_name": startup_data['startup_name'],
+                "completed_areas": completed_areas,
+                "total_areas": len(analysis_areas)
+            })
+            # --- Initial Status Update --- END
+
             # Analyze each area separately
             for area in analysis_areas:
+                # --- Update Status: Starting Area --- START
+                update_status_file(startup_dir_name, {
+                    "status": f"analyzing_{area}",
+                    "startup_name": startup_data['startup_name'],
+                    "current_area": area,
+                    "completed_areas": completed_areas,
+                    "total_areas": len(analysis_areas)
+                })
+                # --- Update Status: Starting Area --- END
                 try:
                     # Determine the expected structure for the prompt example
                     example_area_structure = ANALYSIS_STRUCTURE['analysis'].get(area, {})
@@ -443,19 +540,22 @@ class StartupResearch:
                     if area == 'recommendations':
                         # Show the structure of the first item in one of the recommendation lists as example
                         example_area_structure = {
-                            "strategic_recommendations": [
-                                {
-                                    "recommendation": "Example recommendation text...",
-                                    "rationale": "Example rationale text...",
-                                    "actionable_steps": ["Step 1...", "Step 2..."],
-                                    "priority": "High | Medium | Low",
-                                    "impact": "High | Medium | Low",
-                                    "effort": "High | Medium | Low"
-                                }
-                            ],
-                            "operational_recommendations": "[...]", # Keep others concise
-                            "growth_recommendations": "[...]",
-                            "risk_mitigation_recommendations": "[...]"
+                            "strategic_recommendations": [{
+                                "recommendation": "", "rationale": "", "actionable_steps": [],
+                                "priority": "High | Medium | Low", "impact": "High | Medium | Low", "effort": "High | Medium | Low"
+                            }],
+                            "operational_recommendations": [{
+                                "recommendation": "", "rationale": "", "actionable_steps": [],
+                                "priority": "High | Medium | Low", "impact": "High | Medium | Low", "effort": "High | Medium | Low"
+                            }],
+                            "growth_recommendations": [{
+                                "recommendation": "", "rationale": "", "actionable_steps": [],
+                                "priority": "High | Medium | Low", "impact": "High | Medium | Low", "effort": "High | Medium | Low"
+                            }],
+                            "risk_mitigation_recommendations": [{
+                                "recommendation": "", "rationale": "", "actionable_steps": [],
+                                "priority": "High | Medium | Low", "impact": "High | Medium | Low", "effort": "High | Medium | Low"
+                            }]
                          }
                     
                     # Create area-specific prompt
@@ -488,7 +588,7 @@ class StartupResearch:
                     3.  **Output Formatting:** Within the JSON string values, provide plain text suitable for direct rendering in HTML. **AVOID** using markdown formatting like bullet points (`*`, `-`), numbered lists, bolding (`** **`), or italics within the JSON string values. For lists of items (like core_features, actionable_steps, etc.), use JSON arrays of simple strings `["Item 1", "Item 2", "Item 3"]`.
                     4.  Use web search to verify and enrich all information. Only include specific details (like URLs, funding amounts, dates, etc.) if they are found and verified through web search. If a specific piece of information cannot be found or verified via search, explicitly state 'Not Found' or use an empty string/array/null in the JSON.
                     5.  **Team Analysis Specifics:** If analyzing the `team_analysis` area, search extensively for founder/team member details, including LinkedIn URLs, and include the full URL if found.
-                    6.  **Recommendations Specifics:** If analyzing the `recommendations` area, **each recommendation object** within the lists (strategic_recommendations, operational_recommendations, etc.) **MUST** include the following keys: `recommendation` (string), `rationale` (string), `actionable_steps` (array of strings), `priority` (string: "High", "Medium", or "Low"), `impact` (string: "High", "Medium", or "Low"), and `effort` (string: "High", "Medium", or "Low").
+                    6.  **Recommendations Specifics:** If analyzing the `recommendations` area, **you MUST generate at least one actionable recommendation object** within each list (strategic_recommendations, operational_recommendations, etc.), even if based on limited data or extrapolation. Each recommendation object **MUST** include *all* the following keys, populated appropriately: `recommendation` (string), `rationale` (string), `actionable_steps` (array of strings), `priority` (string: "High", "Medium", or "Low"), `impact` (string: "High", "Medium", or "Low"), and `effort` (string: "High", "Medium", or "Low"). Do not leave values empty unless absolutely no information can be inferred; use "N/A" if necessary for string fields or an empty array `[]` for `actionable_steps`.
 
                     Please provide the comprehensive analysis for the `{area}` area in the specified JSON format below:
                     ```json
@@ -546,6 +646,18 @@ class StartupResearch:
                                     json.dump(area_analysis, f, indent=4)
                                 logging.info(f"Saved parsed JSON for {area} to {json_file_path}")
                                 area_analysis_files.append(str(json_file_path)) # Add the file path string to the list
+
+                                # --- Update Status: Completed Area --- START
+                                completed_areas.append(area)
+                                update_status_file(startup_dir_name, {
+                                    "status": f"completed_{area}",
+                                    "startup_name": startup_data['startup_name'],
+                                    "current_area": area, # Keep track of last completed
+                                    "completed_areas": completed_areas,
+                                    "total_areas": len(analysis_areas)
+                                })
+                                # --- Update Status: Completed Area --- END
+
                             except Exception as save_error:
                                 logging.error(f"Failed to save JSON for {area} to {json_file_path}: {save_error}")
 
@@ -560,8 +672,18 @@ class StartupResearch:
                         logging.debug(f"Original response text for {area}: {response_text}")
                 except Exception as e:
                     logging.error(f"Error analyzing {area} for {startup_data['startup_name']}: {str(e)}")
+                    # Optionally update status to reflect area error?
                     continue # Continue to the next area if one fails
             
+            # --- Update Status: Starting Assembly --- START
+            update_status_file(startup_dir_name, {
+                "status": "assembling_final_json",
+                "startup_name": startup_data['startup_name'],
+                "completed_areas": completed_areas,
+                "total_areas": len(analysis_areas)
+            })
+            # --- Update Status: Starting Assembly --- END
+
             # Assemble the final JSON using the list of generated file paths
             final_result = self.assemble_final_json(startup_data, area_analysis_files) # Pass startup_data and the list of file paths
 
@@ -616,6 +738,19 @@ class StartupResearch:
             logging.error(f"Critical error analyzing startup {startup_data['startup_name']}: {str(e)}")
             # raise # Re-raising might stop the whole batch process
             return False # Indicate failure
+        finally:
+            # Ensure the lock file is removed regardless of success or failure
+            self.remove_lock_file()
+            # --- Ensure status file is removed --- START
+            if startup_dir_name: # Only remove status if running for a single startup
+                 remove_status_file(startup_dir_name)
+            else:
+                 # If running for all, we might need a different status mechanism
+                 # or remove all status files? For now, do nothing for batch runs.
+                 self.logger.info("Batch run finished. Status file removal skipped (only active for single runs).")
+            # --- Ensure status file is removed --- END
+            self.logger.info("Research batch processing finished (or encountered error).")
+        self.logger.info("Research process completed")
 
     def process_batch(self, startups_to_process, batch_size=2, max_workers=10): # Renamed arg
         self.logger.info(f"Processing batch of {len(startups_to_process)} startups with {max_workers} parallel workers")
@@ -651,11 +786,45 @@ class StartupResearch:
         self.logger.info(f"Batch processing complete. Successful: {successful_analyses}, Failed: {failed_analyses}")
         # No longer returns results list, results are saved individually per startup
 
+    def create_lock_file(self):
+        """Attempts to create the lock file exclusively. Returns True if successful, False otherwise."""
+        try:
+            # x mode: open for exclusive creation, failing if the file already exists
+            with open(LOCK_FILE_PATH, 'x') as f:
+                f.write(f"Locked by PID: {os.getpid()} at {datetime.now()}\n")
+            self.logger.info(f"Successfully created lock file: {LOCK_FILE_PATH}")
+            return True
+        except FileExistsError:
+            self.logger.warning(f"Lock file {LOCK_FILE_PATH} already exists. Another process may be running.")
+            return False
+        except Exception as e:
+            self.logger.error(f"Error creating lock file {LOCK_FILE_PATH}: {e}")
+            return False # Treat other errors as failure to acquire lock
+
+    def remove_lock_file(self):
+        """Removes the lock file if it exists."""
+        try:
+            if LOCK_FILE_PATH.exists():
+                LOCK_FILE_PATH.unlink()
+                self.logger.info(f"Removed lock file: {LOCK_FILE_PATH}")
+            else:
+                self.logger.debug("Lock file did not exist, no need to remove.")
+        except Exception as e:
+            self.logger.error(f"Error removing lock file {LOCK_FILE_PATH}: {e}")
+
     def run_research(self, target_startup_name=None, batch_size=10, max_workers=10): # Added target_startup_name
         self.logger.info(f"Starting research process. Target: {target_startup_name or 'All Startups'}")
+        
+        # --- Attempt to acquire lock --- START
+        if not self.create_lock_file():
+            self.logger.error("Could not acquire lock. Exiting research process.")
+            sys.exit(1) # Exit script if lock cannot be acquired
+        # --- Attempt to acquire lock --- END
+            
         all_startups = load_startups()
         if not all_startups:
             self.logger.error("No startups loaded, exiting.")
+            self.remove_lock_file() # Ensure lock is removed on early exit
             return
 
         # Filter startups if a target name is provided
@@ -669,24 +838,45 @@ class StartupResearch:
                     break # Found the target startup
             if not found:
                 self.logger.error(f"Startup '{target_startup_name}' not found in startups.json. Exiting.")
+                self.remove_lock_file() # Ensure lock is removed on early exit
                 return
             self.logger.info(f"Processing single startup: {target_startup_name}")
         else:
             startups_to_process = all_startups
             self.logger.info(f"Processing all {len(startups_to_process)} loaded startups.")
 
-        # --- Pre-run Archiving ---
+        if not startups_to_process:
+            self.logger.warning("No startups selected for processing after filtering.")
+            self.remove_lock_file() # Ensure lock is removed on early exit
+            return
+
+        # --- START: Cleanup and Pre-run Archiving ---
+        # Cleanup archive *before* archiving current data
+        self.cleanup_archive_by_version()
+
         self.logger.info("Starting pre-run archiving of existing startup data...")
         for startup in startups_to_process:
             self.archive_existing_startup_data(startup['startup_name'])
         self.logger.info("Pre-run archiving complete.")
-        # --- End Pre-run Archiving ---
+        # --- END: Added Try/Finally for future lock file ---
 
-        if not startups_to_process:
-             self.logger.warning("No startups selected for processing after filtering.")
-             return
-
-        self.process_batch(startups_to_process, batch_size, max_workers)
+        # --- START: Added Try/Finally for lock and status file ---
+        try:
+            self.process_batch(startups_to_process, batch_size, max_workers)
+        finally:
+            # Ensure the lock file is removed regardless of success or failure
+            self.remove_lock_file()
+            # --- Ensure status file is removed --- START
+            if target_startup_name: # Only remove status if running for a single startup
+                 startup_dir_name_for_status = target_startup_name.lower().replace(' ', '_')
+                 remove_status_file(startup_dir_name_for_status)
+            else:
+                 # If running for all, we might need a different status mechanism
+                 # or remove all status files? For now, do nothing for batch runs.
+                 self.logger.info("Batch run finished. Status file removal skipped (only active for single runs).")
+            # --- Ensure status file is removed --- END
+            self.logger.info("Research batch processing finished (or encountered error).")
+        # --- END: Added Try/Finally ---
         self.logger.info("Research process completed")
 
 def load_startups():
