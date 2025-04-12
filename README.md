@@ -240,7 +240,7 @@ This application is configured for deployment to the Google App Engine Standard 
     -   `details.html` should use relative paths (e.g., `/api/analyze-startup`) for `fetch` calls to the backend API.
     -   Ensure `gunicorn` is listed in `requirements.txt`.
 
-2.  **Run Initial Research (Important!):** The `data/results/*.json` files are *static assets* included in the deployment. Run the initial analysis locally first to generate these files before deploying:
+2.  **Run Initial Research (optional):** The `data/results/*.json` files are *static assets* included in the deployment. Run the initial analysis locally first to generate these files before deploying:
     ```bash
     python3 research.py
     ```
