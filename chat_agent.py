@@ -62,6 +62,8 @@ def get_agent_response(user_query: str, startup_context: dict):
         "Your goal is to answer questions accurately and concisely about the specific startup context you are given. "
         "If the answer is not available in the provided context, clearly state that the information is not available in the analysis data. "
         "Do not hallucinate or make up information. Stick strictly to the provided JSON context for the startup."
+        "IMPORTANT: When you need to emphasize text, use HTML `<strong>` tags instead of Markdown `**`. "
+        "For example, use `<strong>important text</strong>`."
     )
 
     # Construct the prompt with context

@@ -11,6 +11,7 @@ import traceback
 from functools import wraps
 from pathlib import Path
 import subprocess
+import html
 
 # Configure logging
 logging.basicConfig(
@@ -119,36 +120,45 @@ IMPORTANT:
 - Do not include any markdown formatting"""
 
 def format_response(text):
-    """Format the response text with minimal HTML for chat-like appearance."""
-    # Handle bullet points and paragraphs
+    """Format the response text with HTML escaping for chat-like appearance."""
     lines = text.split('\n')
     result = []
     in_list = False
-    
+
     for line in lines:
-        line = line.strip()
-        if not line:  # Handle blank lines
+        stripped_line = line.strip()
+        if not stripped_line:  # Handle blank lines
             if in_list:
                 result.append('</ul>')
                 in_list = False
             result.append('<br>')
             continue
-            
-        if line.startswith('- '):
+
+        # Escape the content BEFORE wrapping in tags
+        escaped_content = html.escape(stripped_line)
+
+        if stripped_line.startswith('- '):
             if not in_list:
                 result.append('<ul class="chat-list">')
                 in_list = True
-            result.append(f'<li>{line[2:]}</li>')
+            # Escape the content after the list marker
+            list_content = html.escape(stripped_line[2:])
+            # Allow <strong> tags through
+            list_content = list_content.replace('&lt;strong&gt;', '<strong>').replace('&lt;/strong&gt;', '</strong>')
+            result.append(f'<li>{list_content}</li>')
         else:
             if in_list:
                 result.append('</ul>')
                 in_list = False
-            result.append(f'<p>{line}</p>')
-    
+            # Allow <strong> tags through
+            escaped_content = escaped_content.replace('&lt;strong&gt;', '<strong>').replace('&lt;/strong&gt;', '</strong>')
+            result.append(f'<p>{escaped_content}</p>')
+
     if in_list:
         result.append('</ul>')
-    
-    return '<div class="chat-message">' + '\n'.join(result) + '</div>'
+
+    # Return only the joined inner HTML elements
+    return '\n'.join(result)
 
 def async_route(f):
     @wraps(f)
@@ -226,33 +236,40 @@ def analyze_startup():
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/chat', methods=['POST'])
-@async_route
-async def chat():
+def chat():
     try:
         data = request.get_json()
-        logger.info("Received chat request with query: %s", data.get('query'))
+        logger.info("Received chat request")
 
-        # Validate request data
-        if 'query' not in data:
-            return jsonify({'error': 'Missing query in request'}), 400
+        if 'user_input' not in data:
+            logger.error("Missing 'user_input' key in chat request data: %s", data)
+            return jsonify({'error': 'Missing user_input in request'}), 400
 
-        # Get response from the agent
-        response = await get_agent_response(
-            query=data['query'],
-            startup_context=data.get('startup_context')
+        user_message = data['user_input']
+        startup_context = data.get('startup_context')
+
+        logger.info(f"Chat request for startup: {startup_context.get('metadata', {}).get('startup_name', 'Unknown')} with input: {user_message[:50]}...")
+
+        if not startup_context:
+            logger.warning("Chat request received without startup_context.")
+
+        # Call the agent function directly (no await)
+        response_text = get_agent_response(
+            user_query=user_message,
+            startup_context=startup_context
         )
 
-        # Format the response with HTML
-        formatted_response = format_response(response)
+        # Format the response with HTML escaping
+        formatted_response = format_response(response_text)
 
         return jsonify({
-            'response': formatted_response,
-            'raw_response': response  # Include raw response for debugging
+            'response': formatted_response, # Return the formatted HTML
+            # 'raw_response': response_text # Optionally keep raw for debugging
         })
 
     except Exception as e:
         logger.error("Error in chat endpoint: %s", str(e), exc_info=True)
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': f'An internal server error occurred: {str(e)}'}), 500
 
 @app.route('/')
 def serve_index():
