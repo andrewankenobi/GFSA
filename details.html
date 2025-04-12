@@ -1703,7 +1703,8 @@
                     data: analysisData
                 });
 
-                const response = await fetch('http://localhost:5002/api/analyze-startup', {
+                // Use relative path for deployed environment
+                const response = await fetch('/api/analyze-startup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                     body: JSON.stringify(analysisData)
@@ -1926,7 +1927,8 @@
                             throw new Error('No startup specified in URL');
                         }
 
-                        const response = await fetch('http://localhost:5002/api/run-research', {
+                        // Use relative path for deployed environment
+                        const response = await fetch('/api/run-research', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -2182,7 +2184,7 @@
                     throw new Error("Startup context not loaded.");
                 }
                 
-                const response = await fetch('http://localhost:5002/api/chat', {
+                const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

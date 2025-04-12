@@ -1,0 +1,54 @@
+runtime: python312 # Or python311, python310 depending on your needs
+service: gfsa # Specify the service name here
+
+entrypoint: gunicorn -b :$PORT server:app
+
+instance_class: F1 # Basic instance class, adjust as needed
+
+env_variables:
+  # Define environment variables here.
+  GEMINI_API_KEY: 'your key here'
+  
+
+handlers:
+  # Serve static files from the root directory (index.html, details.html, images, etc.)
+  - url: /(.*\.(gif|png|jpg|css|js|ico))$
+    static_files: \1
+    upload: (.*\.(gif|png|jpg|css|js|ico))$
+
+  # Serve index.html for the root path
+  - url: /
+    static_files: index.html
+    upload: index.html
+
+  # Serve details.html
+  - url: /details.html
+    static_files: details.html
+    upload: details.html
+
+  # Serve startup analysis JSON files from data/results
+  # This assumes your server.py doesn't explicitly handle /data/results/* routes
+  # If it does, you might need to adjust this or the server code.
+  - url: /data/results/(.*\.json)$
+    static_files: data/results/\1
+    upload: data/results/.*\.json$
+
+  # Serve startups.json
+  - url: /startups.json
+    static_files: startups.json
+    upload: startups.json
+
+  # All other routes are handled by the Flask application.
+  - url: /.*
+    script: auto
+
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: 1 # Adjust based on expected traffic
+  min_pending_latency: 30ms # Default
+  max_pending_latency: automatic
+  max_concurrent_requests: 50 # Adjust based on instance class and app needs
+
+# Optional: Network settings (if needed)
+# network:
+#   session_affinity: true 

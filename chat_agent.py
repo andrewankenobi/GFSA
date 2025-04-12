@@ -8,7 +8,7 @@ from google.generativeai import types
 from typing import List, Union, Tuple
 import re
 import json
-from dotenv import load_dotenv
+# from dotenv import load_dotenv # Add back for local .env loading
 import os
 import logging
 
@@ -17,39 +17,62 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('chat_agent.log'), # Log to a separate file
-        logging.StreamHandler()
+        # logging.FileHandler('chat_agent.log'), # App Engine has read-only filesystem
+        logging.StreamHandler() # Logs to stdout/stderr, captured by Cloud Logging
     ]
 )
 logger = logging.getLogger(__name__)
 
+# load_dotenv() # Call it after logging is configured
+
+# REMOVE Global Gemini Configuration
 # Load environment variables from .env file
-load_dotenv()
-
-# Configure Gemini
-api_key = os.getenv('GEMINI_API_KEY')
-if not api_key:
-    logger.error("GEMINI_API_KEY not found in environment variables")
-    raise ValueError("GEMINI_API_KEY not found in environment variables")
-
-# Initialize Gemini
-genai.configure(api_key=api_key)
-
-# Initialize the generative model directly (needed by get_agent_response)
-try:
-    model = genai.GenerativeModel('gemini-2.0-flash')
-    logger.info(f"Chat agent model initialized: {model.model_name}")
-except Exception as e:
-    logger.error(f"Failed to initialize generative model: {e}")
-    model = None # Handle inability to create model
+# load_dotenv()
+# 
+# # Configure Gemini
+# api_key = os.getenv('GEMINI_API_KEY')
+# if not api_key:
+#     logger.error("GEMINI_API_KEY not found in environment variables")
+#     raise ValueError("GEMINI_API_KEY not found in environment variables")
+# 
+# # Initialize Gemini
+# genai.configure(api_key=api_key)
+# 
+# # Initialize the generative model directly (needed by get_agent_response)
+# try:
+#     model = genai.GenerativeModel('gemini-1.5-flash-latest')
+#     logger.info(f"Chat agent model initialized: {model.model_name}")
+# except Exception as e:
+#     logger.error(f"Failed to initialize generative model: {e}")
+#     model = None # Handle inability to create model
 
 def get_agent_response(user_query: str, startup_context: dict):
     """Generates a response from the chatbot based on the user query and startup context."""
     logger.info(f"Received query: '{user_query}' for startup: {startup_context.get('metadata', {}).get('startup_name', 'Unknown')}")
 
+    # --- Initialize Gemini Client Here --- START
+    model = None # Default to None
+    api_key = os.getenv('GEMINI_API_KEY')
+    if not api_key:
+        logger.error("GEMINI_API_KEY not found in environment variables for chat agent.")
+        # Return error message, don't raise to keep server running
+        return "Error: Server configuration error: Missing API Key."
+    try:
+        genai.configure(api_key=api_key)
+        # Make sure model name matches your needs
+        model = genai.GenerativeModel('gemini-1.5-flash-latest')
+        logger.info(f"Chat agent model initialized for this request: {model.model_name}")
+    except Exception as e:
+        logger.error(f"Failed to initialize Gemini model for chat: {e}", exc_info=True)
+        return f"Error: Failed to initialize AI model for chat: {e}"
+    # --- Initialize Gemini Client Here --- END
+
+    # Now proceed, model should be initialized if we reach here
     if not model:
-        logger.error("Chat model not initialized. Cannot generate response.")
-        return "Error: The chat model is currently unavailable."
+        # This case should theoretically not be reached if the above logic is correct
+        # but provides a fallback.
+        logger.error("Chat model somehow not initialized despite checks.")
+        return "Error: The chat model is currently unavailable (unexpected state)."
 
     if not startup_context or not isinstance(startup_context, dict):
         logger.error("Invalid or missing startup_context provided.")

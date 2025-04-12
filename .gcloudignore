@@ -1,0 +1,36 @@
+# .gcloudignore
+# This file specifies files that should be ignored by gcloud tools.
+# See https://cloud.google.com/sdk/gcloud/reference/topic/gcloudignore for details.
+
+# Default ignores from gcloud
+.gcloudignore
+.git
+.gitignore
+
+# Python virtual environment
+venv/
+
+# Environment variables file (contains secrets!)
+.env
+
+# Python cache files
+__pycache__/
+*.py[co]
+
+# Log files
+logs/
+*.log
+
+# Temporary research files
+# We don't want to upload lock or status files
+data/.research.lock
+data/.research_status_*.json
+
+# Archive data - usually not needed for deployment
+# Uncomment the line below if you don't want to deploy the archive
+# data/archive/
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp 

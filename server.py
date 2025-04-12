@@ -13,17 +13,20 @@ from pathlib import Path
 import subprocess
 import html
 import sys
+# from dotenv import load_dotenv # Add back for local .env loading
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('server.log'), # Log server events
-        logging.StreamHandler()
+        # logging.FileHandler('server.log'), # App Engine has read-only filesystem
+        logging.StreamHandler() # Logs to stdout/stderr, captured by Cloud Logging
     ]
 )
 logger = logging.getLogger(__name__)
+
+# load_dotenv() # Call it after logging is configured, before app
 
 # Configure Flask app
 app = Flask(__name__, static_folder='.', static_url_path='')
@@ -32,8 +35,8 @@ app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app, resources={
     r"/api/*": {
         "origins": [
-            "http://localhost:8000", 
-            "http://127.0.0.1:8000",
+            "http://localhost:5002",
+            "http://127.0.0.1:5002",
             "https://andrewankenobi.github.io",
             "https://andrewankenobi.github.io/GFSA"
         ],
@@ -41,20 +44,6 @@ CORS(app, resources={
         "allow_headers": ["Content-Type", "Authorization", "Accept"]
     }
 })
-
-# Configure Gemini
-api_key = os.getenv('GEMINI_API_KEY')
-if not api_key:
-    raise ValueError("GEMINI_API_KEY not found in environment variables")
-
-try:
-    # Initialize Gemini
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-2.0-flash')
-    logger.info("Successfully configured Gemini API")
-except Exception as e:
-    logger.error(f"Failed to configure Gemini API: {str(e)}")
-    raise
 
 # --- Define Lock File Path (must match research.py) --- START
 LOCK_FILE_PATH = Path('data') / '.research.lock'
@@ -179,7 +168,18 @@ def async_route(f):
 @app.route('/api/analyze-startup', methods=['POST'])
 def analyze_startup():
     try:
-        data = request.get_json()
+        # --- Log Content-Type but don't block --- START
+        content_type = request.headers.get('Content-Type')
+        logger.info(f"Received request with Content-Type: {content_type}")
+        # REMOVED Strict Content-Type Check Block
+        # --- Log Content-Type but don't block --- END
+
+        # Use force=True to attempt parsing even if header is wrong
+        data = request.get_json(force=True) 
+        if data is None:
+             logger.error("Request data could not be parsed as JSON (force=True used), or body was empty.")
+             return jsonify({'error': 'Failed to parse request body as JSON or body was empty'}), 400
+
         logger.info("Received analysis request for startup: %s", data.get('startup_name'))
 
         # Validate request data
@@ -187,10 +187,25 @@ def analyze_startup():
         if not all(field in data for field in required_fields):
             return jsonify({'error': 'Missing required fields'}), 400
 
+        # --- Initialize Gemini Client Here --- START
+        api_key = os.getenv('GEMINI_API_KEY')
+        if not api_key:
+            logger.error("GEMINI_API_KEY not found in environment variables.")
+            return jsonify({'error': 'Server configuration error: Missing API Key'}), 500
+        try:
+            genai.configure(api_key=api_key)
+            # Make sure model name matches your needs
+            model = genai.GenerativeModel('gemini-1.5-flash-latest') 
+            logger.info("Gemini client configured successfully for this request.")
+        except Exception as e:
+            logger.error(f"Failed to configure Gemini client: {e}", exc_info=True)
+            return jsonify({'error': 'Failed to initialize AI model'}), 500
+        # --- Initialize Gemini Client Here --- END
+
         # Create detailed analysis prompt
         prompt = create_analysis_prompt(data)
 
-        # Generate response using Gemini
+        # Generate response using the initialized model
         response = model.generate_content(
             prompt,
             generation_config={
@@ -243,7 +258,15 @@ def analyze_startup():
 @app.route('/api/chat', methods=['POST'])
 def chat():
     try:
-        data = request.get_json()
+        # --- Add Content-Type Logging and use force=True --- START
+        content_type = request.headers.get('Content-Type')
+        logger.info(f"Chat request received with Content-Type: {content_type}")
+        data = request.get_json(force=True)
+        if data is None:
+             logger.error("Chat request data could not be parsed as JSON (force=True used), or body was empty.")
+             return jsonify({'error': 'Failed to parse chat request body as JSON or body was empty'}), 400
+        # --- Add Content-Type Logging and use force=True --- END
+
         logger.info("Received chat request")
 
         if 'user_input' not in data:
@@ -287,7 +310,15 @@ def run_research():
     Runs the script as a background process.
     """
     try:
-        data = request.get_json()
+        # --- Add Content-Type Logging and use force=True --- START
+        content_type = request.headers.get('Content-Type')
+        logger.info(f"Run-research request received with Content-Type: {content_type}")
+        data = request.get_json(force=True) # Add force=True
+        if data is None:
+             logger.error("Run-research request data could not be parsed as JSON (force=True used), or body was empty.")
+             return jsonify({'error': 'Failed to parse run-research request body as JSON or body was empty'}), 400
+        # --- Add Content-Type Logging and use force=True --- END
+
         startup_name = data.get('startup_name')
         workers = data.get('workers', 1) # Default to 1 worker if not provided
 
@@ -396,17 +427,10 @@ def serve_static(filename):
 
 if __name__ == '__main__':
     # Make sure log directory exists relative to script location or CWD
-    log_dir = Path('logs')
-    try:
-        log_dir.mkdir(exist_ok=True)
-        # Update FileHandler paths if logging to a specific directory
-        # Note: FileHandler paths need adjustment if logs are intended for 'logs/' folder
-        # e.g., logging.FileHandler(log_dir / 'server.log')
-    except OSError as e:
-         logger.error(f"Could not create log directory {log_dir}: {e}")
-
-    # Change the default port to 5002
-    port = int(os.environ.get('PORT', 5002))
-    logger.info(f"Starting Flask server on http://0.0.0.0:{port}")
-    # Set debug=False for production if desired
-    app.run(debug=True, host='0.0.0.0', port=port) 
+    # log_dir = Path('logs') # Not needed if only using StreamHandler
+    # log_dir.mkdir(exist_ok=True)
+    # Set debug=True for local development, specify host and port
+    # port = int(os.environ.get('PORT', 5002)) # Use 5002 as default locally
+    # logger.info(f"Starting Flask server locally on http://0.0.0.0:{port}")
+    # app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=False) # App Engine controls host and port 
