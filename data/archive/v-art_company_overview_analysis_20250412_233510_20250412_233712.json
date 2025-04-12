@@ -1,0 +1,34 @@
+{
+    "metadata": {
+        "startup_name": "V-Art",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240503_005123",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://v-art.digital/",
+            "https://www.crunchbase.com/organization/v-art",
+            "https://ain.capital/2023/06/01/v-art-raised-1-4-million/",
+            "https://www.linkedin.com/company/v-art-digital/"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "V-Art",
+            "industry": "B2B, AI, Data Licensing, Blockchain",
+            "country": "Ukraine",
+            "founding_date": "July 31, 2020",
+            "mission_statement": "V-Art streamlines data licensing for brands and AI, transforming a slow and cumbersome process into a fast, efficient solution. They aim to unlock incremental revenue for brands and AI teams in compliance with regulations by streamlining internal licensing and providing faster access to high-quality data.",
+            "key_milestones": [
+                "Founded in July 2020",
+                "Raised $1.4 million in Seed funding (as of June 2023)",
+                "Developing an AI-enabled, blockchain-powered technology for IP licensing and management.",
+                "Participated in the Google for Startups Accelerator program.",
+                "Launching AI-driven bulk licensing.",
+                "Scaling the dataset licensing for LLMs."
+            ],
+            "current_status": "Seed stage, actively developing and scaling its platform for data licensing, participating in accelerator programs, and focusing on AI-driven bulk licensing and dataset licensing for LLMs.",
+            "unique_value_proposition": "V-Art offers a flexible, AI-enabled, blockchain-powered technology that reduces IP licensing and management from months to minutes, unlocking incremental revenue for brands and AI teams by streamlining internal licensing and providing faster access to high-quality data."
+        }
+    }
+}

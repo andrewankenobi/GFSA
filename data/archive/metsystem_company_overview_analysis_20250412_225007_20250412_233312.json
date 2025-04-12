@@ -1,0 +1,30 @@
+{
+    "metadata": {
+        "startup_name": "Metsystem",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240412_225005",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.metsystem.com/",
+            "https://www.linkedin.com/"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Metsystem",
+            "industry": "B2B, B2C (Focus on oncology and precision medicine)",
+            "country": "Denmark",
+            "founding_date": "June 30, 2023",
+            "mission_statement": "Metsystem transforms cancer treatment with functional drug screening on resected tumor tissue, working biomarker-independently across all solid tumors. By isolating metastatic subpopulations and cultivating over 1,000 patient-derived cancer organoids (PDCOs), our technology enables high-resolution detection, Al-driven drug response tracking, and automated seeding and imaging for large-scale application.",
+            "key_milestones": [
+                "Founded on June 30, 2023",
+                "Developed MVP (Minimum Viable Product)",
+                "Cultivating over 1,000 patient-derived cancer organoids (PDCOs)",
+                "Raised 2M in pre-seed funding"
+            ],
+            "current_status": "Pre-seed stage startup with an MVP, actively seeking seed funding to accelerate impact in oncology and precision medicine. They are also working on streamlining their image analysis pipeline and optimizing their AI-powered drug screening platform. They are participating in an accelerator program to achieve these goals and gain visibility with VCs.",
+            "unique_value_proposition": "Metsystem offers a functional drug screening platform utilizing patient-derived cancer organoids (PDCOs) to personalize cancer treatment. Their AI-driven approach enables high-resolution detection and drug response tracking, independent of biomarkers, across all solid tumors, potentially improving treatment outcomes for a larger percentage of patients than current precision medicine approaches."
+        }
+    }
+}

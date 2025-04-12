@@ -1,0 +1,41 @@
+{
+    "metadata": {
+        "startup_name": "Material Evolution",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20241027_143500",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": []
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Seed",
+                    "amount": "Not Found",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source": "Not Found"
+                },
+                {
+                    "round": "Series A",
+                    "amount": "25M",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source": "Not Found"
+                }
+            ],
+            "revenue": "As a startup in the product stage MVP and having recently raised Series A funding, Material Evolution's revenue is likely in the pre-revenue or early revenue stages. Specific revenue figures are not publicly available.",
+            "profitability": "Material Evolution is unlikely to be profitable at this stage, given its focus on scaling production and further developing its technology. Profitability will depend on the adoption rate of MevoCem and the company's ability to manage production costs effectively.",
+            "burn_rate": "Specific burn rate information is not publicly available. However, as a company with 22 employees and a 120K tonne/year facility, the burn rate is likely significant, driven by operational expenses, R&D, and salaries. The $25M Series A funding will be used to extend the runway and fund expansion.",
+            "runway": "The $25M Series A funding should provide Material Evolution with a runway of approximately 18-24 months, depending on the burn rate. This estimate assumes that the company will use the funds to scale production, expand its team, and invest in R&D.",
+            "financial_metrics": {
+                "gross_margin": "Not Found",
+                "customer_acquisition_cost": "Not Found",
+                "lifetime_value_of_customer": "Not Found",
+                "ebitda": "Not Found",
+                "cash_flow": "Not Found"
+            }
+        }
+    }
+}

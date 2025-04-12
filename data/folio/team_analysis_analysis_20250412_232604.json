@@ -1,0 +1,62 @@
+{
+    "metadata": {
+        "startup_name": "Folio",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20240412_232559",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.folio.build/",
+            "https://www.linkedin.com/in/faygoldstein/",
+            "https://www.linkedin.com/in/amirt/",
+            "https://www.crunchbase.com/organization/folio-8588"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Fay Goldstein",
+                    "title": "Co-Founder",
+                    "linkedin_url": "https://www.linkedin.com/in/faygoldstein/",
+                    "background": "Based on her LinkedIn profile, Fay has a background in technology and entrepreneurship. Further details on her specific experience in AI or manufacturing sales are not readily available but can be inferred from the startup's focus. Her profile indicates experience with early-stage companies and product development.",
+                    "expertise": "Likely expertise in product development, strategy, and early-stage company building. Specific AI or manufacturing sales expertise needs further validation."
+                },
+                {
+                    "name": "Amir Taiar",
+                    "title": "Co-Founder",
+                    "linkedin_url": "https://www.linkedin.com/in/amirt/",
+                    "background": "Amir's LinkedIn profile suggests a background in engineering and potentially sales or product management. His experience likely complements Fay's, bringing technical or sales knowledge relevant to the manufacturing industry. Further details are needed to ascertain specific expertise.",
+                    "expertise": "Likely expertise in engineering, sales, or product management related to manufacturing. Specific AI expertise needs further validation."
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Employee Count",
+                    "title": "Total Employees",
+                    "linkedin_url": "N/A",
+                    "background": "Folio has a small team of 4 employees. Information on the specific roles and backgrounds of the other two employees is not available through web search.",
+                    "expertise": "The expertise of the other team members is currently unknown. Further investigation is needed to understand their roles and skills."
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Google for Startups Accelerator: AI First",
+                    "title": "Accelerator Program",
+                    "linkedin_url": "N/A",
+                    "background": "Participation in the Google for Startups Accelerator: AI First program provides access to Google's technical expertise and mentorship. This program likely serves as a source of advisors and support for Folio.",
+                    "expertise": "Access to AI expertise, technical mentorship, and business strategy guidance from Google."
+                }
+            ],
+            "hiring_plans": [
+                {
+                    "role": "N/A",
+                    "skills": "N/A",
+                    "description": "Given the pre-seed stage and small team size, Folio is likely planning to expand its team in the near future. Specific roles and skills required are not publicly available, but they will likely focus on AI development, sales, and marketing.",
+                    "urgency": "High"
+                }
+            ],
+            "organizational_structure": "Given the small team size (4 employees), the organizational structure is likely flat and informal. The founders, Fay Goldstein and Amir Taiar, likely hold key leadership positions and are directly involved in all aspects of the business."
+        }
+    }
+}

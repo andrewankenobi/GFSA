@@ -1,0 +1,57 @@
+{
+    "metadata": {
+        "startup_name": "iVerse",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20240412_225112",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.i-verse.online/",
+            "https://il.linkedin.com/in/shira-spetter-zohar-93934217",
+            "https://il.linkedin.com/in/maimon-oded-maimn-494a4521"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Shira Spetter Zohar",
+                    "title": "Co-Founder",
+                    "linkedin_url": "https://il.linkedin.com/in/shira-spetter-zohar-93934217",
+                    "background": "According to her LinkedIn profile, Shira Spetter Zohar has a background in psychology and technology. Further details about her specific experience and expertise are not readily available but can be inferred from her role at iVerse and her LinkedIn profile. She likely focuses on the psychological aspects of the EVA product, ensuring its assessments are accurate and effective.",
+                    "expertise": "Psychology, AI, HR Tech"
+                },
+                {
+                    "name": "Maimon Oded Maimn",
+                    "title": "Co-Founder",
+                    "linkedin_url": "https://il.linkedin.com/in/maimon-oded-maimn-494a4521",
+                    "background": "Based on his LinkedIn profile, Maimon Oded Maimn appears to have a strong background in technology and business development. Further details about his specific experience and expertise are not readily available. He likely focuses on the technical development and business strategy of iVerse.",
+                    "expertise": "Technology, Business Development, AI"
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "background": "Information about other key team members beyond the founders is not publicly available through web search.",
+                    "expertise": "Not Found"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "background": "Information about advisors is not publicly available through web search.",
+                    "expertise": "Not Found"
+                }
+            ],
+            "hiring_plans": [
+                "Given the seed stage and the need to scale operations and expand technology, iVerse likely plans to hire engineers (AI/ML, software), sales and marketing professionals, and potentially HR/organizational psychologists to further refine the EVA product.",
+                "Specific job postings and details of hiring plans are not publicly available, but these are logical assumptions based on the company's stated goals."
+            ],
+            "organizational_structure": "As a startup with 7 employees, iVerse likely has a flat organizational structure with direct communication between team members. The founders likely play active roles in day-to-day operations. As the company grows, they will need to formalize the structure with defined roles and responsibilities."
+        }
+    }
+}

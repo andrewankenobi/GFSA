@@ -1,0 +1,72 @@
+{
+    "metadata": {
+        "startup_name": "Material Evolution",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20241027_165312",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.materialevolution.com/",
+            "https://www.linkedin.com/company/material-evolution/",
+            "https://www.linkedin.com/in/liz-gilligan-09254612/",
+            "https://www.linkedin.com/in/sam-clark-86638312/",
+            "https://www.ukfunds.com/news/material-evolution-raises-19m-to-scale-low-carbon-cement-alternative/",
+            "https://www.crunchbase.com/organization/material-evolution"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Dr. Liz Gilligan",
+                    "title": "Co-Founder",
+                    "background": "Dr. Liz Gilligan is a co-founder of Material Evolution. Her LinkedIn profile indicates expertise in materials science and engineering. She likely provides the technical and scientific leadership for the company.",
+                    "linkedin_url": "https://www.linkedin.com/in/liz-gilligan-09254612/",
+                    "experience_summary": "According to her LinkedIn, she has a background in materials science and engineering. Additional specific experience details are not readily available via web search but can be inferred from her role as co-founder and the company's focus.",
+                    "expertise": [
+                        "Materials Science",
+                        "Cement Chemistry",
+                        "Sustainable Materials"
+                    ]
+                },
+                {
+                    "name": "Sam Clark",
+                    "title": "Co-Founder",
+                    "background": "Sam Clark is a co-founder of Material Evolution. His LinkedIn profile suggests a background potentially in business development or operations. He likely handles the commercial and strategic aspects of the company.",
+                    "linkedin_url": "https://www.linkedin.com/in/sam-clark-86638312/",
+                    "experience_summary": "According to his LinkedIn, he has a background in business and entrepreneurship. Additional specific experience details beyond his role as co-founder are not readily available via web search.",
+                    "expertise": [
+                        "Business Development",
+                        "Strategy",
+                        "Operations"
+                    ]
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "N/A",
+                    "title": "N/A",
+                    "background": "Specific key team members beyond the founders are not publicly available through web search. Given the company size (22 employees), there are likely individuals in roles such as engineering, operations, and sales, but their names and titles are not readily accessible.",
+                    "linkedin_url": "N/A",
+                    "experience_summary": "N/A",
+                    "expertise": []
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "N/A",
+                    "title": "N/A",
+                    "background": "Information on specific advisors to Material Evolution is not publicly available through web search.",
+                    "linkedin_url": "N/A",
+                    "experience_summary": "N/A",
+                    "expertise": []
+                }
+            ],
+            "hiring_plans": [
+                "Information on specific hiring plans is not publicly available. However, given their recent Series A funding and operational facility, they are likely expanding their teams in engineering, operations, sales, and potentially research and development.",
+                "Likely to be hiring for roles in cement production, materials science, and software development given their AI-driven approach."
+            ],
+            "organizational_structure": "The organizational structure is likely relatively flat, given the company's stage and size (22 employees). The founders likely hold key leadership positions, with teams organized around core functions such as research and development, production, and sales/business development. A more detailed structure is not publicly available."
+        }
+    }
+}

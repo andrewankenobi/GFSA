@@ -1,0 +1,77 @@
+{
+    "metadata": {
+        "startup_name": "V-Art",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20240503_000000",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://v-art.digital/",
+            "https://www.linkedin.com/in/anastasiia-gliebova-983959120/",
+            "https://www.linkedin.com/in/olga-simson-64033b44/",
+            "https://www.linkedin.com/in/oleksandr-velychko-5a723313/"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Anastasiia Gliebova",
+                    "title": "Co-founder",
+                    "linkedin_url": "https://www.linkedin.com/in/anastasiia-gliebova-983959120/",
+                    "background": "Based on her LinkedIn profile, Anastasiia appears to have a background in business development and marketing. Further details about her specific expertise within V-Art were not found in the search results.",
+                    "expertise": "Business Development, Marketing",
+                    "potential_strengths": "Strong business acumen and marketing skills, potentially driving growth and market penetration.",
+                    "potential_weaknesses": "Specific technical expertise within AI or blockchain not explicitly mentioned on LinkedIn."
+                },
+                {
+                    "name": "Olga Simson",
+                    "title": "Co-founder",
+                    "linkedin_url": "https://www.linkedin.com/in/olga-simson-64033b44/",
+                    "background": "Olga's LinkedIn profile suggests a background in technology and development. More detailed information about her specific role and expertise within V-Art requires further research.",
+                    "expertise": "Technology, Development",
+                    "potential_strengths": "Likely possesses technical expertise crucial for developing and maintaining the V-Art platform.",
+                    "potential_weaknesses": "Specific experience in AI or blockchain licensing not explicitly detailed on LinkedIn."
+                },
+                {
+                    "name": "Oleksandr Velychko",
+                    "title": "Co-founder",
+                    "linkedin_url": "https://www.linkedin.com/in/oleksandr-velychko-5a723313/",
+                    "background": "Oleksandr's LinkedIn profile suggests a background in computer science. More detailed information about his specific role and expertise within V-Art requires further research.",
+                    "expertise": "Computer Science",
+                    "potential_strengths": "Likely possesses strong technical skills in computer science, important for development of the V-Art platform.",
+                    "potential_weaknesses": "Specific experience in AI or blockchain licensing not explicitly detailed on LinkedIn."
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "background": "Detailed information about other key team members is not publicly available through web search.",
+                    "expertise": "Not Found",
+                    "potential_strengths": "Not Found",
+                    "potential_weaknesses": "Not Found"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "expertise": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "background": "Information about V-Art's advisors is not publicly available through web search.",
+                    "potential_strengths": "N/A",
+                    "potential_weaknesses": "N/A"
+                }
+            ],
+            "hiring_plans": [
+                {
+                    "roles": "Given V-Art's stage (Seed) and focus on AI-driven data licensing, likely future hires include AI/ML engineers, blockchain developers, legal experts specializing in IP licensing, and sales/business development professionals.",
+                    "skills": "AI/ML, blockchain development, IP law, sales, business development",
+                    "strategy": "A strategic hiring plan should focus on attracting talent with expertise in AI, blockchain, and IP licensing. Consider offering equity to attract top talent in the competitive startup landscape."
+                }
+            ],
+            "organizational_structure": "With only 5 employees, V-Art likely has a flat organizational structure. The founders probably handle multiple responsibilities, and communication is likely direct and informal. As the company grows, a more structured organization with defined roles and responsibilities will be necessary."
+        }
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "metadata": {
+        "startup_name": "ShareID",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20240412_225321",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.shareid.ai/",
+            "https://www.crunchbase.com/organization/shareid",
+            "https://www.linkedin.com/company/shareid-ai/",
+            "https://www.usine-digitale.fr/article/les-start-up-francaises-qui-veulent-devenir-les-leaders-de-la-cybersecurite.N2164898",
+            "https://www.laminutetech.com/actualites/securite/shareid-la-solution-didentification-qui-promet-de-ne-pas-stocker-vos-donnees-biometriques/"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Series A",
+                    "amount": "\u20ac4M",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source": "Crunchbase and other sources confirm a 4M fundraising, but details regarding the round and investors are not consistently available in the search results. Further investigation is required to pinpoint exact dates and investors."
+                }
+            ],
+            "revenue": "Information regarding ShareID's specific revenue figures is not publicly available. As a Series A stage company, revenue generation is likely a key focus, but specific numbers are not disclosed.",
+            "profitability": "As a Series A stage startup, ShareID is unlikely to be profitable at this point. The focus is likely on growth and market penetration. Profitability data is not publicly available.",
+            "burn_rate": "Specific burn rate information for ShareID is not publicly available. Burn rate would depend on factors such as employee salaries, marketing expenses, infrastructure costs, and research and development investments.",
+            "runway": "Given the \u20ac4M Series A funding, the runway would depend heavily on the burn rate. Without specific burn rate figures, it's impossible to estimate the runway. However, it's reasonable to assume they have sufficient runway to execute their plans for the next 12-24 months, assuming a typical burn rate for a company of their size and stage.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Specific customer acquisition cost (CAC) data is not publicly available. CAC would vary depending on their sales and marketing strategies and target customer segments.",
+                "lifetime_value": "Specific customer lifetime value (LTV) data is not publicly available. LTV would depend on their pricing model, customer retention rates, and average contract value.",
+                "gross_margin": "Gross margin information is not publicly available. Gross margin would depend on their cost of goods sold (COGS), which would likely be related to their technology infrastructure and customer support costs."
+            }
+        }
+    }
+}

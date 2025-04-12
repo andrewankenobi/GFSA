@@ -1,0 +1,31 @@
+{
+    "metadata": {
+        "startup_name": "Ambr Al",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240412_224248",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.ambr.ai/",
+            "https://www.linkedin.com/company/ambr-ai/",
+            "https://www.uktech.news/accelerators/google-for-startups-accelerator-uk-2024-cohort-20240311"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Ambr Al",
+            "industry": "B2B, AI-powered Communication Training",
+            "country": "United Kingdom",
+            "founding_date": "July 31, 2022",
+            "mission_statement": "Ambr Al helps professionals master difficult workplace conversations through realistic AI simulations, offering a safe and convenient way to build crucial communication skills with instant feedback.",
+            "key_milestones": [
+                "Founded in July 2022",
+                "Raised \u00a31.2M in pre-seed funding",
+                "Selected for the Google for Startups Accelerator UK program in 2024",
+                "Launched a fully functional AI-driven platform for communication practice"
+            ],
+            "current_status": "Pre-seed stage, fully launched product, actively scaling and participating in the Google for Startups Accelerator program to enhance body language analysis technology and AI models. Serving a growing enterprise customer base.",
+            "unique_value_proposition": "Ambr Al provides a realistic and convenient way for professionals to practice high-stakes conversations, presentations, and pitches through AI-powered simulations. It offers instant, personalized feedback on both verbal and non-verbal communication, helping users build confidence and improve their communication skills, addressing the significant financial losses caused by poor workplace communication."
+        }
+    }
+}

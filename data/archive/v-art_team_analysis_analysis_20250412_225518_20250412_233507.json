@@ -1,0 +1,61 @@
+{
+    "metadata": {
+        "startup_name": "V-Art",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20240503_005317",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://v-art.digital/",
+            "https://www.linkedin.com/",
+            "https://ain.capital/"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Anastasiia Gliebova",
+                    "title": "Co-founder & CEO",
+                    "linkedin_url": "Not Found",
+                    "background": "Information about Anastasiia's specific background and expertise related to V-Art is not readily available through web search. Further research is needed to understand her prior experience and how it contributes to V-Art's success.",
+                    "expertise": "CEO experience, likely with a background in art, technology, or business development. Further research is needed to determine specific areas of expertise."
+                },
+                {
+                    "name": "Olga Simson",
+                    "title": "Co-founder",
+                    "linkedin_url": "Not Found",
+                    "background": "Information about Olga's specific background and expertise related to V-Art is not readily available through web search. Further research is needed to understand her prior experience and how it contributes to V-Art's success.",
+                    "expertise": "Likely expertise in art, technology, or business development. Further research is needed to determine specific areas of expertise."
+                },
+                {
+                    "name": "Oleksandr Velychko",
+                    "title": "Co-founder",
+                    "linkedin_url": "Not Found",
+                    "background": "Information about Oleksandr's specific background and expertise related to V-Art is not readily available through web search. Further research is needed to understand his prior experience and how it contributes to V-Art's success.",
+                    "expertise": "Likely expertise in art, technology, or business development. Further research is needed to determine specific areas of expertise."
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "background": "Further research is needed to identify other key team members and their respective backgrounds. Information on specific team members beyond the founders is not readily available through web search.",
+                    "expertise": "Not Found"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "expertise": "Information on advisors is not readily available through web search. Further research is needed to determine if V-Art has any advisors and their areas of expertise."
+                }
+            ],
+            "hiring_plans": [
+                "Based on the Google Accelerator program participation, V-Art likely has plans to expand its team, especially in areas related to AI, blockchain, and business development. Specific hiring plans are not publicly available but are inferred from their growth stage and goals.",
+                "Further research through job boards and company announcements would be required to confirm specific roles and hiring timelines."
+            ],
+            "organizational_structure": "Given the company size (5 employees) and seed stage, V-Art likely has a flat organizational structure with the founders playing key roles in strategy, product development, and business development. As the company grows, a more formalized structure with distinct departments (e.g., engineering, sales, marketing) will likely be necessary."
+        }
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "metadata": {
+        "startup_name": "Folio",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20240412_232556",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.folio.build/",
+            "https://www.crunchbase.com/organization/folio-build",
+            "https://www.linkedin.com/"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Pre-seed",
+                    "amount": "0.255 M",
+                    "date": "N/A",
+                    "investors": "Not Found"
+                }
+            ],
+            "revenue": "As a pre-seed stage startup with an MVP, Folio is unlikely to have generated significant revenue. Revenue is likely minimal or non-existent at this stage.",
+            "profitability": "Folio is not yet profitable, as is typical for pre-seed stage startups. The focus is on product development and market validation.",
+            "burn_rate": "Burn rate is unknown. Estimating burn rate without further information is not possible. It depends on factors like salaries, marketing expenses, and infrastructure costs.",
+            "runway": "Runway is unknown. It depends on the burn rate and the remaining capital from the pre-seed funding. Without knowing the burn rate, the runway cannot be accurately determined.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Not Available",
+                "customer_lifetime_value": "Not Available",
+                "gross_margin": "Not Available",
+                "monthly_recurring_revenue": "Not Available"
+            }
+        }
+    }
+}

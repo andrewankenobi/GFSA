@@ -1,0 +1,31 @@
+{
+    "metadata": {
+        "startup_name": "ShareID",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20241027_162800",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.shareid.ai/",
+            "https://www.linkedin.com/company/shareid/",
+            "https://www.crunchbase.com/organization/shareid"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "ShareID",
+            "industry": "B2B Authentication-as-a-Service (AaaS)",
+            "country": "France",
+            "founding_date": "June 30, 2020",
+            "mission_statement": "ShareID enables real-time, privacy-first identity verification without storing personal or biometric data, redefining digital trust.",
+            "key_milestones": [
+                "Founded in June 2020",
+                "Secured 4M in Series A funding (Source: Crunchbase)",
+                "Fully Launched Product",
+                "Joined Google for Startups Accelerator (Date Not Found)"
+            ],
+            "current_status": "Series A stage, fully launched product, actively participating in the Google for Startups Accelerator program focusing on AI-driven fraud detection and real-time identity verification.",
+            "unique_value_proposition": "ShareID offers a privacy-first, multi-factor authentication solution tied to government-issued IDs. It allows for seamless and secure identity verification through a simple smile, without storing sensitive biometric data. The company aims to improve the balance between user experience, security, and compliance in online identity verification."
+        }
+    }
+}

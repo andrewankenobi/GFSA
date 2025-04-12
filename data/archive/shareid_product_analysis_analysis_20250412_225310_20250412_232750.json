@@ -1,0 +1,46 @@
+{
+    "metadata": {
+        "startup_name": "ShareID",
+        "analysis_area": "product_analysis",
+        "analysis_timestamp": "20240412_225305",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.shareid.ai/",
+            "https://www.linkedin.com/company/shareid-ai/",
+            "https://www.usine-digitale.fr/article/authentication-shareid-leve-4-millions-d-euros-pour-devenir-la-reference-de-l-identite-reutilisable.N2184015",
+            "https://www.lesechos.fr/finance-marches/levees-de-fonds/shareid-leve-4-millions-deuros-pour-securiser-l-identification-en-ligne-1924918",
+            "https://www.laminutedurable.fr/innovation/shareid-une-solution-didentification-reutilisable-pour-un-monde-plus-sur-et-plus-simple/"
+        ]
+    },
+    "analysis": {
+        "product_analysis": {
+            "product_description": "ShareID offers an Authentication-as-a-Service (AaaS) solution that focuses on real-time, privacy-first identity verification without storing personal or biometric data. It aims to replace traditional multi-factor authentication (MFA) methods with a more seamless and secure process. The core idea is to create a reusable digital identity linked to government-issued IDs. Users initially verify their identity through ID and face capture. Subsequent authentication is simplified to a real-time face verification (e.g., a smile), ensuring secure access and transactions without compromising privacy. ShareID targets businesses seeking to enhance user experience, improve security, and maintain compliance in online identity verification.",
+            "core_features": [
+                "Real-time Identity Verification: Verifies user identity in real-time using facial recognition.",
+                "Privacy-First Design: Does not store personal or biometric data, ensuring user privacy and compliance with data protection regulations.",
+                "Reusable Digital Identity: Creates a digital identity linked to government-issued IDs for simplified future authentication.",
+                "Multi-Factor Authentication (MFA) Replacement: Offers a more secure and user-friendly alternative to traditional MFA methods.",
+                "Fraud Detection: Employs AI-driven fraud detection capabilities to identify and prevent fraudulent activities.",
+                "Seamless User Experience: Provides a smooth and intuitive authentication process for users.",
+                "Compliance: Helps businesses comply with relevant regulations regarding identity verification and data privacy."
+            ],
+            "technology_stack": [
+                "AI/Machine Learning: Utilized for facial recognition, fraud detection, and identity verification.",
+                "Cloud Infrastructure: Likely hosted on a cloud platform for scalability and reliability (specific provider not found).",
+                "Biometric Authentication: Employs biometric technology for face capture and verification.",
+                "Security Protocols: Implements robust security protocols to protect user data and prevent unauthorized access.",
+                "API Integration: Offers APIs for easy integration with existing business systems and applications. (Specific API details not found)"
+            ],
+            "development_stage": "Fully Launched",
+            "user_feedback": "While specific user reviews are not readily available, the general sentiment based on news articles and the company's website suggests a positive reception. The focus on privacy, ease of use, and enhanced security are likely to be well-received by both businesses and end-users. Further research into customer testimonials and case studies would be beneficial to gain a more comprehensive understanding of user feedback. Not Found: Specific user reviews or testimonials.",
+            "product_roadmap": [
+                "Advancing Fraud Detection Capabilities: Enhancing AI models to improve the accuracy and effectiveness of fraud detection.",
+                "Strengthening Real-Time Identity Verification: Optimizing the real-time identity verification process for speed and reliability.",
+                "Optimizing AI Models: Continuously improving AI models to enhance security and user privacy.",
+                "Expanding Integration Capabilities: Developing new integrations with various platforms and services to broaden the product's applicability. (Not Found: Specific integrations)",
+                "Scaling the Platform: Enhancing the platform's scalability to accommodate a growing user base."
+            ]
+        }
+    }
+}

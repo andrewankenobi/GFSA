@@ -1,0 +1,36 @@
+{
+    "metadata": {
+        "startup_name": "V-Art",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20250412_225510",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://v-art.digital/",
+            "https://www.crunchbase.com/organization/v-art",
+            "https://ain.capital/2024/01/03/v-art-google-accelerator/"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Seed",
+                    "amount": "1.4M",
+                    "date": "Not Found",
+                    "investors": "Not Found"
+                }
+            ],
+            "revenue": "Information on V-Art's revenue is not publicly available. Based on its stage (Seed) and employee count (5), revenue is likely still in the early stages of development.",
+            "profitability": "V-Art is likely not yet profitable given its Seed stage and focus on scaling its platform. Profitability is a future goal, dependent on successful customer acquisition and monetization of its IP licensing platform.",
+            "burn_rate": "Information on V-Art's burn rate is not publicly available. As a Seed-stage startup, managing burn rate is crucial to extend its runway and achieve key milestones. The Google Accelerator program should help optimize resource allocation.",
+            "runway": "Information on V-Art's runway is not publicly available. The $1.4M seed funding should provide a runway to achieve key milestones such as launching AI-driven bulk licensing and scaling dataset licensing for LLMs. The actual length of the runway will depend on the burn rate.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Customer Acquisition Cost (CAC) data is not publicly available. As a B2B company targeting brands and AI teams, CAC likely involves sales and marketing efforts focused on demonstrating the value proposition of V-Art's platform.",
+                "lifetime_value": "Lifetime Value (LTV) data is not publicly available. LTV will depend on the subscription model or transaction fees associated with IP licensing through the V-Art platform.",
+                "gross_margin": "Gross Margin data is not publicly available. The gross margin will depend on the cost of providing the AI-enabled, blockchain-powered technology and the pricing strategy for the platform.",
+                "recurring_revenue": "Recurring Revenue data is not publicly available. If V-Art adopts a subscription-based model, recurring revenue will be a key metric for assessing the sustainability of the business."
+            }
+        }
+    }
+}

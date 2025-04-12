@@ -1,0 +1,35 @@
+{
+    "metadata": {
+        "startup_name": "Good With",
+        "analysis_area": "business_model",
+        "analysis_timestamp": "20240412_224640",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.goodwith.co/",
+            "https://www.linkedin.com/company/good-with/",
+            "https://www.uktech.news/news/good-with-secures-1-3m-to-tackle-financial-exclusion-20231123",
+            "https://www.finextra.com/pressarticle/99746/good-with-secures-13m-to-tackle-financial-exclusion",
+            "https://www.crunchbase.com/organization/good-with"
+        ]
+    },
+    "analysis": {
+        "business_model": {
+            "revenue_streams": [
+                "B2B: Charging lenders a fee for using the platform to assess creditworthiness and make more informed lending decisions. This could be a per-assessment fee, a subscription model, or a combination.",
+                "B2B2C: Potentially receiving referral fees or commissions from lenders when borrowers access credit products through the Good With platform.",
+                "Premium Features/Services (Future): Offering premium features or personalized financial coaching services to borrowers for a fee. This is speculative, based on the 'hyper-personalized money and mental health support' aspect.",
+                "Data Analytics (Future): Anonymized and aggregated data insights to financial institutions or research organizations (while adhering to privacy regulations). This is a potential future stream."
+            ],
+            "pricing_strategy": "Likely a tiered pricing model for lenders, based on usage volume (number of assessments) or features accessed. Could also involve a combination of subscription and per-assessment fees. The pricing strategy for potential premium B2C services is currently unknown.",
+            "customer_acquisition": "Focus on acquiring lenders as B2B clients through direct sales, industry events, and partnerships with financial institutions. Borrowers are acquired indirectly through lenders who use the Good With platform. Marketing efforts will likely emphasize the benefits of responsible lending and improved access to credit. Participation in programs like Google's AI Startup Accelerator helps with brand awareness and network building.",
+            "partnerships": [
+                "Partnerships with lenders (banks, credit unions, fintech companies) to integrate the Good With platform into their credit assessment processes.",
+                "Potential partnerships with Open Banking providers to enhance data access and platform functionality.",
+                "Partnerships with mental health organizations or financial wellbeing platforms to expand the scope of support offered to borrowers (speculative, based on 'mental health support' aspect).",
+                "Partnerships with credit bureaus to supplement traditional credit data with Open Banking and behavioral data."
+            ],
+            "scaling_strategy": "Expand the platform's reach to more lenders in the UK and potentially internationally. Develop new features and services to enhance the platform's value proposition for both lenders and borrowers. Invest in AI and machine learning to improve the accuracy and personalization of the platform. Potentially explore partnerships with larger financial institutions or technology companies to accelerate growth. Address regulatory compliance in different jurisdictions to facilitate international expansion. Initially focused on the UK market, with plans for future expansion based on success and regulatory considerations."
+        }
+    }
+}

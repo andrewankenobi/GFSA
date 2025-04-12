@@ -1,0 +1,58 @@
+{
+    "metadata": {
+        "startup_name": "Good With",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20250412_224648",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.goodwith.co/",
+            "https://www.linkedin.com/in/gabriela-isas-33668237/",
+            "https://www.linkedin.com/in/elliekallis/",
+            "https://www.uktech.news/accelerators/google-for-startups-accelerator-ai-announces-uk-cohort-2024-20240229"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Gabriela Isas",
+                    "title": "Co-Founder",
+                    "linkedin_url": "https://www.linkedin.com/in/gabriela-isas-33668237/",
+                    "background": "According to her LinkedIn profile, Gabriela has experience in strategy, partnerships, and business development. Specific details on her prior roles and expertise related to the financial or mental health aspects of Good With are not readily available but her profile indicates a strong entrepreneurial drive and focus on building strategic relationships. Her profile highlights experience in scaling businesses and forming partnerships.",
+                    "expertise_fit": "Gabriela's background appears to be more focused on the business development and strategic partnership side, complementing Dr. Kallis's potential expertise in the core product area."
+                },
+                {
+                    "name": "Dr. Ellie Kallis",
+                    "title": "Co-Founder",
+                    "linkedin_url": "https://www.linkedin.com/in/elliekallis/",
+                    "background": "Dr. Kallis's LinkedIn profile indicates expertise in behavioural science and psychology. Her experience likely informs the mental health and behavioural aspects of the Good With platform. Her profile showcases a strong background in research and applying behavioral insights to financial wellbeing.",
+                    "expertise_fit": "Dr. Kallis's expertise in behavioral science and psychology is directly relevant to the core value proposition of Good With, which focuses on addressing the psychological and emotional barriers to financial engagement."
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "title": "Details about the other 6 employees are not publicly available.",
+                    "linkedin_url": "Not Found",
+                    "background": "Information on the remaining 6 team members is not publicly available. It is unknown what their roles are or their specific expertise. Further research would be needed to identify these individuals and their contributions.",
+                    "expertise_fit": "Not Found"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "title": "No information about advisors is currently available.",
+                    "linkedin_url": "Not Found",
+                    "background": "Not Found",
+                    "expertise_fit": "Not Found"
+                }
+            ],
+            "hiring_plans": [
+                "Information about Good With's specific hiring plans is not currently available.",
+                "Further research would be required to determine their current hiring needs and future expansion plans."
+            ],
+            "organizational_structure": "Given the company's size (8 employees), the organizational structure is likely relatively flat. With two founders, the other 6 employees likely report directly to them or to managers who report to the founders. As the company grows, a more formalized organizational structure will be necessary. The absence of public information on the other employees makes it difficult to determine the specific roles and reporting relationships within the organization."
+        }
+    }
+}

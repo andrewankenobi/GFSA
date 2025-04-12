@@ -1,0 +1,45 @@
+{
+    "metadata": {
+        "startup_name": "Material Evolution",
+        "analysis_area": "product_analysis",
+        "analysis_timestamp": "20250412_224912",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.materialevolution.com/",
+            "https://www.linkedin.com/company/material-evolution/",
+            "https://www.crunchbase.com/organization/material-evolution"
+        ]
+    },
+    "analysis": {
+        "product_analysis": {
+            "product_description": "Material Evolution's primary product is MevoCem, a low-carbon cement alternative derived from industrial byproducts. It reduces CO2 emissions by up to 85% compared to traditional cement. The company also develops a Formulation Prediction Tool (FPT) that utilizes AI to analyze and optimize cement compositions, predicting compressive strength based on mineral feedstock and activator ratios with >90% accuracy. They are also working on carbon-negative products.",
+            "core_features": [
+                "MevoCem: Ultra-low carbon cement alternative",
+                "Formulation Prediction Tool (FPT): AI-powered cement composition optimization",
+                "Utilizes industrial byproducts as feedstock",
+                "Alkali fusion technology",
+                "Potential for carbon-negative products",
+                "Scalable production with existing 120K tonne/year facility"
+            ],
+            "technology_stack": [
+                "Patented alkali fusion technology",
+                "AI-driven innovation for material formulation",
+                "Advanced computational tools for cement composition analysis",
+                "Google Cloud architecture (planned integration for FPT)",
+                "Advanced mathematical modelling techniques (planned integration for FPT)"
+            ],
+            "development_stage": "MVP (Minimum Viable Product) for MevoCem. The FPT is also in MVP stage with plans for further development and integration with Google Cloud.",
+            "user_feedback": "Specific user feedback is not publicly available. However, the product addresses a significant market need for sustainable construction materials, suggesting strong potential market acceptance. The company claims >90% accuracy for the FPT, implying positive internal testing results. Further user feedback is likely being gathered from pilot projects and early adopters.",
+            "product_roadmap": [
+                "Expanding the capabilities of the Formulation Prediction Tool (FPT)",
+                "Making the FPT more accessible to users",
+                "Maximizing the FPT's potential for broader applications",
+                "Integrating Google's state-of-the-art cloud architecture into the FPT",
+                "Incorporating advanced mathematical modelling techniques into the FPT",
+                "Scaling production of MevoCem globally",
+                "Developing carbon-negative cement products"
+            ]
+        }
+    }
+}

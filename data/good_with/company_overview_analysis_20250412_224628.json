@@ -1,0 +1,35 @@
+{
+    "metadata": {
+        "startup_name": "Good With",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240412_224624",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.goodwith.co/",
+            "https://www.linkedin.com/company/good-with/",
+            "https://www.uktech.news/news/good-with-secures-1-3m-pre-seed-funding-to-tackle-credit-inaccess-20231011",
+            "https://www.finextra.com/pressarticle/99954/good-with-secures-13m-pre-seed-funding-to-tackle-credit-inaccess",
+            "https://www.seedtable.com/companies/good-with",
+            "https://www.crunchbase.com/organization/good-with"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Good With",
+            "industry": "B2C, B2B2C (Fintech, Financial Services, Mental Health)",
+            "country": "United Kingdom",
+            "founding_date": "July 31, 2019",
+            "mission_statement": "Good With aims to enhance financial capability and creditworthiness by leveraging Open Banking and behavioral data. They strive to empower borrowers with confidence in their financial choices and enable lenders to make safer, more responsible lending decisions.",
+            "key_milestones": [
+                "Founded in July 2019",
+                "Secured \u00a31.3M in pre-seed funding (October 2023)",
+                "Developed an AI-driven, hyper-personalized platform",
+                "Participated in Google's AI Startup Accelerator",
+                "Launched MVP (Minimum Viable Product)"
+            ],
+            "current_status": "Pre-seed stage, with a live MVP and 8 employees. Focused on refining their AI-driven platform and expanding their market reach within the UK and potentially beyond.",
+            "unique_value_proposition": "Good With offers a unique solution to credit inaccessibility by combining Open Banking data, behavioral insights, and AI-driven personalization to improve financial capability and mental health support. This approach enables fairer credit access for consumers and promotes responsible lending practices for financial institutions, creating a 'safe journey to yes' for both parties."
+        }
+    }
+}

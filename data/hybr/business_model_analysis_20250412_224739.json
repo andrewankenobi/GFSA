@@ -1,0 +1,36 @@
+{
+    "metadata": {
+        "startup_name": "Hybr",
+        "analysis_area": "business_model",
+        "analysis_timestamp": "20250412_224734",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.hybr.co.uk/",
+            "https://www.linkedin.com/in/hannah-chappatte-37218188/",
+            "https://www.crunchbase.com/organization/hybr",
+            "https://techround.co.uk/startups/30-student-startups-to-watch-in-2023/",
+            "https://www.uktn.co.uk/funding/hybr-raises-5-5m-seed-round-to-tackle-student-housing-crisis/"
+        ]
+    },
+    "analysis": {
+        "business_model": {
+            "revenue_streams": [
+                "Subscription fees from landlords and letting agents for accessing the platform's features (tenant vetting, automated viewings, offer management, access to a large pool of renters).",
+                "Potential premium features or add-ons for landlords and letting agents (e.g., enhanced marketing, priority support).",
+                "Potentially, referral fees or commissions from partner services (e.g., insurance providers, utility companies) offered to students through the platform.",
+                "Data analytics and insights provided to universities or other educational institutions related to student housing trends and preferences (although this is speculative and requires careful consideration of privacy concerns)."
+            ],
+            "pricing_strategy": "Likely a tiered subscription model for landlords/agents based on the number of properties managed, features used, or the size of their portfolio. A freemium model may exist, offering basic functionality for free to attract users, with paid upgrades for advanced features. Specific pricing details are not publicly available.",
+            "customer_acquisition": "Focuses on both B2B (landlords and letting agents) and B2C (students). For landlords/agents, acquisition strategies include: targeted online advertising (LinkedIn, industry publications), participation in property management conferences and events, direct sales outreach, partnerships with universities and student unions, and leveraging the platform's network effect (as more students use the platform, it becomes more attractive to landlords). For students, acquisition strategies involve: partnerships with universities and student unions, social media marketing (targeting student demographics), online advertising (Google, student forums), and word-of-mouth referrals.",
+            "partnerships": [
+                "Universities: Partnering with universities to integrate Hybr into their student housing resources and promote it to incoming and current students.",
+                "Student Unions: Collaborating with student unions to reach a large student audience and offer exclusive deals or promotions.",
+                "Letting Agencies: Building relationships with letting agencies to onboard their properties onto the Hybr platform and streamline their operations.",
+                "Property Management Companies: Similar to letting agencies, partnering with property management companies to manage student housing.",
+                "Service Providers: Partnering with companies offering services relevant to students (e.g., insurance, utilities, moving services) to offer bundled packages or referral programs."
+            ],
+            "scaling_strategy": "Expansion to new cities and universities within the UK and potentially internationally. Continuous improvement of the platform's features and functionality based on user feedback and market trends. Building a strong brand reputation and establishing Hybr as the leading student lettings platform. Leveraging data analytics to optimize marketing efforts and improve matching between students and properties. Potentially exploring strategic acquisitions of smaller competitors or complementary businesses. Focus on automating more processes within the platform to improve efficiency and reduce operational costs."
+        }
+    }
+}

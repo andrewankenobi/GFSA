@@ -1,0 +1,38 @@
+{
+    "metadata": {
+        "startup_name": "Material Evolution",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20241027_164830",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.materialevolution.com/",
+            "https://www.linkedin.com/company/material-evolution/",
+            "https://www.crunchbase.com/organization/material-evolution"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Series A",
+                    "amount": "\u00a325M",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source": "Not Found"
+                }
+            ],
+            "revenue": "Revenue information for Material Evolution is not publicly available.",
+            "profitability": "Profitability information for Material Evolution is not publicly available. As a Series A stage company, they are likely pre-profitability.",
+            "burn_rate": "Burn rate information for Material Evolution is not publicly available. It would depend on their operational expenses and investment in R&D and scaling their production facility.",
+            "runway": "Runway information for Material Evolution is not publicly available. Their runway would depend on their burn rate and the amount of funding raised in their Series A round. The \u00a325M likely gives them a runway of at least 18-24 months, but this is an estimate.",
+            "financial_metrics": {
+                "gross_margin": "Gross margin information for Material Evolution is not publicly available.",
+                "ebitda_margin": "EBITDA margin information for Material Evolution is not publicly available.",
+                "customer_acquisition_cost": "Customer Acquisition Cost (CAC) information for Material Evolution is not publicly available. As a B2B company selling to the construction industry, their CAC is likely high and dependent on long sales cycles.",
+                "lifetime_value": "Customer Lifetime Value (LTV) information for Material Evolution is not publicly available. It would depend on the size and duration of their contracts with construction companies.",
+                "cash_flow": "Cash flow information for Material Evolution is not publicly available."
+            }
+        }
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "metadata": {
+        "startup_name": "Whering",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20240412_230011",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.whering.co.uk/",
+            "https://www.linkedin.com/in/biancarangecroft/",
+            "https://www.linkedin.com/company/whering/",
+            "https://techcrunch.com/2022/03/09/whering-raises-2m-to-help-you-digitize-your-wardrobe-and-dress-more-sustainably/"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Bianca Rangecroft",
+                    "title": "Founder & CEO",
+                    "linkedin_url": "https://www.linkedin.com/in/biancarangecroft/",
+                    "background": "According to her LinkedIn profile, Bianca Rangecroft is the Founder & CEO of Whering. Her profile indicates experience in entrepreneurship and technology. Further details about her specific prior roles and education can be found on her LinkedIn profile. She is also an investor.",
+                    "expertise": "Entrepreneurship, Fashion Technology, Sustainability"
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Team information is limited to 13 employees. More detailed team information is not publicly available beyond the founder.",
+                    "title": "Various roles within engineering, marketing, and operations are assumed given the stage and function of the company.",
+                    "linkedin_url": "https://www.linkedin.com/company/whering/",
+                    "background": "Information on specific key team members beyond the founder is not readily available through web search. The Whering LinkedIn page provides a general overview of the company and its employees, but does not list individual team members.",
+                    "expertise": "Varied, likely including software development, AI/ML, fashion, marketing, and operations."
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Information regarding specific advisors is not publicly available through web search.",
+                    "title": "Advisor",
+                    "linkedin_url": "Not Found",
+                    "background": "Details about Whering's advisors are not found in readily available online sources.",
+                    "expertise": "Not Found"
+                }
+            ],
+            "hiring_plans": [
+                {
+                    "description": "Specific hiring plans are not publicly available. However, given the seed stage and focus on AI capabilities, it is likely that Whering is actively hiring for roles in software engineering, data science, and AI/ML, especially with their Google partnership.",
+                    "roles": [
+                        "Software Engineers",
+                        "Data Scientists",
+                        "AI/ML Engineers",
+                        "Marketing Specialists"
+                    ],
+                    "skills": [
+                        "Python",
+                        "Machine Learning",
+                        "AI",
+                        "Fashion Industry Knowledge",
+                        "Marketing"
+                    ]
+                }
+            ],
+            "organizational_structure": "Given the size of the team (13 employees) and seed stage, the organizational structure is likely relatively flat. The founder/CEO, Bianca Rangecroft, likely plays a central role in decision-making. Functional teams are likely organized around product development (AI/ML and app development), marketing, and operations."
+        }
+    }
+}

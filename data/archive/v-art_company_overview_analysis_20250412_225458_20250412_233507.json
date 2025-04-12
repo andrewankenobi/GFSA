@@ -1,0 +1,33 @@
+{
+    "metadata": {
+        "startup_name": "V-Art",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240503_000421",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://v-art.digital/",
+            "https://www.crunchbase.com/organization/v-art",
+            "https://ain.capital/2023/10/24/v-art-raised-1-4m/",
+            "https://www.linkedin.com/company/v-art-digital/"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "V-Art",
+            "industry": "B2B, Data Licensing, AI, Blockchain",
+            "country": "Ukraine",
+            "founding_date": "July 31, 2020",
+            "mission_statement": "V-Art aims to streamline data licensing for brands and AI, transforming a slow and cumbersome process into a fast, efficient, and secure solution. They are building a robust ecosystem for brands and creators to securely commercialize their IP.",
+            "key_milestones": [
+                "Launched MVP of their AI-driven data licensing solution.",
+                "Raised $1.4M in seed funding.",
+                "Participated in the Google for Startups Accelerator program.",
+                "Focusing on launching AI-driven bulk licensing.",
+                "Scaling dataset licensing for LLMs."
+            ],
+            "current_status": "Seed stage company focused on developing and scaling its AI-powered data licensing platform. They are actively working on expanding their offerings and building partnerships within the AI and digital asset space. The company is headquartered in Ukraine, and it's actively working on international expansion.",
+            "unique_value_proposition": "V-Art offers a flexible, AI-enabled, blockchain-powered technology that significantly reduces the time and complexity of IP licensing and management, from months to minutes. They unlock incremental revenue for brands and AI teams by streamlining internal licensing and providing faster access to high-quality data in compliance with regulations. They aim to help brands utilize and monetize a larger percentage of their digital assets, which are currently underutilized due to outdated licensing processes. Their platform addresses the challenges AI tools face in accessing high-quality data sets."
+        }
+    }
+}

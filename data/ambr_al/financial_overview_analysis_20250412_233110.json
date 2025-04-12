@@ -1,0 +1,34 @@
+{
+    "metadata": {
+        "startup_name": "Ambr Al",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20241027_011423",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": []
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Pre-seed",
+                    "amount": "\u00a31.2M",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source": "Based on provided information. Further details not found."
+                }
+            ],
+            "revenue": "As a pre-seed startup that fully launched their product, Ambr Al's revenue is likely in early stages. Specific revenue figures are not publicly available. Further search did not reveal any revenue information.",
+            "profitability": "Given the pre-seed stage and recent product launch, Ambr Al is unlikely to be profitable. They are likely focused on growth and product development. Profitability data is not publicly available.",
+            "burn_rate": "Burn rate information is not publicly available. As a pre-seed company with 4 (then 8) employees and \u00a31.2M in funding, their burn rate would be dependent on salaries, marketing expenses, and technology costs. Without further information, a precise estimate is not possible.",
+            "runway": "Runway depends on the burn rate. With \u00a31.2M raised and a likely small team size initially, the runway could be substantial (potentially 18-24 months or more). However, this is highly dependent on their spending. Specific runway details are not publicly available.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Data not publicly available. Likely still being optimized at this stage.",
+                "lifetime_value_of_customer": "Data not publicly available. Would depend on subscription model and customer retention rates.",
+                "gross_margin": "Data not publicly available. Would depend on pricing strategy and cost of service delivery.",
+                "monthly_recurring_revenue": "Data not publicly available. Assumes a subscription-based revenue model.",
+                "cash_balance": "\u00a31.2M (initial pre-seed funding). This will decrease as the company spends on operations."
+            }
+        }
+    }
+}

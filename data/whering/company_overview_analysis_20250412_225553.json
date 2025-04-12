@@ -1,0 +1,38 @@
+{
+    "metadata": {
+        "startup_name": "Whering",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240412_225549",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.whering.co.uk/",
+            "https://www.linkedin.com/company/whering/",
+            "https://www.crunchbase.com/organization/whering",
+            "https://techround.co.uk/startups/whering-raises-3-2m-to-scale-its-digital-wardrobe-app/",
+            "https://www.eu-startups.com/2023/03/london-based-whering-secures-e3-2-million-to-build-the-future-of-fashion-personalisation/",
+            "https://www.seedrs.com/whering",
+            "https://sifted.eu/briefings/whering-funding/"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Whering",
+            "industry": "Fashtech, B2B, B2C, Fashion, Technology, Sustainability",
+            "country": "United Kingdom",
+            "founding_date": "May 31, 2020",
+            "mission_statement": "Whering's mission is to empower individuals to make the most of their existing wardrobe and promote more sustainable consumption habits in the fashion industry. They aim to reduce overconsumption and fashion waste by helping users rediscover and restyle their clothes.",
+            "key_milestones": [
+                "Founded in May 2020 by Bianca Rangecroft.",
+                "Launched the B2C app that allows users to digitize their wardrobe.",
+                "Raised \u00a33.2 million in seed funding to scale its digital wardrobe app and expand AI capabilities.",
+                "Developed AI-driven personal styling features within the app.",
+                "Integrated resale functionalities with pre-populated listings, prices, and ROI data.",
+                "Achieved a fully launched product stage with a growing user base.",
+                "Partnered with Google to deepen AI capabilities and provide a personalized social styling experience."
+            ],
+            "current_status": "Whering is a fully launched, seed-stage startup focused on scaling its digital wardrobe app and enhancing its AI-powered styling features. They are actively working on expanding their user base and improving engagement through personalized styling experiences and social features. They are also focusing on B2B partnerships to provide personalized recommendations for retailers.",
+            "unique_value_proposition": "Whering offers a unique solution to fashion overconsumption by providing users with a digital wardrobe and AI-powered styling suggestions. This helps users rediscover their existing clothes, create new outfits, and make more informed purchasing decisions. The platform also facilitates resale, promoting a circular fashion economy. For retailers, Whering offers the potential to provide more relevant and accurate product recommendations, reducing overconsumption and improving customer satisfaction."
+        }
+    }
+}

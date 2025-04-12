@@ -1,0 +1,34 @@
+{
+    "metadata": {
+        "startup_name": "Punto Health",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20250412_231807",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": []
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Seed",
+                    "amount": "\u00a30.8M",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source_url": "Not Found"
+                }
+            ],
+            "revenue": "As a seed-stage company with an MVP and a planned European launch in 2025, Punto Health likely has minimal to no revenue at this point. Revenue generation is expected to begin after the European launch in 2025.",
+            "profitability": "Punto Health is not yet profitable. As a pre-launch, seed-stage company, profitability is a future goal dependent on successful product launch, market adoption, and efficient cost management.",
+            "burn_rate": "Burn rate information is not publicly available. Determining Punto Health's burn rate would require access to their internal financial records. Factors influencing the burn rate include salaries, technology development costs, marketing expenses, and operational overhead.",
+            "runway": "Runway information is not publicly available. Given the \u00a30.8M seed funding, the runway depends heavily on the burn rate. A rough estimate would require knowing the monthly expenses to determine how many months the current funding will last. The Google for Startups Accelerator program could potentially extend the runway by providing resources and mentorship to optimize spending.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Data is not currently available, as the product is in the MVP stage and not yet launched to the general public. CAC will be a key metric to track post-launch.",
+                "lifetime_value": "LTV is currently projected and based on anticipated subscription models or per-user fees. Actual LTV will be determined post-launch.",
+                "gross_margin": "Gross margin is currently projected and dependent on the pricing strategy and the cost of providing the service. Actual gross margin will be determined post-launch.",
+                "recurring_revenue": "Recurring revenue is expected to be the primary revenue stream, based on a subscription model for the PuntoCare and PuntoClinic platforms. The exact percentage of revenue that will be recurring is currently unknown.",
+                "cash_flow": "Currently negative due to ongoing development and operational expenses. Positive cash flow is projected after the European launch in 2025."
+            }
+        }
+    }
+}

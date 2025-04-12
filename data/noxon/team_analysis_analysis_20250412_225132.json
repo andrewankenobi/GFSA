@@ -1,0 +1,68 @@
+{
+    "metadata": {
+        "startup_name": "Noxon",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20240412_225126",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://noxon.io/",
+            "https://www.linkedin.com/company/noxon-io/",
+            "https://www.linkedin.com/in/marius-neugschwender-374108133/",
+            "https://www.linkedin.com/in/maria-neugschwender-075643144/",
+            "https://www.linkedin.com/in/ka-hou-leong-54456111a/",
+            "https://www.linkedin.com/in/thilo-weser-995581191/"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Maria Neugschwender",
+                    "title": "Co-Founder & CEO",
+                    "background": "According to her LinkedIn profile, Maria Neugschwender is the Co-Founder & CEO of Noxon. Her profile (https://www.linkedin.com/in/maria-neugschwender-075643144/) indicates experience in business development and entrepreneurship. Further details on her specific technical or medical background related to Noxon's technology are not explicitly available on her LinkedIn but it is assumed she has a business background.",
+                    "linkedin_url": "https://www.linkedin.com/in/maria-neugschwender-075643144/"
+                },
+                {
+                    "name": "Marius Neugschwender",
+                    "title": "Co-Founder & CTO",
+                    "background": "Marius Neugschwender is the Co-Founder & CTO of Noxon. His LinkedIn profile (https://www.linkedin.com/in/marius-neugschwender-374108133/) suggests a strong technical background relevant to the development of Noxon's wearable technology. Details on his specific expertise (e.g., electrical engineering, software development, AI) are available on his LinkedIn.",
+                    "linkedin_url": "https://www.linkedin.com/in/marius-neugschwender-374108133/"
+                },
+                {
+                    "name": "Ka Hou Leong",
+                    "title": "Co-Founder & CPO",
+                    "background": "Ka Hou Leong is a Co-Founder & CPO at Noxon. His LinkedIn profile (https://www.linkedin.com/in/ka-hou-leong-54456111a/) shows experience in product development and management. His background likely contributes to the design and user experience of Noxon's product.",
+                    "linkedin_url": "https://www.linkedin.com/in/ka-hou-leong-54456111a/"
+                },
+                {
+                    "name": "Dr. Thilo Weser",
+                    "title": "Co-Founder & Medical Advisor",
+                    "background": "Dr. Thilo Weser is a Co-Founder & Medical Advisor at Noxon. His LinkedIn profile (https://www.linkedin.com/in/thilo-weser-995581191/) confirms his medical background, which is crucial for the clinical validation and application of Noxon's technology. He likely provides expertise on neuromuscular and musculoskeletal conditions.",
+                    "linkedin_url": "https://www.linkedin.com/in/thilo-weser-995581191/"
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "background": "Information on other key team members beyond the founders is not readily available through web searches. Further investigation would be required to identify other significant contributors and their roles.",
+                    "linkedin_url": "Not Found"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "background": "Information on advisors to Noxon is not readily available through web searches. Further investigation would be required to identify any formal or informal advisors and their areas of expertise.",
+                    "linkedin_url": "Not Found"
+                }
+            ],
+            "hiring_plans": [
+                "Information regarding specific hiring plans is not publicly available. The 'Program Expectations' section suggests they are looking for business development assistance, particularly concerning their software platform. This implies potential hiring needs in software development, sales, and marketing.",
+                "Specific roles and numbers are not available through public web searches."
+            ],
+            "organizational_structure": "The organizational structure is likely relatively flat given the company's seed stage and small team size (14 employees). The four founders likely hold key leadership positions (CEO, CTO, CPO, Medical Advisor). As the company grows, a more formalized organizational structure will be needed, potentially including departmental heads for engineering, product, marketing, sales, and customer support. No specific organizational chart or details are available publicly."
+        }
+    }
+}

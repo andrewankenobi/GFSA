@@ -1,0 +1,59 @@
+{
+    "metadata": {
+        "startup_name": "V-Art",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20241027_171800",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://v-art.digital/",
+            "https://www.linkedin.com/in/anastasiia-gliebova-97a65144/",
+            "https://www.linkedin.com/in/olga-simson-46566513/",
+            "https://www.linkedin.com/in/oleksandr-velychko-a8524219/",
+            "https://www.crunchbase.com/organization/v-art"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Anastasiia Gliebova",
+                    "role": "Co-founder & CEO",
+                    "background": "According to LinkedIn, Anastasiia has experience in business development and strategy. Her LinkedIn profile is https://www.linkedin.com/in/anastasiia-gliebova-97a65144/. She has a background in the arts and technology, which aligns well with V-Art's mission.",
+                    "linkedin_url": "https://www.linkedin.com/in/anastasiia-gliebova-97a65144/"
+                },
+                {
+                    "name": "Olga Simson",
+                    "role": "Co-founder & CPO",
+                    "background": "Olga's LinkedIn profile (https://www.linkedin.com/in/olga-simson-46566513/) indicates a background in product development and management. Her experience is crucial for shaping V-Art's product roadmap and user experience.",
+                    "linkedin_url": "https://www.linkedin.com/in/olga-simson-46566513/"
+                },
+                {
+                    "name": "Oleksandr Velychko",
+                    "role": "Co-founder & CTO",
+                    "background": "Oleksandr's LinkedIn profile (https://www.linkedin.com/in/oleksandr-velychko-a8524219/) shows a strong technical background, likely responsible for the technical architecture and development of V-Art's platform. His expertise in blockchain and AI is critical to the company's technology.",
+                    "linkedin_url": "https://www.linkedin.com/in/oleksandr-velychko-a8524219/"
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "role": "Details of other key team members are not readily available through web search. Given the company size (5 employees), it's likely that each team member has a significant impact."
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "role": "Information about advisors is not available through web search."
+                }
+            ],
+            "hiring_plans": [
+                {
+                    "role": "Likely hiring for roles related to AI/ML engineering, blockchain development, sales, and marketing given the product stage (MVP) and focus on scaling.",
+                    "details": "Given the seed stage and participation in the Google Accelerator focusing on AI, it's highly probable they are looking to expand their AI/ML team. Sales and marketing roles would also be crucial for customer acquisition and market penetration."
+                }
+            ],
+            "organizational_structure": "Given the small team size (5 employees), the organizational structure is likely flat and agile. The founders probably take on multiple responsibilities. As the company grows, a more structured organization with defined departments will be necessary."
+        }
+    }
+}

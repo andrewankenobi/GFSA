@@ -1,0 +1,37 @@
+{
+    "metadata": {
+        "startup_name": "Metsystem",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20240718_163800",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.metsystem.com/",
+            "https://www.linkedin.com/"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Pre-seed",
+                    "amount": "2M",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source": "Information provided states 2M was raised, but details are not publicly available."
+                }
+            ],
+            "revenue": "As a pre-seed stage company with an MVP, Metsystem is unlikely to have significant revenue at this stage. Revenue generation is likely in the future after further product development and market entry.",
+            "profitability": "Metsystem is not yet profitable, typical for a pre-seed startup focused on R&D and product development.",
+            "burn_rate": "Burn rate information is not publicly available. Estimating burn rate requires detailed knowledge of their operational expenses, including salaries for 9 employees, lab costs for organoid cultivation and drug screening, AI development costs, and marketing expenses. Without further information, a specific number cannot be provided.",
+            "runway": "Runway is difficult to determine without knowing the burn rate. With 2M in pre-seed funding, runway will depend on how efficiently they manage expenses. Further investment will likely be needed to achieve profitability.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Not applicable at this pre-revenue stage.",
+                "gross_margin": "Not applicable at this pre-revenue stage.",
+                "recurring_revenue": "Not applicable at this pre-revenue stage.",
+                "ebitda": "Negative, as the company is currently investing in R&D and operations.",
+                "cash_flow": "Negative, reflecting ongoing investment in product development and operations."
+            }
+        }
+    }
+}

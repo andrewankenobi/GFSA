@@ -1,0 +1,38 @@
+{
+    "metadata": {
+        "startup_name": "Ambr Al",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20240412_224305",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.ambr.ai/",
+            "https://www.linkedin.com/company/ambr-ai/",
+            "https://www.uktech.news/accelerators/google-for-startups-accelerator-uk-2024-20240320"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Pre-seed",
+                    "amount": "\u00a31.2M",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source": "Not Found"
+                }
+            ],
+            "revenue": "As a pre-seed startup, specific revenue figures are not publicly available. Revenue generation would be dependent on early customer acquisition and pilot programs.",
+            "profitability": "Ambr Al is unlikely to be profitable at the pre-seed stage. The focus is on product development, market validation, and customer acquisition. Profitability is a future goal.",
+            "burn_rate": "Specific burn rate information is not publicly available. Burn rate will depend on team size, marketing spend, technology infrastructure costs, and operational expenses. Given the team size of 4 (growing to 8 in Q2), the burn rate would be relatively moderate compared to larger startups.",
+            "runway": "Runway depends on the burn rate and the amount of funding raised. With \u00a31.2M raised, the runway is likely to be around 12-18 months, assuming a moderate burn rate. This is an estimate, as the actual runway depends on spending habits.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Not publicly available at this early stage. This metric will become important as the company scales.",
+                "lifetime_value_of_customer": "Not publicly available at this early stage. This metric will become important as the company scales.",
+                "gross_margin": "Not publicly available at this early stage. Gross margin will depend on the pricing model and cost of delivering the AI-powered platform.",
+                "monthly_recurring_revenue": "Likely minimal or non-existent at this pre-seed stage, focusing on securing initial clients and demonstrating product-market fit.",
+                "cash_balance": "Approximately \u00a31.2M, assuming the entire pre-seed funding has not been spent. Actual cash balance fluctuates based on expenditure."
+            }
+        }
+    }
+}

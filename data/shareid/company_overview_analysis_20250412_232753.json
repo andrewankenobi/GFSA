@@ -1,0 +1,32 @@
+{
+    "metadata": {
+        "startup_name": "ShareID",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20250412_232750",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.shareid.ai/",
+            "https://www.linkedin.com/company/shareid-ai/",
+            "https://www.crunchbase.com/organization/shareid"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "ShareID",
+            "industry": "B2B, Authentication-as-a-Service (AaaS), Identity Verification, Cybersecurity",
+            "country": "France",
+            "founding_date": "June 30, 2020",
+            "mission_statement": "ShareID enables real-time, privacy-first identity verification without storing personal or biometric data, redefining digital trust. They aim to provide seamless, anonymous, and highly secure authentication at scale.",
+            "key_milestones": [
+                "Founded on June 30, 2020",
+                "Raised 4M in Series A funding (Exact date not found, but confirmed Series A stage)",
+                "Fully Launched Product",
+                "Joined Google for Startups Accelerator (Date not found)",
+                "Developed Authentication-as-a-Service tied to government-issued IDs"
+            ],
+            "current_status": "Series A stage, fully launched product, participating in Google for Startups Accelerator, actively focusing on advancing fraud detection capabilities, strengthening real-time identity verification, and optimizing AI models for enhanced security and user privacy.",
+            "unique_value_proposition": "ShareID offers a privacy-first, real-time identity verification solution that eliminates the need to store personal or biometric data. By leveraging government-issued IDs and facial recognition (without storing biometric data), ShareID provides a seamless and secure multi-factor authentication process. This improves user experience, enhances security, and simplifies compliance for businesses."
+        }
+    }
+}

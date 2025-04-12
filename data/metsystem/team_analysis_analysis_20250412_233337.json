@@ -1,0 +1,85 @@
+{
+    "metadata": {
+        "startup_name": "Metsystem",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20250412_233333",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.metsystem.com/",
+            "https://www.linkedin.com/",
+            "https://www.google.com/"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Ninna Struck Rossen, PhD",
+                    "title": "Founder",
+                    "background": "PhD",
+                    "linkedin_url": "Not Found",
+                    "expertise": "Likely deep expertise in cancer biology, drug screening, or related fields given the company's focus and her PhD. Further details require more specific information.",
+                    "previous_experience": "Not Found"
+                },
+                {
+                    "name": "Kamilla Westarp Zornhagen, PhD",
+                    "title": "Founder",
+                    "background": "PhD",
+                    "linkedin_url": "Not Found",
+                    "expertise": "Likely expertise in cancer biology, organoid technology, or a related area, given the company's focus. Further details require more specific information.",
+                    "previous_experience": "Not Found"
+                },
+                {
+                    "name": "Silja Heilmann, PhD",
+                    "title": "Founder",
+                    "background": "PhD",
+                    "linkedin_url": "Not Found",
+                    "expertise": "Likely expertise in AI, image analysis, or related fields, given the company's focus on AI-driven drug response tracking. Further details require more specific information.",
+                    "previous_experience": "Not Found"
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "background": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "expertise": "N/A",
+                    "previous_experience": "N/A"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "expertise": "N/A",
+                    "affiliation": "N/A"
+                }
+            ],
+            "hiring_plans": [
+                {
+                    "role": "Likely seeking experts in AI/ML, particularly those with experience in image analysis and drug discovery.",
+                    "skills": [
+                        "AI/ML",
+                        "Image Analysis",
+                        "Drug Discovery",
+                        "Bioinformatics",
+                        "Cloud Computing (GCP)",
+                        "Cancer Biology"
+                    ],
+                    "priority": "High"
+                },
+                {
+                    "role": "May also be seeking individuals with experience in organoid culture and high-throughput screening.",
+                    "skills": [
+                        "Organoid Culture",
+                        "High-Throughput Screening",
+                        "Cell Biology"
+                    ],
+                    "priority": "Medium"
+                }
+            ],
+            "organizational_structure": "Given the pre-seed stage and 9 employees, the organizational structure is likely flat and highly collaborative. The founders likely hold key leadership positions and are actively involved in all aspects of the business. As they grow, they will need to formalize the structure and delegate responsibilities."
+        }
+    }
+}

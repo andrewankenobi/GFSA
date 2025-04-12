@@ -28,11 +28,6 @@ wheels/
 *.log
 startup_research.log
 
-# Data directories
-data/
-raw/
-results/
-archive/
 
 # OS generated files
 .DS_Store

@@ -1,0 +1,36 @@
+{
+    "metadata": {
+        "startup_name": "Material Evolution",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240412_224908",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.materialevolution.com/",
+            "https://www.linkedin.com/company/material-evolution/",
+            "https://www.crunchbase.com/organization/material-evolution",
+            "https://www.ukgbc.org/news/ukgbc-announces-winners-of-2023-innovate-uk-net-zero-carbon-building-mission/",
+            "https://connect.innovateukedge.ukri.org/company/material-evolution-limited",
+            "https://www.constructionnews.co.uk/sustainability/material-evolution-secures-25m-to-scale-up-low-carbon-cement-alternative-20-03-2024/"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Material Evolution",
+            "industry": "B2B, Construction Materials, Cement Manufacturing",
+            "country": "United Kingdom",
+            "founding_date": "December 31, 2019",
+            "mission_statement": "To transform the construction industry by providing ultra-low carbon cement made from industrial byproducts, significantly reducing CO2 emissions and repurposing waste materials.",
+            "key_milestones": [
+                "2019: Company Founded",
+                "Secured \u00a321.5M Series A funding (March 2024)",
+                "Operates a 120K tonne/year facility producing MevoCem",
+                "Developing carbon-negative product",
+                "Developed Formulation Prediction Tool (FPT) for optimizing cement compositions",
+                "Winner of Innovate UK Net Zero Carbon Building Mission 2023"
+            ],
+            "current_status": "Series A stage, actively scaling up production and expanding the capabilities of its Formulation Prediction Tool (FPT). They are focusing on commercializing MevoCem, their low-carbon cement alternative, and exploring opportunities for further innovation in sustainable construction materials. Recently secured Series A funding to scale up production.",
+            "unique_value_proposition": "Material Evolution offers a sustainable alternative to traditional cement by utilizing industrial byproducts and patented alkali fusion technology to produce ultra-low carbon cement (MevoCem). This reduces CO2 emissions by up to 85% compared to traditional cement, addresses the environmental impact of cement production, and repurposes industrial waste. Their AI-driven Formulation Prediction Tool (FPT) optimizes cement compositions, ensuring consistent quality and efficiency."
+        }
+    }
+}

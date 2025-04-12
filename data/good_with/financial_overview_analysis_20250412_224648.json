@@ -1,0 +1,48 @@
+{
+    "metadata": {
+        "startup_name": "Good With",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20240412_225000",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.goodwith.co/",
+            "https://www.linkedin.com/company/good-with/",
+            "https://techround.co.uk/interviews/gabriela-isas-co-founder-ceo-of-good-with/",
+            "https://www.ukbaa.org.uk/news/good-with-secures-1-3m-to-revolutionise-credit-access/",
+            "https://www.finextra.com/pressarticle/95795/good-with-raises-13m-to-transform-credit-access-for-millions",
+            "https://www.crowdcube.com/companies/good-with/pitches/lJ2XlZ",
+            "https://www.startups.co.uk/startups-100/2023/good-with"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Pre-seed",
+                    "amount": "\u00a31.3M",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source": "https://www.ukbaa.org.uk/news/good-with-secures-1-3m-to-revolutionise-credit-access/"
+                }
+            ],
+            "revenue": "As a pre-seed startup with an MVP, Good With is likely not generating substantial revenue yet. Specific revenue figures are not publicly available.",
+            "profitability": "Good With is unlikely to be profitable at this stage, as it is focused on product development, market validation, and scaling its operations. No information found regarding profitability.",
+            "burn_rate": "Burn rate information is not publicly available.",
+            "runway": "Runway information is not publicly available. However, the \u00a31.3M pre-seed funding should provide runway for product development, team expansion, and initial market entry.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Customer acquisition cost data is not publicly available.",
+                "customer_lifetime_value": "Customer lifetime value data is not publicly available.",
+                "gross_margin": "Gross margin data is not publicly available.",
+                "key_performance_indicators": [
+                    "Number of users on the platform",
+                    "Engagement rate with the platform's features",
+                    "Improvement in users' credit scores",
+                    "Number of partnerships with lenders",
+                    "Lender approval rates for users on the platform",
+                    "User retention rate"
+                ]
+            }
+        }
+    }
+}

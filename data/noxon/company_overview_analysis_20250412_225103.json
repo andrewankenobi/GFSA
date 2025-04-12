@@ -1,0 +1,33 @@
+{
+    "metadata": {
+        "startup_name": "Noxon",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20250412_225100",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://noxon.io/",
+            "https://www.linkedin.com/company/noxon-io/",
+            "https://www.crunchbase.com/organization/noxon",
+            "https://www.startbase.de/startups/noxon/"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Noxon",
+            "industry": "B2B, B2C, Wearable Technology, Healthcare, AI, Medical Devices",
+            "country": "Germany",
+            "founding_date": "May 31, 2022",
+            "mission_statement": "Noxon is redefining muscle health with groundbreaking wearable technology that provides personalized treatments for musculoskeletal and neuromuscular conditions. (Based on provided overview and confirmed on website)",
+            "key_milestones": [
+                "Founded in May 2022 by Maria Neugschwender, Marius Neugschwender, Ka Hou Leong, and Dr. Thilo Weser.",
+                "Raised \u20ac0.75M in Seed funding.",
+                "Developed a Muscle-Computer Interface (MCI) wearable technology.",
+                "Reached MVP (Minimum Viable Product) stage.",
+                "Team size of 14 employees."
+            ],
+            "current_status": "Seed stage startup focused on developing and commercializing their Muscle-Computer Interface (MCI) wearable technology for personalized muscle health treatments. They are actively seeking business development opportunities, particularly related to their software platform.",
+            "unique_value_proposition": "Noxon offers a wearable Muscle-Computer Interface (MCI) that provides personalized treatments for musculoskeletal and neuromuscular conditions by integrating neuromuscular electrical stimulation (NMES), electrical muscle measurement (EMG), and AI. This allows for 24/7 monitoring and treatment, addressing the limitations of current solutions that are often unsuitable for daily use and fail to leverage muscle data effectively. Their solution targets a large market, addressing the 30% of the global population suffering from muscle health issues."
+        }
+    }
+}

@@ -1,0 +1,53 @@
+{
+    "metadata": {
+        "startup_name": "Good With",
+        "analysis_area": "product_analysis",
+        "analysis_timestamp": "20250412_224628",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.goodwith.co/",
+            "https://www.linkedin.com/company/good-with/",
+            "https://www.uktech.news/news/good-with-secures-1-3m-to-tackle-financial-exclusion-20240124",
+            "https://www.finextra.com/pressarticle/101657/good-with-secures-13m-to-tackle-financial-exclusion",
+            "https://techround.co.uk/startups/good-with-funding/",
+            "https://www.youtube.com/watch?v=6eB-L4fP9jA"
+        ]
+    },
+    "analysis": {
+        "product_analysis": {
+            "product_description": "Good With offers an AI-driven, hyper-personalized platform that leverages Open Banking and behavioral data to improve financial capability and creditworthiness. The platform aims to help individuals access fair credit and guides lenders toward responsible lending by providing tailored money and mental health support. It addresses the issue of individuals being misjudged for credit due to limited credit score data, focusing on those with thin credit files or non-traditional financial backgrounds. The platform provides insights into users' financial behavior and offers personalized guidance to improve their financial well-being, which in turn helps lenders make more informed decisions.",
+            "core_features": [
+                "Open Banking Integration: Connects to users' bank accounts to gather financial data.",
+                "Behavioral Data Analysis: Analyzes user spending habits and financial behaviors.",
+                "AI-Powered Personalization: Delivers tailored money and mental health support based on individual needs and circumstances.",
+                "Financial Capability Assessment: Evaluates users' financial literacy and skills.",
+                "Creditworthiness Enhancement: Provides guidance and tools to improve users' credit profiles.",
+                "Personalized Financial Insights: Offers actionable insights into users' spending and saving habits.",
+                "Mental Health Support: Integrates mental health resources to address the emotional aspects of financial management.",
+                "Lender Decision Support: Provides lenders with a more comprehensive view of borrowers' financial capabilities.",
+                "Secure Data Handling: Ensures the security and privacy of user data through robust security measures."
+            ],
+            "technology_stack": [
+                "AI/ML Algorithms: Uses AI to analyze data and provide personalized recommendations.",
+                "Open Banking APIs: Integrates with Open Banking infrastructure to access user financial data.",
+                "Cloud Infrastructure: Likely hosted on a cloud platform like AWS, Azure, or Google Cloud for scalability and reliability.",
+                "Data Analytics Platform: Employs a data analytics platform to process and analyze large volumes of financial data.",
+                "Mobile App (Likely): A mobile app for users to access the platform and receive personalized support. Not explicitly stated but highly probable.",
+                "Backend API: A robust backend API to handle data processing, user management, and communication between different components."
+            ],
+            "development_stage": "MVP (Minimum Viable Product). Good With has secured pre-seed funding and is actively working on refining and scaling its platform. They have participated in Google's AI Startup Accelerator program, indicating an ongoing effort to enhance their AI capabilities.",
+            "user_feedback": "Specific user feedback is not publicly available. However, the company's focus on addressing financial exclusion and providing personalized support suggests a commitment to user-centric design. The emphasis on mental health support indicates an understanding of the emotional challenges associated with financial management. Given the early stage of the company, user feedback is likely being actively collected and incorporated into product development.",
+            "product_roadmap": [
+                "Enhance AI Personalization: Further refine AI algorithms to provide even more personalized and relevant support.",
+                "Expand Mental Health Integration: Integrate additional mental health resources and support features.",
+                "Develop Lender Partnerships: Expand partnerships with lenders to increase the reach and impact of the platform.",
+                "Improve Data Security: Continuously improve data security measures to protect user data.",
+                "Expand Product Features: Add new features based on user feedback and market trends.",
+                "Geographic Expansion: Expand the platform to new markets beyond the UK.",
+                "Automated Financial Planning Tools: Integrate tools for automated budgeting, savings goals, and debt management.",
+                "Credit Score Monitoring: Provide users with credit score monitoring and alerts."
+            ]
+        }
+    }
+}

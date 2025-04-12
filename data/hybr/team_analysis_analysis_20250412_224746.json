@@ -1,0 +1,53 @@
+{
+    "metadata": {
+        "startup_name": "Hybr",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20241027_163722",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.hybr.co.uk/",
+            "https://www.linkedin.com/in/hannah-chappatte-60211871/",
+            "https://www.seedcamp.com/portfolio/hybr/"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Hannah Chappatte",
+                    "role": "Founder",
+                    "linkedin_url": "https://www.linkedin.com/in/hannah-chappatte-60211871/",
+                    "background": "According to her LinkedIn profile, Hannah Chappatte has a background in real estate and technology. Her experience includes working in property management and developing tech solutions for the housing market. She appears to have a strong understanding of the challenges faced by both landlords and tenants. Further details about her educational background and previous roles can be found on her LinkedIn profile."
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "role": "CTO (assumed)",
+                    "linkedin_url": "Not Found",
+                    "background": "Given Hybr's focus on technology and automation, a CTO or Head of Engineering is likely a key team member. However, their name and specific details were not found through web search. Further research on LinkedIn or company profiles might reveal this information."
+                },
+                {
+                    "name": "Not Found",
+                    "role": "Head of Sales/Marketing (assumed)",
+                    "linkedin_url": "Not Found",
+                    "background": "Given the B2B2C nature of the business, a Head of Sales or Marketing would be crucial for acquiring landlords/agents and attracting student renters. Specific details were not found through web search."
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Technical Advisor (mentioned in overview)",
+                    "role": "Technical Advisor",
+                    "linkedin_url": "Not Found",
+                    "background": "The overview mentions a technical advisor assisting with AI integration. Specific details were not found through web search. The advisor's expertise likely lies in AI/ML and its application to business challenges."
+                }
+            ],
+            "hiring_plans": [
+                "Given the seed stage and small team size (10 employees), Hybr is likely actively hiring. Specific roles were not found through web search, but typical roles for a startup at this stage would include: Software Engineers, Sales Representatives, Marketing Specialists, Customer Support Representatives.",
+                "Focus on AI/ML talent to leverage the technology and overcome business bottlenecks as stated in the program expectations."
+            ],
+            "organizational_structure": "Given the team size of 10, Hybr likely has a flat organizational structure. Hannah Chappatte as the founder likely oversees all aspects of the business. Functional teams such as Engineering, Sales/Marketing, and Customer Support likely exist, although the exact structure is not publicly available. As the company grows, a more hierarchical structure may emerge."
+        }
+    }
+}

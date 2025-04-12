@@ -1,0 +1,38 @@
+{
+    "metadata": {
+        "startup_name": "Dana Health",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20240703_163500",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://dana.health/",
+            "https://www.eu-startups.com/2024/05/barcelona-based-dana-health-secures-e1-8-million-to-improve-maternal-mental-health/",
+            "https://www.linkedin.com/company/dana-health/"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Pre-seed",
+                    "amount": "\u20ac1.8 million",
+                    "date": "May 2024 (Announced)",
+                    "investors": "Not Found (Specific investors not publicly available beyond general statements in articles.)",
+                    "use_of_funds": "Strengthening AI/ML capabilities, optimizing platform for scalability, and expanding market adoption. Funding will be used to expand its team and strengthen its presence in the Spanish market, while also targeting international expansion.",
+                    "source": "https://www.eu-startups.com/2024/05/barcelona-based-dana-health-secures-e1-8-million-to-improve-maternal-mental-health/"
+                }
+            ],
+            "revenue": "Currently pre-revenue. Focused on clinical validation and securing partnerships. Revenue generation will likely be tied to B2B and B2B2C sales models, including licensing the platform to healthcare providers and integrating with existing healthcare systems.",
+            "profitability": "Not yet profitable. As a pre-seed stage company focused on product development and market validation, profitability is not expected in the short term. Future profitability will depend on successful market penetration, user adoption, and efficient cost management.",
+            "burn_rate": "Burn rate details are not publicly available. It is expected to be relatively low given the team size (4 employees) and stage of development. The recent funding round will likely increase the burn rate as the company invests in expanding its team, enhancing its platform, and pursuing market expansion.",
+            "runway": "Runway is estimated to be sufficient for at least 18-24 months following the \u20ac1.8 million pre-seed funding, assuming responsible financial management. This allows them to achieve clinical validation and expand market adoption.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Not available. Currently focused on clinical validation and partnerships rather than direct customer acquisition.",
+                "lifetime_value_of_customer": "Not available. Early stage, so no historical data exists.",
+                "gross_margin": "Not available. Early stage, no revenue yet.",
+                "monthly_recurring_revenue": "Not available. Early stage, no revenue yet."
+            }
+        }
+    }
+}

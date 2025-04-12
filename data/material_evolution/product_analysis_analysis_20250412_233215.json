@@ -1,0 +1,45 @@
+{
+    "metadata": {
+        "startup_name": "Material Evolution",
+        "analysis_area": "product_analysis",
+        "analysis_timestamp": "20250412_233210",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.materialevolution.com/",
+            "https://www.linkedin.com/company/material-evolution/",
+            "https://www.ukconstructionweek.com/exhibitors/material-evolution",
+            "https://www.crunchbase.com/organization/material-evolution"
+        ]
+    },
+    "analysis": {
+        "product_analysis": {
+            "product_description": "Material Evolution (Mevo) offers MevoCem, an ultra-low carbon cement alternative made from industrial byproducts. It utilizes patented alkali fusion technology and AI-driven innovation to produce a sustainable material that reduces CO2 emissions by up to 85% compared to traditional cement. The company also develops a Formulation Prediction Tool (FPT) that predicts compressive strength performance based on mineral feedstock composition and optimizes activator ratios with >90% accuracy. Mevo also aims to develop carbon-negative products.",
+            "core_features": [
+                "MevoCem: Low-carbon cement alternative derived from industrial waste.",
+                "Alkali Fusion Technology: Patented process for transforming waste materials into cement.",
+                "Formulation Prediction Tool (FPT): AI-powered tool for predicting cement strength and optimizing composition.",
+                "Carbon Reduction: Up to 85% reduction in CO2 emissions compared to traditional cement.",
+                "Waste Repurposing: Utilizes industrial waste, reducing landfill burden.",
+                "Carbon Negative Product Development: Aims to create cement that actively removes carbon from the atmosphere."
+            ],
+            "technology_stack": [
+                "Alkali Fusion Technology: Core patented technology for cement production.",
+                "AI and Machine Learning: Used in the Formulation Prediction Tool (FPT) for optimization and prediction.",
+                "Cloud Computing: Integrates Google's cloud architecture for FPT scalability and performance.",
+                "Mathematical Modelling: Used for advanced analysis and optimization of cement formulations.",
+                "Proprietary Cement Manufacturing Process: Details are not publicly available, but likely involves specific equipment and process controls."
+            ],
+            "development_stage": "MVP. MevoCem is in operation with a 120K tonne/year facility. The Formulation Prediction Tool (FPT) is also at the MVP stage, with plans for further development and broader application.",
+            "user_feedback": "Specific user feedback is not publicly available. However, the company emphasizes the product's performance and sustainability benefits, suggesting positive reception from early adopters or pilot projects. The company's focus on scaling and improving the FPT also indicates a desire to meet user needs and expand product capabilities. The fact they are scaling to a 120K tonne/year facility suggests positive market traction and acceptance.",
+            "product_roadmap": [
+                "Scaling Production: Expanding production capacity to meet growing demand.",
+                "FPT Enhancement: Improving the Formulation Prediction Tool's capabilities and accessibility.",
+                "Carbon-Negative Product Development: Researching and developing cement that actively removes carbon from the atmosphere.",
+                "Geographic Expansion: Expanding operations to new regions and markets.",
+                "Further integration of advanced mathematical modelling techniques into the FPT.",
+                "Broadening the application of the FPT beyond cement formulations."
+            ]
+        }
+    }
+}

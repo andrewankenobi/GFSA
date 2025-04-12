@@ -1,0 +1,61 @@
+{
+    "metadata": {
+        "startup_name": "ShareID",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20241027_164800",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.shareid.ai/",
+            "https://www.linkedin.com/company/shareid/",
+            "https://www.societe.com/societe/shareid-884848280.html",
+            "https://www.lsa-conso.fr/qui-sont-les-start-up-selectionnees-par-google-pour-son-programme-d-acceleration-en-france,451928",
+            "https://www.usine-digitale.fr/article/voici-les-start-up-selectionnees-pour-integrer-le-programme-d-acceleration-de-google-en-france.N1096851"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Sara Sebti",
+                    "title": "Co-founder",
+                    "linkedin_url": "Not Found",
+                    "background": "Information on Sara Sebti's specific background is not readily available through web search. More detailed searches would be needed to uncover specific professional experience prior to ShareID. It is known she is a co-founder of ShareID.",
+                    "expertise": "Likely possesses expertise in areas related to the company's focus, such as digital identity, authentication, or technology entrepreneurship. Further research is needed to confirm specific areas of expertise."
+                },
+                {
+                    "name": "Sawsen Rezig",
+                    "title": "Co-founder",
+                    "linkedin_url": "Not Found",
+                    "background": "Information on Sawsen Rezig's specific background is not readily available through web search. More detailed searches would be needed to uncover specific professional experience prior to ShareID. It is known she is a co-founder of ShareID.",
+                    "expertise": "Likely possesses expertise in areas related to the company's focus, such as digital identity, authentication, or technology entrepreneurship. Further research is needed to confirm specific areas of expertise."
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "N/A",
+                    "title": "N/A",
+                    "linkedin_url": "N/A",
+                    "background": "Information on key team members beyond the founders is not readily available through web search. The company employs 18 people, so there are likely other significant roles, but details are not public.",
+                    "expertise": "N/A"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "N/A",
+                    "expertise": "N/A",
+                    "affiliation": "N/A",
+                    "linkedin_url": "N/A"
+                }
+            ],
+            "hiring_plans": [
+                {
+                    "role": "N/A",
+                    "skills": "N/A",
+                    "priority": "N/A"
+                }
+            ],
+            "organizational_structure": "Given the size of the company (18 employees), the organizational structure is likely relatively flat. The co-founders likely hold significant decision-making power. Further information is needed to describe the organizational structure accurately."
+        }
+    }
+}

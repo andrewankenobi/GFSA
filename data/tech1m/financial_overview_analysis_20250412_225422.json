@@ -1,0 +1,38 @@
+{
+    "metadata": {
+        "startup_name": "Tech1M",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20240702_153000",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.tech1m.com/",
+            "https://www.linkedin.com/company/tech1m/"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Seed",
+                    "amount": "\u00a31M",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source": "https://www.tech1m.com/"
+                }
+            ],
+            "revenue": "As a seed-stage startup in private beta, Tech1M's revenue is likely minimal or non-existent at this stage. Revenue generation is probably in its early stages as the company focuses on product development and market validation. Specific revenue figures are not publicly available.",
+            "profitability": "Given the seed stage and focus on product development, Tech1M is likely not profitable. The \u00a31M seed funding is probably being used to cover operational expenses, technology development, and team salaries. Profitability is expected to be a focus in later stages of growth.",
+            "burn_rate": "Specific burn rate information is not publicly available. As a company with 9 employees and an AI-driven platform in development, the burn rate is likely substantial. A significant portion of the \u00a31M seed funding is probably allocated to salaries, infrastructure costs (cloud computing for AI), and marketing/sales efforts. A rough estimate, without concrete data, would be \u00a350,000 - \u00a3100,000 per month, but this is speculative.",
+            "runway": "Runway is difficult to determine without knowing the exact burn rate. With \u00a31M in funding and an estimated burn rate (see above), the runway could be between 10-20 months. This is highly dependent on the actual burn rate and any additional revenue generated. The Google Accelerator program could potentially extend the runway by providing resources and mentorship that reduce costs or accelerate revenue generation. ",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Not Found",
+                "customer_lifetime_value": "Not Found",
+                "gross_margin": "Not Found",
+                "monthly_recurring_revenue": "Not Found",
+                "cash_balance": "\u00a31M (initial seed funding, less expenses)",
+                "key_performance_indicators": "Given the early stage, key performance indicators likely focus on product development milestones (e.g., AI agent accuracy, user engagement in private beta), customer acquisition (number of beta users, conversion rates), and brand awareness (website traffic, social media engagement)."
+            }
+        }
+    }
+}

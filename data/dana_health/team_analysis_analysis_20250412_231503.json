@@ -1,0 +1,59 @@
+{
+    "metadata": {
+        "startup_name": "Dana Health",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20240412_231458",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://dana.health/",
+            "https://www.linkedin.com/in/estherguiu/",
+            "https://www.linkedin.com/in/roser-palau-serra-32466514/"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Esther Guiu",
+                    "title": "Co-founder",
+                    "linkedin_url": "https://www.linkedin.com/in/estherguiu/",
+                    "details": "Based on LinkedIn, Esther Guiu is a Co-founder at Dana Health. Further details about her specific role and background require deeper investigation or direct information from Dana Health. Her LinkedIn profile shows a background likely relevant to healthcare and/or technology startups, but specific details are not publicly available without further research. Her LinkedIn profile does not provide specific details about her prior work experience beyond her current role at Dana Health.",
+                    "expertise": "Likely expertise in business development, strategy, or a related area relevant to startup leadership. Requires further investigation."
+                },
+                {
+                    "name": "Roser Palau",
+                    "title": "Co-founder",
+                    "linkedin_url": "https://www.linkedin.com/in/roser-palau-serra-32466514/",
+                    "details": "Based on LinkedIn, Roser Palau is a Co-founder at Dana Health. The LinkedIn profile provides limited information about her background beyond her current role. Her profile does not indicate a specific area of expertise or prior work experience beyond Dana Health. Further investigation is needed to determine her specific contributions and background.",
+                    "expertise": "Likely expertise in technology, healthcare, or a related area relevant to startup leadership. Requires further investigation."
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "details": "Information on other key team members beyond the founders is not readily available through web search. The Dana Health website provides limited information about the team. More information is needed to identify and analyze other key personnel.",
+                    "expertise": "Not Found"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "details": "Information on advisors is not readily available through web search or the Dana Health website. Further investigation is needed to identify and analyze any advisors.",
+                    "expertise": "Not Found"
+                }
+            ],
+            "hiring_plans": [
+                {
+                    "roles": "Likely hiring for roles in AI/ML, software development, clinical research, and business development given their participation in the Google Accelerator and the nature of their product. Specific job postings were not found during the search.",
+                    "details": "Dana Health's participation in the Google Accelerator suggests a focus on strengthening their AI/ML capabilities. This likely translates to hiring needs in related areas. The product stage (MVP fully launched, in clinical validation) indicates a need for clinical research expertise. The goal of expanding market adoption suggests hiring for business development and sales roles. Actual job postings were not found during web search."
+                }
+            ],
+            "organizational_structure": "Given the size of the team (4 employees), the organizational structure is likely flat and informal. As the company grows, they will need to implement a more structured organization with defined roles and responsibilities. More details are not available."
+        }
+    }
+}

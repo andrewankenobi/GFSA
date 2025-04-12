@@ -1,0 +1,64 @@
+{
+    "metadata": {
+        "startup_name": "Metsystem",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20240412_225025",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.metsystem.com/",
+            "https://www.linkedin.com/"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Ninna Struck Rossen, PhD",
+                    "role": "Founder",
+                    "expertise": "Likely related to cancer biology, drug screening, or organoid technology based on the company overview. Further details require additional web search.",
+                    "linkedin_url": "Not Found. Public LinkedIn profile not found with a general search. Requires more specific search terms or direct knowledge.",
+                    "background": "PhD suggests significant academic research experience. Likely in a relevant field such as molecular biology, oncology, or bioengineering. Specifics require more information."
+                },
+                {
+                    "name": "Kamilla Westarp Zornhagen, PhD",
+                    "role": "Founder",
+                    "expertise": "Likely related to cancer biology, drug screening, or organoid technology based on the company overview. Further details require additional web search.",
+                    "linkedin_url": "Not Found. Public LinkedIn profile not found with a general search. Requires more specific search terms or direct knowledge.",
+                    "background": "PhD suggests significant academic research experience. Likely in a relevant field such as molecular biology, oncology, or bioengineering. Specifics require more information."
+                },
+                {
+                    "name": "Silja Heilmann, PhD",
+                    "role": "Founder",
+                    "expertise": "Likely related to cancer biology, drug screening, or organoid technology based on the company overview. Further details require additional web search.",
+                    "linkedin_url": "Not Found. Public LinkedIn profile not found with a general search. Requires more specific search terms or direct knowledge.",
+                    "background": "PhD suggests significant academic research experience. Likely in a relevant field such as molecular biology, oncology, or bioengineering. Specifics require more information."
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Unknown",
+                    "role": "Unknown",
+                    "details": "With 9 employees in total and 3 founders, there are 6 other employees. Their roles and expertise are currently unknown and require further investigation through sources like LinkedIn or company website updates. Roles likely include scientists, engineers (software/automation), and potentially business development/operations personnel.",
+                    "linkedin_url": "Not Found"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Unknown",
+                    "expertise": "Given the focus on cancer treatment, AI, and drug screening, advisors likely include experts in oncology, drug discovery, artificial intelligence/machine learning, and business development within the pharmaceutical or biotech industries. Specific names are not available without further information.",
+                    "linkedin_url": "Not Found",
+                    "affiliation": "Unknown"
+                }
+            ],
+            "hiring_plans": [
+                {
+                    "roles": "Given the pre-seed stage and the technology focus (image analysis, AI), Metsystem likely needs to hire software engineers with expertise in cloud computing (GCP), image processing, and machine learning. They may also need scientists with experience in cancer biology, organoid culture, and drug screening. Business development roles may be considered as they move towards seed funding.",
+                    "skills": "Cloud computing (GCP, BigQuery), image analysis, machine learning, cancer biology, organoid culture, drug screening, business development.",
+                    "urgency": "High for technical roles (software engineers, data scientists) to support the MVP development and optimization as indicated in the program expectations."
+                }
+            ],
+            "organizational_structure": "Likely a flat organizational structure typical of early-stage startups. The founders likely hold key leadership positions, with other employees reporting to them or to designated team leads. As the company grows, a more hierarchical structure may emerge."
+        }
+    }
+}

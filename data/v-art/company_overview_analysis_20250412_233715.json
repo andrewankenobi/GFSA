@@ -1,0 +1,31 @@
+{
+    "metadata": {
+        "startup_name": "V-Art",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240412_233712",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://v-art.digital/",
+            "https://www.crunchbase.com/organization/v-art"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "V-Art",
+            "industry": "B2B (Data Licensing, AI)",
+            "country": "Ukraine",
+            "founding_date": "July 31, 2020",
+            "mission_statement": "V-Art streamlines data licensing for brands and AI, transforming a slow and cumbersome process into a fast, efficient solution. They aim to unlock incremental revenue for brands and AI teams in compliance with regulations by streamlining internal licensing and providing faster access to high-quality data.",
+            "key_milestones": [
+                "Seed Funding Round: Raised $1.4M",
+                "Participation in Google for Startups Accelerator",
+                "MVP Launch: Developed a Minimum Viable Product for their data licensing platform",
+                "Focus on launching AI-driven bulk licensing",
+                "Scaling dataset licensing for LLMs"
+            ],
+            "current_status": "Seed Stage, actively developing and scaling their AI-driven data licensing platform. Participating in Google for Startups Accelerator. Actively seeking to unlock revenue opportunities for IP and digital assets.",
+            "unique_value_proposition": "V-Art offers a flexible, AI-enabled, blockchain-powered technology that reduces IP licensing and management from months to minutes. This provides brands and AI teams with faster access to high-quality data, unlocking incremental revenue in compliance with regulations. They aim to solve the problem of underutilized digital content and the challenges AI tools face in accessing high-quality data sets due to outdated licensing processes."
+        }
+    }
+}

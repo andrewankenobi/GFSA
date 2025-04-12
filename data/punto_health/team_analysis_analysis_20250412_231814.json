@@ -1,0 +1,65 @@
+{
+    "metadata": {
+        "startup_name": "Punto Health",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20250412_231810",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://puntohealth.com/",
+            "https://www.linkedin.com/"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Anna Mu\u00f1oz Farr\u00e9",
+                    "linkedin_url": "Not Found",
+                    "role": "Co-founder",
+                    "background": "Information regarding Anna Mu\u00f1oz Farr\u00e9's detailed background is Not Found. Further research is needed to ascertain her specific expertise and previous roles. Her LinkedIn profile could not be located."
+                },
+                {
+                    "name": "Jack Eckersley",
+                    "linkedin_url": "Not Found",
+                    "role": "Co-founder",
+                    "background": "Information regarding Jack Eckersley's detailed background is Not Found. Further research is needed to ascertain his specific expertise and previous roles. His LinkedIn profile could not be located."
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "role": "Not Found",
+                    "background": "Detailed information about other key team members is Not Found. Further research is needed to identify and assess the experience and skills of the broader Punto Health team. The company website does not list other team members."
+                }
+            ],
+            "advisors": [],
+            "hiring_plans": [
+                {
+                    "role": "AI/ML Engineers",
+                    "skills": [
+                        "Machine Learning",
+                        "AI",
+                        "Cloud Computing",
+                        "Recommendation Engines",
+                        "Speech Analysis"
+                    ],
+                    "rationale": "Based on the program expectations submitted to Google for Startups Accelerator, Punto Health requires AI/ML engineers to optimize machine learning models for personalized care plans (recommendation engine) and their digital biomarker that assesses cognitive status through speech analysis. The team needs expertise in scaling infrastructure and cloud resources.",
+                    "source": "Punto Health's Google for Startups Accelerator application"
+                },
+                {
+                    "role": "Product Designers",
+                    "skills": [
+                        "UX/UI Design",
+                        "Product Strategy",
+                        "User Research"
+                    ],
+                    "rationale": "The program expectations mention strategic mentorship in product design. Therefore, hiring product designers will be crucial to strengthen the go-to-market strategy across Europe and beyond.",
+                    "source": "Punto Health's Google for Startups Accelerator application"
+                }
+            ],
+            "organizational_structure": "The organizational structure is currently unknown given the limited information available. With only 6 employees, it's likely a flat structure with the founders taking on multiple responsibilities. As the company grows, a more defined organizational chart will be necessary. Further investigation is required to understand the specific roles and reporting lines within the team."
+        }
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "metadata": {
+        "startup_name": "Ambr Al",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240412_233048",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.ambr.ai/",
+            "https://www.linkedin.com/company/ambr-ai/",
+            "https://www.uktech.news/accelerators/google-for-startups-accelerator-uk-2024-cohort-20240311",
+            "https://www.linkedin.com/in/zoe-stones-b7819688/",
+            "https://www.linkedin.com/in/steph-newton-31546943/",
+            "https://www.linkedin.com/in/jamie-wood-a6834a34/",
+            "https://www.uktech.news/news/ambr-ai-pre-seed-20240314"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Ambr Al",
+            "industry": "B2B, AI-powered communication training",
+            "country": "United Kingdom",
+            "founding_date": "July 31, 2022",
+            "mission_statement": "Ambr Al helps professionals master difficult workplace conversations through realistic Voice AI simulations, offering a safe and convenient way to build crucial communication skills with instant feedback.",
+            "key_milestones": [
+                "Founded in July 2022",
+                "Raised \u00a31 million (approximately $1.2 million) in pre-seed funding (March 2024)",
+                "Joined the Google for Startups Accelerator UK (March 2024)",
+                "Launched their AI-driven platform for communication practice",
+                "Grew to 8 employees by Q2 2024"
+            ],
+            "current_status": "Pre-seed stage, fully launched product, participating in Google for Startups Accelerator, actively scaling their AI-powered communication practice platform, and serving enterprise customers.",
+            "unique_value_proposition": "Ambr Al provides a safe and convenient AI-powered platform for professionals to practice and master difficult workplace conversations. The platform offers realistic voice AI simulations with instant, personalized feedback on verbal and non-verbal communication, addressing the costly issue of poor workplace communication by offering a more accessible and effective alternative to traditional role-playing and coaching methods."
+        }
+    }
+}

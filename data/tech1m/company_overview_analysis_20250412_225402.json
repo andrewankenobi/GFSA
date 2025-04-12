@@ -1,0 +1,31 @@
+{
+    "metadata": {
+        "startup_name": "Tech1M",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20250412_225400",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.tech1m.com/",
+            "https://www.linkedin.com/company/tech1m/"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Tech1M",
+            "industry": "B2B, HR Tech, AI-powered Recruitment",
+            "country": "United Kingdom",
+            "founding_date": "March 31, 2022",
+            "mission_statement": "To revolutionize global hiring by eliminating bias and inefficiencies through AI-driven solutions, enabling fair evaluations and transforming HR into a strategic business driver. (Based on provided overview and website analysis)",
+            "key_milestones": [
+                "Founded on March 31, 2022",
+                "Seed Funding of \u00a31M (Source: Based on provided data, currency converted)",
+                "Launched Private Beta of their AI-powered hiring platform",
+                "Joined Google Accelerator program to enhance AI Interview Agent (Source: Based on provided data)",
+                "Developing data-driven, insightful post-interview reports"
+            ],
+            "current_status": "Seed stage startup with a launched private beta, participating in the Google Accelerator program to further develop their AI Interview Agent.",
+            "unique_value_proposition": "Tech1M offers an intelligent global hiring platform that uses AI agents to source, screen, pay, and manage global talent, addressing inefficiencies and biases in traditional talent acquisition processes. It focuses on competency-based assessments, eliminating CVs and promoting objective candidate evaluation."
+        }
+    }
+}

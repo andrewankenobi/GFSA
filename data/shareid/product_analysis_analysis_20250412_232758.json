@@ -1,0 +1,50 @@
+{
+    "metadata": {
+        "startup_name": "ShareID",
+        "analysis_area": "product_analysis",
+        "analysis_timestamp": "20240412_232753",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.shareid.ai/",
+            "https://www.linkedin.com/company/shareid-ai/",
+            "https://www.crunchbase.com/organization/shareid",
+            "https://www.ey.com/fr_fr/news/2023/03/ey-accompagne-shareid-dans-sa-premiere-levee-de-fonds",
+            "https://www.usine-digitale.fr/article/shareid-leve-4-millions-d-euros-pour-securiser-l-authentification-en-ligne.N2106810"
+        ]
+    },
+    "analysis": {
+        "product_analysis": {
+            "product_description": "ShareID offers an Authentication-as-a-Service solution that enables real-time, privacy-first identity verification without storing personal or biometric data. It focuses on creating a reusable digital identity tied to government-issued IDs. The initial setup involves ID and face capture, but the system does not store biometric data. Subsequent authentication requires only a simple smile, streamlining the user experience while maintaining security and compliance.",
+            "core_features": [
+                "Real-time Identity Verification: Verifies user identity instantly during interactions.",
+                "Privacy-First Design: Does not store personal or biometric data, ensuring user privacy and compliance with data protection regulations.",
+                "Reusable Digital Identity: Creates a digital identity that can be used across multiple platforms and services.",
+                "Multi-Factor Authentication (MFA): Provides a secure authentication process beyond traditional username and password.",
+                "AI-Powered Fraud Detection: Utilizes AI to detect and prevent fraudulent activities during the authentication process.",
+                "Face Authentication: Uses facial recognition technology for seamless and secure authentication with a simple smile.",
+                "Government-Issued ID Verification: Authenticates users based on government-issued identification documents.",
+                "Authentication-as-a-Service (AaaS): Provides a cloud-based authentication solution that can be easily integrated into existing systems."
+            ],
+            "technology_stack": [
+                "AI/Machine Learning: Used for fraud detection, facial recognition, and identity verification.",
+                "Cloud Infrastructure: Hosted on a cloud platform for scalability and reliability.",
+                "Biometric Authentication Technology: Used for face capture and analysis, but without storing biometric data.",
+                "API Integration: Allows seamless integration with various applications and platforms.",
+                "Encryption: Used to protect sensitive data during transmission and storage.",
+                "Database: Used to store user information securely, but without storing biometric data."
+            ],
+            "development_stage": "Fully Launched. The product is available for use and is being actively developed to enhance its features and capabilities. ShareID is participating in the Google for Startups Accelerator to further develop its AI-driven fraud detection capabilities and optimize its AI models.",
+            "user_feedback": "Specific user feedback is not publicly available. However, the product's focus on user experience, security, and privacy suggests a positive reception. The ease of use (authentication with a simple smile) likely contributes to user satisfaction. The company emphasizes privacy, which is a major concern for users, and addresses compliance issues that businesses face.",
+            "product_roadmap": [
+                "Enhance Fraud Detection Capabilities: Develop more sophisticated AI algorithms to detect and prevent fraud.",
+                "Strengthen Real-Time Identity Verification: Improve the accuracy and speed of real-time identity verification processes.",
+                "Optimize AI Models: Fine-tune AI models to enhance security without compromising user privacy.",
+                "Expand Platform Integrations: Increase the number of platforms and services that ShareID can integrate with.",
+                "Develop New Authentication Methods: Explore new authentication methods to provide users with more options and flexibility.",
+                "Improve User Experience: Continuously improve the user experience to make the authentication process even more seamless and intuitive.",
+                "Address Regulatory Compliance: Stay up-to-date with the latest regulatory requirements and ensure that the product remains compliant."
+            ]
+        }
+    }
+}

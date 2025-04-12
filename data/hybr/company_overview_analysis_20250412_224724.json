@@ -1,0 +1,34 @@
+{
+    "metadata": {
+        "startup_name": "Hybr",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20250412_224722",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.hybr.co.uk/",
+            "https://www.linkedin.com/in/hannah-chappatte-54705345/",
+            "https://seedtable.com/companies/hybr",
+            "https://www.crunchbase.com/organization/hybr"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Hybr",
+            "industry": "B2B2C Student Lettings Management Platform",
+            "country": "United Kingdom",
+            "founding_date": "October 31, 2019",
+            "mission_statement": "Hybr aims to streamline the student housing process for both renters and landlords/agents, improving housing accessibility and reducing administrative burdens.",
+            "key_milestones": [
+                "Founded in October 2019",
+                "Raised \u00a35.5M in funding (Seed Stage)",
+                "Launched a fully functional student lettings management platform",
+                "Acquired over 1 million renters on the platform",
+                "Successfully automated tenant vetting and viewing scheduling",
+                "Established partnerships with landlords and letting agencies"
+            ],
+            "current_status": "Fully launched, operating in the UK student housing market. Focused on scaling the platform and leveraging AI to improve efficiency and overcome business bottlenecks. Actively participating in accelerator programs to showcase momentum and attract further investment.",
+            "unique_value_proposition": "Hybr offers a comprehensive platform that connects students and graduates with suitable housing options while automating key processes for landlords and letting agents. This reduces marketing costs and administrative burdens for landlords, while providing first-time renters with a streamlined and supportive housing search experience. The platform addresses the challenge of high inquiry volumes and manual processes in the student lettings market."
+        }
+    }
+}

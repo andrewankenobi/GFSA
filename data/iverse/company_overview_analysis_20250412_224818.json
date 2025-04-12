@@ -1,0 +1,32 @@
+{
+    "metadata": {
+        "startup_name": "iVerse",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240503_002500",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.i-verse.online/",
+            "https://www.linkedin.com/in/shira-spetter-zohar-12191810/",
+            "https://www.linkedin.com/in/maimon-oded-maimn-80575426/",
+            "https://www.crunchbase.com/organization/iverse"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "iVerse",
+            "industry": "B2B, AI-driven Hiring Solutions, Human Resources Technology",
+            "country": "Israel",
+            "founding_date": "January 31, 2022",
+            "mission_statement": "To transform hiring by providing AI-driven assessments that evaluate candidates holistically, improving hiring efficiency and reducing bias.",
+            "key_milestones": [
+                "January 31, 2022: Company Founded",
+                "Seed Funding: Raised $2.5 million (Source: Crunchbase)",
+                "Product Launch: EVA, the AI-driven interview platform, is fully launched.",
+                "Team Growth: Expanded to 7 employees."
+            ],
+            "current_status": "Seed stage, fully launched product (EVA), actively seeking to scale operations and expand technology to include simulations and improved reporting capabilities. Focused on addressing inefficiencies in the hiring process.",
+            "unique_value_proposition": "IVERSE offers EVA, an AI-driven platform that conducts interviews and assesses candidates with the accuracy of an expert occupational psychologist, going beyond traditional data analysis to evaluate the whole person. This results in reduced hiring costs (52%), faster hiring times (36%), and increased precision (89%) compared to traditional methods. EVA aims to eliminate bias, streamline the hiring process, and improve the quality of hires."
+        }
+    }
+}

@@ -1,0 +1,50 @@
+{
+    "metadata": {
+        "startup_name": "Tech1M",
+        "analysis_area": "product_analysis",
+        "analysis_timestamp": "20240412_225402",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.tech1m.com/",
+            "https://www.linkedin.com/company/tech1m/",
+            "https://www.linkedin.com/in/tommieedwards/",
+            "https://www.linkedin.com/in/damilolaogunmoye/"
+        ]
+    },
+    "analysis": {
+        "product_analysis": {
+            "product_description": "Tech1M offers an AI-powered global hiring platform designed to streamline talent acquisition. It automates sourcing, screening, and management of global talent, aiming to reduce bias and improve efficiency. The platform focuses on competency-based assessments rather than traditional CVs, providing data-driven insights and feedback to both companies and candidates. The core offering appears to be an 'AI Interview Agent' that conducts unbiased assessments and provides post-interview reports.",
+            "core_features": [
+                "AI-powered candidate sourcing",
+                "Automated candidate screening",
+                "Unbiased competency-based assessments (CV-less hiring)",
+                "AI Interview Agent",
+                "Global talent management",
+                "Automated payment processing for global talent",
+                "Data-driven post-interview reports with candidate feedback",
+                "Analytics and reporting on hiring processes",
+                "Conversational AI interface for interaction"
+            ],
+            "technology_stack": [
+                "AI/ML algorithms for candidate matching and assessment",
+                "Natural Language Processing (NLP) for interview analysis and feedback generation",
+                "Cloud-based infrastructure for scalability and accessibility",
+                "Secure payment processing integration for global payments",
+                "API integrations with existing HR systems (potential)",
+                "Data analytics platform for generating insights"
+            ],
+            "development_stage": "Launched (private beta). The company is actively refining the AI Interview Agent's accuracy and expanding its capabilities, as indicated by their participation in the Google Accelerator program.",
+            "user_feedback": "Since the product is in private beta, direct user feedback is limited. However, the focus on unbiased assessments and data-driven insights suggests a potential for positive feedback from both companies seeking to improve their hiring processes and candidates seeking constructive feedback. The emphasis on eliminating CVs to reduce bias is a key selling point that could resonate well with users.",
+            "product_roadmap": [
+                "Refining the accuracy of the AI Interview Agent",
+                "Expanding the AI Agent's capability to analyze nuanced communication",
+                "Developing more comprehensive and insightful post-interview reports",
+                "Integrating with more HR systems and platforms",
+                "Expanding the range of skills and competencies assessed by the platform",
+                "Adding support for more languages and regions",
+                "Moving from private beta to general availability"
+            ]
+        }
+    }
+}

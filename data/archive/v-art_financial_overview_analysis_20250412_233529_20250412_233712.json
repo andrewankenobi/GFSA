@@ -1,0 +1,39 @@
+{
+    "metadata": {
+        "startup_name": "V-Art",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20241027_001500",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://v-art.digital/",
+            "https://www.crunchbase.com/organization/v-art-digital",
+            "https://ain.capital/2023/05/02/v-art-raised-1-4m/",
+            "https://www.ukraineinvest.gov.ua/news/v-art-google-accelerator/"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Seed",
+                    "amount": "\u20ac1.3M (approximately $1.4M USD)",
+                    "date": "May 2, 2023",
+                    "investors": "Not explicitly stated in available sources, but the funding round was led by existing investors and new angel investors.",
+                    "source": "https://ain.capital/2023/05/02/v-art-raised-1-4m/"
+                }
+            ],
+            "revenue": "Currently, there is no publicly available information regarding V-Art's specific revenue figures. As a Seed-stage company with an MVP, revenue generation is likely in its early stages.",
+            "profitability": "As a Seed-stage startup, V-Art is unlikely to be profitable at this stage. The focus is likely on product development, market validation, and scaling operations.",
+            "burn_rate": "Specific burn rate information is not publicly available. However, as a Seed-stage company with 5 employees and recent funding of $1.4M, the burn rate is likely moderate, focused on product development, marketing, and team expansion.",
+            "runway": "Given the $1.4M seed funding raised in May 2023, and without knowing the precise burn rate, a rough estimate for runway would be between 12-24 months. This is a very rough estimate and depends heavily on their actual spending.",
+            "financial_metrics": {
+                "gross_margin": "Not Available",
+                "customer_acquisition_cost": "Not Available",
+                "customer_lifetime_value": "Not Available",
+                "recurring_revenue": "Potentially applicable, depending on their licensing model. If they offer subscription-based licensing, they would have recurring revenue. Details are not available.",
+                "growth_rate": "Not Available"
+            }
+        }
+    }
+}

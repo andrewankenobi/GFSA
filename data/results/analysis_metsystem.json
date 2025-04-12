@@ -1,0 +1,385 @@
+{
+    "metadata": {
+        "startup_name": "Metsystem",
+        "industry": "B2B, B2C",
+        "country": "Denmark",
+        "assembly_timestamp": "20250412_233412",
+        "model_used_for_areas": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.cancer.gov/",
+            "https://www.fortunebusinessinsights.com/cancer-diagnostics-market-102242",
+            "https://www.google.com/",
+            "https://www.grandviewresearch.com/industry-analysis/cancer-diagnostics-market",
+            "https://www.linkedin.com/",
+            "https://www.linkedin.com/in/kamilla-westarp-zornhagen-8768314/",
+            "https://www.linkedin.com/in/ninna-struck-rossen-76827014/",
+            "https://www.linkedin.com/in/silja-heilmann-27b59513/",
+            "https://www.metsystem.com/",
+            "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9711953/",
+            "https://www.statista.com/statistics/242238/cancer-prevalence-worldwide/",
+            "https://www.who.int/news-room/fact-sheets/detail/cancer"
+        ],
+        "missing_areas": [
+            "growth_strategy",
+            "risk_assessment"
+        ],
+        "assembly_status": "completed_missing_areas"
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Metsystem",
+            "industry": "B2B, B2C, Biotechnology, Precision Medicine, Oncology",
+            "country": "Denmark",
+            "founding_date": "June 30, 2023",
+            "mission_statement": "Metsystem transforms cancer treatment with functional drug screening on resected tumor tissue, working biomarker-independently across all solid tumors. By isolating metastatic subpopulations and cultivating over 1,000 patient-derived cancer organoids (PDCOs), our technology enables high-resolution detection, Al-driven drug response tracking, and automated seeding and imaging for large-scale application.",
+            "key_milestones": [
+                "Founded on June 30, 2023",
+                "Developed a functional drug screening platform using patient-derived cancer organoids (PDCOs)",
+                "Raised 2M in pre-seed funding (assumed based on information provided)",
+                "Developed an MVP (Minimum Viable Product) of their technology",
+                "Cultivated over 1,000 patient-derived cancer organoids (PDCOs)",
+                "Developed an AI-driven drug response tracking system",
+                "Currently participating in an accelerator program to optimize their image analysis pipeline on GCP and transition to BigQuery"
+            ],
+            "current_status": "Pre-seed stage startup with a functional MVP, actively participating in an accelerator program to refine their technology and seeking seed funding. The company has a team of 9 employees and is focused on scaling its AI-powered drug screening platform for personalized cancer treatment.",
+            "unique_value_proposition": "Metsystem offers a biomarker-independent, functional drug screening platform for all solid tumors, utilizing patient-derived cancer organoids (PDCOs) and AI-driven analysis to identify personalized treatments and overcome drug resistance in metastatic cancer. Their high-resolution detection, automated seeding and imaging, and AI-driven drug response tracking enable large-scale application and improved outcomes for cancer patients."
+        },
+        "product_analysis": {
+            "product_description": "Metsystem offers a functional drug screening platform that utilizes patient-derived cancer organoids (PDCOs) to identify personalized cancer treatments. The platform aims to address the limitations of traditional cancer treatments by accounting for genetic differences and drug resistance, particularly in metastatic cases. It involves isolating metastatic subpopulations, cultivating over 1,000 PDCOs, and using AI-driven image analysis to track drug responses and automate the screening process. The goal is to provide clinicians with biomarker-independent data to select the most effective treatments for individual patients.",
+            "core_features": [
+                "Patient-Derived Cancer Organoid (PDCO) cultivation: Growing 3D models of patient tumors to mimic the tumor environment.",
+                "Functional drug screening: Testing the effectiveness of various drugs on PDCOs.",
+                "Isolation of metastatic subpopulations: Focusing on the most aggressive cancer cells.",
+                "High-resolution detection: Detailed analysis of drug response at a cellular level.",
+                "AI-driven drug response tracking: Using artificial intelligence to analyze and interpret drug response data.",
+                "Automated seeding and imaging: Automating the process of setting up and monitoring PDCO cultures.",
+                "3D brightfield time-lapse imaging: Capturing dynamic changes in PDCOs over time.",
+                "Biomarker-independent approach: Providing treatment recommendations regardless of specific cancer biomarkers.",
+                "Large-scale application: Designed to handle a high volume of samples and drugs."
+            ],
+            "technology_stack": [
+                "Patient-Derived Cancer Organoids (PDCOs)",
+                "3D cell culture techniques",
+                "High-throughput screening",
+                "Brightfield microscopy",
+                "Time-lapse imaging",
+                "Artificial Intelligence (AI)",
+                "Image analysis algorithms",
+                "Cloud computing (Google Cloud Platform - GCP)",
+                "Cloud SQL (transitioning to BigQuery)",
+                "Python (likely for data analysis and AI)",
+                "Machine Learning (ML) frameworks (e.g., TensorFlow, PyTorch)"
+            ],
+            "development_stage": "MVP (Minimum Viable Product). The company is currently participating in an accelerator program to streamline their image analysis pipeline and optimize their AI models. This indicates that the core functionality is in place, but ongoing development is focused on improving performance, scalability, and automation.",
+            "user_feedback": "Since Metsystem is pre-seed and in the MVP stage, specific user feedback from widespread clinical use is likely limited. However, feedback from early collaborators (e.g., hospitals, research institutions) is crucial. The accelerator program they are participating in likely involves gathering and incorporating feedback on the platform's usability, data accuracy, and clinical relevance. Direct quotes or testimonials are unavailable without access to internal company data.",
+            "product_roadmap": [
+                "Streamline image analysis pipeline on GCP.",
+                "Transition from Cloud SQL to BigQuery for scalability.",
+                "Optimize encoder training for 3D brightfield time-lapse imaging.",
+                "Secure seed funding to accelerate impact in oncology and precision medicine.",
+                "Expand PDCO library to cover a wider range of cancer types and subtypes.",
+                "Develop more sophisticated AI models for predicting drug response.",
+                "Establish partnerships with hospitals and research institutions for clinical validation.",
+                "Obtain regulatory approvals for clinical use.",
+                "Commercialize the platform and make it available to clinicians."
+            ]
+        },
+        "market_analysis": {
+            "target_market": "Pharmaceutical companies, biotech companies, hospitals, and cancer research institutions involved in drug development and personalized cancer treatment.",
+            "market_size": "The global cancer diagnostics market is substantial and growing. Various reports estimate different values based on inclusion criteria. Estimates range from $170 billion in 2022 (Fortune Business Insights) to over $200 billion by 2030. The personalized medicine market, which Metsystem directly addresses, is also a significant segment, projected to reach hundreds of billions of dollars in the coming years.",
+            "growth_potential": "The market exhibits significant growth potential driven by several factors: \n1.  Increasing cancer incidence globally due to aging populations and lifestyle factors.\n2.  Growing demand for personalized medicine and targeted therapies.\n3.  Advancements in diagnostic technologies, including AI and organoid-based assays.\n4.  Rising awareness of the benefits of early and accurate cancer diagnosis.\n5.  Increasing investment in cancer research and development.\n\nThe integration of AI and organoid technology positions Metsystem in a high-growth area within the broader cancer diagnostics and personalized medicine landscape.",
+            "market_trends": [
+                "Increased adoption of personalized medicine approaches.",
+                "Growing use of liquid biopsies for early cancer detection and monitoring.",
+                "Rising demand for non-invasive diagnostic techniques.",
+                "Integration of artificial intelligence (AI) and machine learning (ML) in cancer diagnostics.",
+                "Development of advanced imaging technologies.",
+                "Increased use of organoid models for drug screening and personalized treatment selection.",
+                "Shift towards precision oncology and targeted therapies.",
+                "Decentralization of diagnostics, bringing testing closer to the patient."
+            ],
+            "customer_segments": [
+                "Pharmaceutical companies: Seeking to identify effective drugs and stratify patient populations for clinical trials.",
+                "Biotech companies: Developing novel cancer therapies and diagnostics.",
+                "Hospitals and cancer centers: Aiming to provide personalized treatment plans for their patients.",
+                "Cancer research institutions: Conducting research to understand cancer biology and develop new treatments.",
+                "Drug development companies: Utilizing the platform for preclinical drug screening and development.",
+                "Clinical research organizations (CROs): Incorporating the platform into clinical trial designs."
+            ],
+            "market_challenges": [
+                "High cost of personalized medicine and advanced diagnostic technologies.",
+                "Regulatory hurdles and approval processes for new diagnostic tests.",
+                "Data privacy and security concerns related to patient genomic data.",
+                "Complexity of cancer biology and the need for sophisticated analytical tools.",
+                "Reimbursement challenges for novel diagnostic tests.",
+                "Competition from established players in the cancer diagnostics market.",
+                "Need for standardization and validation of organoid-based assays.",
+                "Scalability of organoid production and analysis."
+            ]
+        },
+        "business_model": {
+            "revenue_streams": [
+                "Drug Screening Services: Metsystem's primary revenue stream is likely derived from providing functional drug screening services to pharmaceutical companies and research institutions. This involves testing the efficacy of various drugs on patient-derived cancer organoids (PDCOs) to identify the most effective treatments for individual patients or patient subgroups.",
+                "Data Licensing/Subscription: Metsystem could generate revenue by licensing its AI-driven drug response data and insights to pharmaceutical companies for drug development and clinical trial optimization. This could be offered as a subscription-based service, providing ongoing access to updated data and analysis.",
+                "Partnerships with Pharmaceutical Companies: Collaborating with pharmaceutical companies to co-develop personalized cancer treatments and diagnostic tools. This could involve revenue sharing agreements or milestone-based payments.",
+                "Direct-to-Patient (B2C) Services (Future): While currently focused on B2B, Metsystem could potentially expand to offer direct-to-patient services, providing personalized treatment recommendations based on their organoid drug screening results. This would likely involve partnerships with oncologists and healthcare providers.",
+                "Research Grants and Funding: Securing research grants and funding from government agencies and philanthropic organizations to support the development and validation of their technology."
+            ],
+            "pricing_strategy": "Likely premium pricing due to the personalized and high-resolution nature of the drug screening services. Pricing could be based on a per-patient, per-drug, or subscription model. Given the focus on AI-driven analysis and automation, they may offer tiered pricing based on the level of analysis and support provided. The pricing strategy will need to reflect the value proposition of improved treatment outcomes and reduced drug development costs.",
+            "customer_acquisition": "Focus on pharmaceutical companies, research institutions, and potentially oncologists/hospitals. Customer acquisition strategies may include: direct sales and marketing to pharmaceutical companies; presentations at scientific conferences and industry events; publications in peer-reviewed journals; partnerships with key opinion leaders in oncology; participation in accelerator programs and industry consortia; and targeted online advertising and content marketing.",
+            "partnerships": [
+                "Pharmaceutical Companies: Partnering with pharmaceutical companies for drug development, clinical trials, and commercialization.",
+                "Research Institutions: Collaborating with research institutions for data sharing, validation studies, and access to patient samples.",
+                "Hospitals and Oncologists: Working with hospitals and oncologists to integrate their drug screening services into clinical practice.",
+                "Technology Providers: Partnering with technology providers for AI development, data analytics, and automation solutions.",
+                "Funding Organizations: Collaborating with venture capital firms and grant-awarding organizations to secure funding and resources."
+            ],
+            "scaling_strategy": "Metsystem's scaling strategy likely involves: expanding its PDCO library to cover a wider range of cancer types and patient populations; automating and optimizing its drug screening platform to increase throughput and reduce costs; developing standardized protocols and quality control measures to ensure reproducibility and reliability; building a strong team of scientists, engineers, and business professionals; securing strategic partnerships to expand its market reach; and raising additional funding to support its growth initiatives."
+        },
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Pre-seed",
+                    "amount": "2M",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source": "Information provided indicates fundraising of 2M, details on round, date, and investors are not available through web search."
+                }
+            ],
+            "revenue": "As a pre-seed stage company with an MVP product, Metsystem is unlikely to have significant revenue at this stage. Revenue generation is likely focused on future licensing or partnerships after further development and validation of their technology.",
+            "profitability": "Metsystem is not expected to be profitable at the pre-seed stage. The focus is on research and development, building the technology platform, and securing further funding.",
+            "burn_rate": "Burn rate is not publicly available. As a pre-seed company with 9 employees and ongoing R&D, the burn rate is likely significant. Further analysis would require detailed financial information.",
+            "runway": "Runway is not publicly available. With 2M in pre-seed funding, the runway will depend on the burn rate. The program expectations indicate a need for further funding, suggesting a runway of approximately 12-18 months, depending on spending.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Not Applicable. Metsystem is pre-revenue and does not have customers at this stage.",
+                "gross_margin": "Not Applicable. Metsystem is pre-revenue and does not have a gross margin at this stage.",
+                "ebitda": "Not Applicable. Metsystem is pre-revenue and not profitable at this stage.",
+                "cash_flow": "Negative. Metsystem is likely operating with negative cash flow, relying on its pre-seed funding to cover operational expenses and R&D."
+            }
+        },
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Ninna Struck Rossen, PhD",
+                    "title": "Founder",
+                    "background": "PhD",
+                    "linkedin_url": "Not Found",
+                    "expertise": "Likely deep expertise in cancer biology, drug screening, or related fields given the company's focus and her PhD. Further details require more specific information.",
+                    "previous_experience": "Not Found"
+                },
+                {
+                    "name": "Kamilla Westarp Zornhagen, PhD",
+                    "title": "Founder",
+                    "background": "PhD",
+                    "linkedin_url": "Not Found",
+                    "expertise": "Likely expertise in cancer biology, organoid technology, or a related area, given the company's focus. Further details require more specific information.",
+                    "previous_experience": "Not Found"
+                },
+                {
+                    "name": "Silja Heilmann, PhD",
+                    "title": "Founder",
+                    "background": "PhD",
+                    "linkedin_url": "Not Found",
+                    "expertise": "Likely expertise in AI, image analysis, or related fields, given the company's focus on AI-driven drug response tracking. Further details require more specific information.",
+                    "previous_experience": "Not Found"
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "background": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "expertise": "N/A",
+                    "previous_experience": "N/A"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "expertise": "N/A",
+                    "affiliation": "N/A"
+                }
+            ],
+            "hiring_plans": [
+                {
+                    "role": "Likely seeking experts in AI/ML, particularly those with experience in image analysis and drug discovery.",
+                    "skills": [
+                        "AI/ML",
+                        "Image Analysis",
+                        "Drug Discovery",
+                        "Bioinformatics",
+                        "Cloud Computing (GCP)",
+                        "Cancer Biology"
+                    ],
+                    "priority": "High"
+                },
+                {
+                    "role": "May also be seeking individuals with experience in organoid culture and high-throughput screening.",
+                    "skills": [
+                        "Organoid Culture",
+                        "High-Throughput Screening",
+                        "Cell Biology"
+                    ],
+                    "priority": "Medium"
+                }
+            ],
+            "organizational_structure": "Given the pre-seed stage and 9 employees, the organizational structure is likely flat and highly collaborative. The founders likely hold key leadership positions and are actively involved in all aspects of the business. As they grow, they will need to formalize the structure and delegate responsibilities."
+        },
+        "competitive_advantage": {
+            "unique_selling_points": [
+                "Functional drug screening on resected tumor tissue, working biomarker-independently across all solid tumors. This contrasts with many precision medicine approaches that rely on specific biomarkers, potentially limiting applicability.",
+                "Isolation of metastatic subpopulations and cultivation of over 1,000 patient-derived cancer organoids (PDCOs) for high-resolution drug response detection. The scale and patient-derived nature of the organoid library provides a significant advantage.",
+                "AI-driven drug response tracking and automated seeding and imaging for large-scale application. Automation and AI integration enhance throughput and reduce manual effort, potentially lowering costs and accelerating drug screening.",
+                "Focus on metastatic cancer, which often develops resistance and is a major driver of cancer mortality. Addressing this unmet need positions Metsystem to capture a significant market share.",
+                "Personalized treatment selection based on functional testing, potentially leading to improved patient outcomes compared to standard of care or biomarker-driven approaches that only benefit a subset of patients."
+            ],
+            "barriers_to_entry": [
+                "Development and maintenance of a large and diverse library of patient-derived cancer organoids (PDCOs) requires significant investment in infrastructure, expertise, and patient sample acquisition.",
+                "Optimization of AI-driven image analysis and drug response prediction models requires extensive datasets and computational resources. Training and validating these models is a complex and time-consuming process.",
+                "Establishment of strong relationships with hospitals and oncologists to secure access to resected tumor tissue and facilitate clinical adoption of the technology.",
+                "Navigating regulatory hurdles for personalized medicine and drug screening technologies. Obtaining necessary approvals and certifications can be a lengthy and expensive process.",
+                "Competition from established players in the precision medicine and drug discovery space with existing infrastructure, resources, and market presence. Building brand awareness and gaining market share requires significant effort."
+            ],
+            "intellectual_property": [
+                "Specific details regarding Metsystem's intellectual property (e.g., patents, trade secrets) are Not Found through web search. However, the combination of PDCO generation, AI-driven image analysis, and automated drug screening likely forms a protectable process.",
+                "Potential patent applications related to the methods for isolating metastatic subpopulations, generating and culturing PDCOs, and analyzing drug response data using AI. These patents could cover specific techniques, algorithms, or compositions of matter.",
+                "Trade secrets related to the proprietary methods for organoid culture, image analysis, and drug response prediction. Protecting these trade secrets is crucial for maintaining a competitive edge."
+            ],
+            "competitive_landscape": [
+                "The competitive landscape includes companies offering precision medicine solutions, drug screening platforms, and organoid-based assays.",
+                "Competitors in precision medicine may include companies focusing on genomic sequencing and biomarker analysis for drug selection. These companies may have established market presence and relationships with pharmaceutical companies.",
+                "Competitors in drug screening may include companies offering high-throughput screening services using cell lines or other model systems. These companies may have existing infrastructure and expertise in drug discovery.",
+                "Competitors in the organoid space may include companies developing and commercializing organoid-based assays for drug screening and disease modeling. These companies may have proprietary organoid technologies and established customer relationships.",
+                "Key competitors likely include companies like Champions Oncology (offers PDX models and drug screening services), and other companies focusing on personalized oncology solutions. Specific competitor analysis requires further investigation to identify direct competitors offering similar functional drug screening on PDCOs."
+            ]
+        },
+        "risk_assessment": {
+            "market_risks": [],
+            "operational_risks": [],
+            "financial_risks": [],
+            "mitigation_strategies": []
+        },
+        "growth_strategy": {
+            "short_term_goals": [],
+            "long_term_vision": "",
+            "expansion_plans": [],
+            "scaling_approach": ""
+        },
+        "recommendations": {
+            "strategic_recommendations": [
+                {
+                    "recommendation": "Focus on building strategic partnerships with pharmaceutical companies early on.",
+                    "rationale": "Metsystem's platform can significantly benefit pharmaceutical companies by accelerating drug development and identifying potential drug candidates for specific cancer subtypes. Early partnerships can provide funding, access to resources, and validation of the technology.",
+                    "actionable_steps": [
+                        "Identify pharmaceutical companies with a strong focus on oncology and precision medicine.",
+                        "Develop a compelling presentation highlighting the benefits of Metsystem's platform for drug discovery and development.",
+                        "Attend industry conferences and networking events to connect with potential partners.",
+                        "Offer pilot programs to pharmaceutical companies to demonstrate the effectiveness of the platform."
+                    ],
+                    "priority": "High",
+                    "impact": "High",
+                    "effort": "High"
+                },
+                {
+                    "recommendation": "Develop a clear and concise value proposition tailored to different stakeholders (pharmaceutical companies, hospitals, patients).",
+                    "rationale": "Different stakeholders have different needs and priorities. A tailored value proposition will resonate more effectively and increase the likelihood of adoption.",
+                    "actionable_steps": [
+                        "Conduct market research to understand the needs and pain points of each stakeholder group.",
+                        "Develop a separate value proposition for each stakeholder group, highlighting the specific benefits of Metsystem's platform.",
+                        "Test the value propositions with potential customers and partners to gather feedback and refine the messaging.",
+                        "Incorporate the tailored value propositions into all marketing and sales materials."
+                    ],
+                    "priority": "High",
+                    "impact": "High",
+                    "effort": "Medium"
+                }
+            ],
+            "operational_recommendations": [
+                {
+                    "recommendation": "Prioritize the development of a user-friendly interface for the AI-powered drug screening platform.",
+                    "rationale": "A user-friendly interface will make the platform more accessible to researchers and clinicians, increasing adoption and utilization. Given the aim to streamline the image analysis pipeline on GCP, the user interface should be integrated well with the cloud platform.",
+                    "actionable_steps": [
+                        "Conduct user research to understand the needs and preferences of potential users.",
+                        "Design a user-friendly interface that is intuitive and easy to navigate.",
+                        "Develop clear and concise documentation and tutorials.",
+                        "Provide ongoing technical support to users."
+                    ],
+                    "priority": "High",
+                    "impact": "High",
+                    "effort": "Medium"
+                },
+                {
+                    "recommendation": "Implement a robust data management and security system to protect patient data and ensure compliance with regulations.",
+                    "rationale": "Protecting patient data is crucial for maintaining trust and complying with regulations such as GDPR. A robust data management system will also ensure the integrity and reliability of the data used for drug screening.",
+                    "actionable_steps": [
+                        "Develop a comprehensive data management plan that outlines data collection, storage, and security procedures.",
+                        "Implement security measures to protect patient data from unauthorized access and use.",
+                        "Ensure compliance with all relevant regulations, including GDPR.",
+                        "Conduct regular audits to ensure data security and compliance."
+                    ],
+                    "priority": "High",
+                    "impact": "High",
+                    "effort": "Medium"
+                }
+            ],
+            "growth_recommendations": [
+                {
+                    "recommendation": "Explore opportunities to expand the platform to other types of diseases beyond cancer.",
+                    "rationale": "The functional drug screening technology could potentially be applied to other diseases, such as autoimmune disorders and infectious diseases. Expanding the platform to other diseases would increase the market opportunity and diversify the company's revenue streams.",
+                    "actionable_steps": [
+                        "Conduct market research to identify other diseases where the platform could be applied.",
+                        "Develop new assays and protocols for screening drugs for other diseases.",
+                        "Partner with research institutions and pharmaceutical companies to conduct pilot studies.",
+                        "Seek regulatory approval for new applications of the platform."
+                    ],
+                    "priority": "Medium",
+                    "impact": "Medium",
+                    "effort": "High"
+                },
+                {
+                    "recommendation": "Develop a subscription-based business model to generate recurring revenue.",
+                    "rationale": "A subscription-based model will provide a predictable and recurring revenue stream, making the company more attractive to investors. It will also allow Metsystem to build long-term relationships with customers.",
+                    "actionable_steps": [
+                        "Develop different subscription tiers based on usage and features.",
+                        "Offer discounts for long-term subscriptions.",
+                        "Provide excellent customer support to retain subscribers.",
+                        "Continuously add new features and functionality to the platform to justify the subscription fee."
+                    ],
+                    "priority": "Medium",
+                    "impact": "Medium",
+                    "effort": "Medium"
+                }
+            ],
+            "risk_mitigation_recommendations": [
+                {
+                    "recommendation": "Secure intellectual property protection for the platform and its key components.",
+                    "rationale": "Intellectual property protection will prevent competitors from copying the technology and protect the company's competitive advantage.",
+                    "actionable_steps": [
+                        "File patent applications for the platform and its key components.",
+                        "Trademark the company's name and logo.",
+                        "Implement trade secret protection measures to protect confidential information.",
+                        "Monitor the market for potential infringements of the company's intellectual property."
+                    ],
+                    "priority": "High",
+                    "impact": "High",
+                    "effort": "Medium"
+                },
+                {
+                    "recommendation": "Develop a contingency plan to address potential disruptions to the supply chain for tumor tissue samples.",
+                    "rationale": "The platform relies on access to tumor tissue samples. Disruptions to the supply chain could impact the company's ability to conduct drug screening.",
+                    "actionable_steps": [
+                        "Establish relationships with multiple suppliers of tumor tissue samples.",
+                        "Develop alternative protocols that can be used if tumor tissue samples are unavailable.",
+                        "Maintain a buffer stock of tumor tissue samples.",
+                        "Monitor the supply chain for potential disruptions."
+                    ],
+                    "priority": "Medium",
+                    "impact": "Medium",
+                    "effort": "Medium"
+                }
+            ]
+        }
+    }
+}

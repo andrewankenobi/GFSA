@@ -1,0 +1,62 @@
+{
+    "metadata": {
+        "startup_name": "Ambr Al",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20240412_233110",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.ambr.ai/",
+            "https://www.linkedin.com/",
+            "https://www.google.com/"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Zoe Stones",
+                    "linkedin_url": "Not Found",
+                    "role": "Co-founder",
+                    "background": "Information regarding Zoe Stone's specific background and experience is not readily available via web search. Further investigation is needed to determine her expertise and prior roles."
+                },
+                {
+                    "name": "Steph Newton",
+                    "linkedin_url": "Not Found",
+                    "role": "Co-founder",
+                    "background": "Information regarding Steph Newton's specific background and experience is not readily available via web search. Further investigation is needed to determine her expertise and prior roles."
+                },
+                {
+                    "name": "Jamie Wood",
+                    "linkedin_url": "Not Found",
+                    "role": "Co-founder",
+                    "background": "Information regarding Jamie Wood's specific background and experience is not readily available via web search. Further investigation is needed to determine his expertise and prior roles."
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "N/A",
+                    "linkedin_url": "N/A",
+                    "role": "N/A",
+                    "background": "Given the company size (4 employees, growing to 8), specific details on additional key team members beyond the founders are not publicly available. Further research is required to identify other key personnel and their backgrounds."
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "N/A",
+                    "linkedin_url": "N/A",
+                    "area_of_expertise": "N/A",
+                    "background": "Information about specific advisors to Ambr AI is not publicly available. Startups at the pre-seed stage often rely on informal advisors or mentors. Further investigation is needed to identify any formal or informal advisory relationships."
+                }
+            ],
+            "hiring_plans": [
+                {
+                    "role": "N/A",
+                    "skills_needed": "N/A",
+                    "rationale": "Based on the information provided (growing from 4 to 8 employees in Q2), Ambr AI is actively hiring. Specific roles and skills needed are not explicitly stated, but likely include engineering (AI/ML), sales, and marketing positions to support growth and product development. More detail is required to determine the precise nature of the hiring plans."
+                }
+            ],
+            "organizational_structure": "Given the early stage and small team size (4 employees), the organizational structure is likely flat and informal. The founders likely hold multiple responsibilities and directly manage the day-to-day operations. As the company grows to 8 employees, some degree of specialization and functional organization (e.g., engineering, sales, marketing) will likely emerge. More information is needed to provide a detailed organizational chart."
+        }
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "metadata": {
+        "startup_name": "Material Evolution",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20240503_001527",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.materialevolution.com/",
+            "https://www.linkedin.com/company/material-evolution/",
+            "https://www.crunchbase.com/organization/material-evolution",
+            "https://www.ukconstructionweek.com/exhibitors/material-evolution"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Dr Liz Gilligan",
+                    "title": "Co-Founder",
+                    "linkedin_url": "Not Found",
+                    "background": "Information about Dr. Liz Gilligan's specific background beyond being a co-founder is Not Found through web search. Further research would be needed to determine her specific expertise and previous experience.",
+                    "expertise": "Likely holds expertise in materials science, chemistry, or a related field, given the company's focus. Further research is needed."
+                },
+                {
+                    "name": "Sam Clark",
+                    "title": "Co-Founder",
+                    "linkedin_url": "Not Found",
+                    "background": "Information about Sam Clark's specific background beyond being a co-founder is Not Found through web search. Further research would be needed to determine his specific expertise and previous experience.",
+                    "expertise": "Likely holds expertise in business, operations, or a related field, given the need to commercialize the technology. Further research is needed."
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "background": "Specific details about other key team members are Not Found through general web search. Information on the LinkedIn company page is limited. More targeted searches or access to internal company information would be needed.",
+                    "expertise": "Not Found"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "affiliation": "Not Found",
+                    "expertise": "Not Found"
+                }
+            ],
+            "hiring_plans": [
+                "Information about specific hiring plans is Not Found through web search. Monitoring their LinkedIn page and job boards would be necessary to track their hiring activity.",
+                "Given their Series A funding and expansion plans, it is likely they will be hiring for roles in engineering, manufacturing, sales, and business development."
+            ],
+            "organizational_structure": "The organizational structure is Not Found. Given the company's size (22 employees), it is likely a relatively flat structure, but further information is needed to determine the specific reporting lines and departmental organization."
+        }
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "metadata": {
+        "startup_name": "Metsystem",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20240412_233330",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.metsystem.com/",
+            "https://www.linkedin.com/"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Pre-seed",
+                    "amount": "2M",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source": "Information provided indicates fundraising of 2M, details on round, date, and investors are not available through web search."
+                }
+            ],
+            "revenue": "As a pre-seed stage company with an MVP product, Metsystem is unlikely to have significant revenue at this stage. Revenue generation is likely focused on future licensing or partnerships after further development and validation of their technology.",
+            "profitability": "Metsystem is not expected to be profitable at the pre-seed stage. The focus is on research and development, building the technology platform, and securing further funding.",
+            "burn_rate": "Burn rate is not publicly available. As a pre-seed company with 9 employees and ongoing R&D, the burn rate is likely significant. Further analysis would require detailed financial information.",
+            "runway": "Runway is not publicly available. With 2M in pre-seed funding, the runway will depend on the burn rate. The program expectations indicate a need for further funding, suggesting a runway of approximately 12-18 months, depending on spending.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Not Applicable. Metsystem is pre-revenue and does not have customers at this stage.",
+                "gross_margin": "Not Applicable. Metsystem is pre-revenue and does not have a gross margin at this stage.",
+                "ebitda": "Not Applicable. Metsystem is pre-revenue and not profitable at this stage.",
+                "cash_flow": "Negative. Metsystem is likely operating with negative cash flow, relying on its pre-seed funding to cover operational expenses and R&D."
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "metadata": {
+        "startup_name": "Whering",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20240412_225609",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.whering.co.uk/",
+            "https://www.crunchbase.com/organization/whering",
+            "https://sifted.eu/",
+            "https://www.linkedin.com/"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Seed",
+                    "amount": "3.2M",
+                    "date": "Not Found",
+                    "investors": "Not Found"
+                }
+            ],
+            "revenue": "Not Found",
+            "profitability": "Not Found",
+            "burn_rate": "Not Found",
+            "runway": "Not Found",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Not Found",
+                "lifetime_value_of_customer": "Not Found",
+                "gross_margin": "Not Found",
+                "monthly_recurring_revenue": "Not Found"
+            }
+        }
+    }
+}

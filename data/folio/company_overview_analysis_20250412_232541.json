@@ -1,0 +1,33 @@
+{
+    "metadata": {
+        "startup_name": "Folio",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240412_232538",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.folio.build/",
+            "https://www.linkedin.com/in/faygoldstein/",
+            "https://www.linkedin.com/in/amir-taiar-39213911/",
+            "https://www.crunchbase.com/organization/folio-b652"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Folio",
+            "industry": "B2B SaaS, focusing on Manufacturing and Industrial sectors",
+            "country": "Israel",
+            "founding_date": "June 30, 2023",
+            "mission_statement": "Folio's mission is to revolutionize how manufacturers and distributors sell industrial products by transforming complex technical information into user-friendly interfaces, enhancing the customer experience and driving business growth.",
+            "key_milestones": [
+                "June 30, 2023: Company Founded",
+                "Secured $255,000 in Pre-seed Funding",
+                "Developed and launched an MVP (Minimum Viable Product)",
+                "Participation in Google for Startups Accelerator: AI First program",
+                "Focus on building AI solutions for the manufacturing industry"
+            ],
+            "current_status": "Pre-seed stage startup with an MVP product, actively participating in the Google for Startups Accelerator program, and focused on scaling its AI-powered data platform for the manufacturing industry.",
+            "unique_value_proposition": "Folio offers an AI-powered data platform that transforms complex technical information (product specs, catalogs, aftermarket data) into user-friendly interfaces for sales teams and industrial buyers. This simplifies the buying process, improves communication of technical details and business value, and enhances the overall customer experience in the manufacturing and distribution sectors."
+        }
+    }
+}

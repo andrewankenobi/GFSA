@@ -1,0 +1,35 @@
+{
+    "metadata": {
+        "startup_name": "ShareID",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20240412_232809",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.shareid.ai/",
+            "https://www.crunchbase.com/organization/shareid",
+            "https://www.linkedin.com/company/shareid-ai/"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Series A",
+                    "amount": "\u20ac4M",
+                    "date": "Not Found",
+                    "investors": "Not Found"
+                }
+            ],
+            "revenue": "Due to the early stage and limited public financial data, specific revenue figures for ShareID are not publicly available. Revenue is likely generated through subscription-based Authentication-as-a-Service (AaaS) offerings to B2B clients.",
+            "profitability": "As a Series A startup, ShareID is likely prioritizing growth and market penetration over immediate profitability. Profitability details are not publicly available.",
+            "burn_rate": "Specific burn rate information is not publicly available. However, as a Series A funded company with 18 employees, the burn rate would be influenced by salaries, technology infrastructure, marketing expenses, and other operational costs. The 4M Euro funding will be used to fuel expansion and refine their AI models.",
+            "runway": "Given the \u20ac4M Series A funding, the runway would depend heavily on their burn rate. Without specific burn rate figures, it's difficult to estimate the exact runway. However, Series A funding generally aims to provide a runway of 18-24 months to achieve key milestones and potentially raise further funding.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Specific customer acquisition cost (CAC) is not publicly available. CAC would depend on their sales and marketing strategies, target market, and conversion rates.",
+                "customer_lifetime_value": "Specific customer lifetime value (CLTV) is not publicly available. CLTV would depend on their subscription pricing model, customer retention rates, and the average contract value.",
+                "gross_margin": "Gross margin details are not publicly available. Gross margin would depend on the cost of providing their Authentication-as-a-Service and their pricing strategy."
+            }
+        }
+    }
+}

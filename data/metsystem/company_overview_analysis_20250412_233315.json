@@ -1,0 +1,34 @@
+{
+    "metadata": {
+        "startup_name": "Metsystem",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240412_233312",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.metsystem.com/",
+            "https://www.linkedin.com/",
+            "https://www.google.com/"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Metsystem",
+            "industry": "B2B, B2C, Biotechnology, Precision Medicine, Oncology",
+            "country": "Denmark",
+            "founding_date": "June 30, 2023",
+            "mission_statement": "Metsystem transforms cancer treatment with functional drug screening on resected tumor tissue, working biomarker-independently across all solid tumors. By isolating metastatic subpopulations and cultivating over 1,000 patient-derived cancer organoids (PDCOs), our technology enables high-resolution detection, Al-driven drug response tracking, and automated seeding and imaging for large-scale application.",
+            "key_milestones": [
+                "Founded on June 30, 2023",
+                "Developed a functional drug screening platform using patient-derived cancer organoids (PDCOs)",
+                "Raised 2M in pre-seed funding (assumed based on information provided)",
+                "Developed an MVP (Minimum Viable Product) of their technology",
+                "Cultivated over 1,000 patient-derived cancer organoids (PDCOs)",
+                "Developed an AI-driven drug response tracking system",
+                "Currently participating in an accelerator program to optimize their image analysis pipeline on GCP and transition to BigQuery"
+            ],
+            "current_status": "Pre-seed stage startup with a functional MVP, actively participating in an accelerator program to refine their technology and seeking seed funding. The company has a team of 9 employees and is focused on scaling its AI-powered drug screening platform for personalized cancer treatment.",
+            "unique_value_proposition": "Metsystem offers a biomarker-independent, functional drug screening platform for all solid tumors, utilizing patient-derived cancer organoids (PDCOs) and AI-driven analysis to identify personalized treatments and overcome drug resistance in metastatic cancer. Their high-resolution detection, automated seeding and imaging, and AI-driven drug response tracking enable large-scale application and improved outcomes for cancer patients."
+        }
+    }
+}

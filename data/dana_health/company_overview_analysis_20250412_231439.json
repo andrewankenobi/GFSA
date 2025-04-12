@@ -1,0 +1,33 @@
+{
+    "metadata": {
+        "startup_name": "Dana Health",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240412_231436",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://dana.health/",
+            "https://www.linkedin.com/company/danahealth/",
+            "https://www.eu-startups.com/2024/03/barcelona-based-dana-health-secures-e1-8-million-to-revolutionise-maternal-mental-health-with-ai/",
+            "https://www.google.com/"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Dana Health",
+            "industry": "B2B, B2B2C, Digital Health, Maternal Mental Health, AI-powered Healthcare",
+            "country": "Spain",
+            "founding_date": "August 31, 2020",
+            "mission_statement": "Dana Health's mission is to bridge the gap in maternal mental health by providing an AI-powered platform for early detection and personalized support of perinatal mental disorders, ultimately improving the well-being of mothers and their children.",
+            "key_milestones": [
+                "August 31, 2020: Company Founding",
+                "MVP Fully Launched",
+                "Currently in Clinical Validation",
+                "Secured \u20ac1.8 million in Pre-seed Funding (March 2024)",
+                "Participation in Google Accelerator program (2024)"
+            ],
+            "current_status": "Dana Health is a pre-seed stage startup with a fully launched MVP undergoing clinical validation. They have secured \u20ac1.8 million in funding and are participating in the Google Accelerator program. They are focused on scaling their AI/ML capabilities, optimizing their platform, and expanding market adoption.",
+            "unique_value_proposition": "Dana Health offers an AI-powered platform for early detection and personalized support of perinatal mental disorders. Their digital therapeutic platform enhances maternal mental health during matrescence by leveraging AI for early detection and tailored support. This empowers healthcare providers, optimizes resources, and creates lasting benefits for maternal and neonatal well-being, addressing a significant unmet need in maternal mental healthcare."
+        }
+    }
+}

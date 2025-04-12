@@ -1,0 +1,76 @@
+{
+    "metadata": {
+        "startup_name": "Ambr Al",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20240412_224309",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.ambr.ai/",
+            "https://www.linkedin.com/",
+            "https://techround.co.uk/news/ambr-ai-secures-1-2m-to-revolutionise-workplace-communication-skills/",
+            "https://www.uktech.news/ai/ambr-ai-secures-1-2m-to-revolutionise-workplace-communication-skills-2024-03"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Zoe Stones",
+                    "title": "Co-founder",
+                    "linkedin_url": "Not Found",
+                    "background": "Information regarding Zoe Stones' specific background and experience is limited in the available search results. Further investigation may be required to uncover more details about her professional history and expertise. However, given her role as co-founder, she likely possesses relevant skills in business development, strategy, or technology."
+                },
+                {
+                    "name": "Steph Newton",
+                    "title": "Co-founder",
+                    "linkedin_url": "Not Found",
+                    "background": "Information regarding Steph Newton's specific background and experience is limited in the available search results. Further investigation may be required to uncover more details about her professional history and expertise. However, given her role as co-founder, she likely possesses relevant skills in business development, strategy, or technology."
+                },
+                {
+                    "name": "Jamie Wood",
+                    "title": "Co-founder",
+                    "linkedin_url": "Not Found",
+                    "background": "Information regarding Jamie Wood's specific background and experience is limited in the available search results. Further investigation may be required to uncover more details about his professional history and expertise. However, given his role as co-founder, he likely possesses relevant skills in business development, strategy, or technology."
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "background": "Currently, there is no information available regarding other key team members beyond the founders. As the company grows from 4 to 8 employees in Q2, new key members are likely to be added."
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "expertise": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "background": "Information regarding advisors is not currently available. It is common for startups to have advisors, especially in areas like AI, communication, and business strategy. Further investigation would be needed to identify any advisors Ambr AI may have."
+                }
+            ],
+            "hiring_plans": [
+                {
+                    "role": "AI Engineers",
+                    "skills": "Expertise in multimodal AI, low latency systems, and privacy-first solutions.",
+                    "rationale": "To enhance their body language analysis technology and real-time feedback engine, as mentioned in their Google for Startups Accelerator program goals.",
+                    "priority": "High"
+                },
+                {
+                    "role": "Sales and Marketing",
+                    "skills": "Experience in B2B sales, particularly targeting enterprise customers, and digital marketing skills to reach a wider audience.",
+                    "rationale": "To support their growing enterprise customer base.",
+                    "priority": "Medium"
+                },
+                {
+                    "role": "Customer Success",
+                    "skills": "Strong communication and problem-solving skills to onboard and support enterprise clients.",
+                    "rationale": "To ensure customer satisfaction and retention as they scale.",
+                    "priority": "Medium"
+                }
+            ],
+            "organizational_structure": "Given the early stage (pre-seed) and small team size (4 employees, growing to 8), Ambr AI likely has a flat organizational structure. The founders are probably heavily involved in all aspects of the business. As the company grows, a more defined organizational structure with functional departments (e.g., engineering, sales, marketing, customer success) will likely be implemented."
+        }
+    }
+}

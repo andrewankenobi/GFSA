@@ -1,0 +1,33 @@
+{
+    "metadata": {
+        "startup_name": "Punto Health",
+        "analysis_area": "company_overview",
+        "analysis_timestamp": "20240412_231747",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://puntohealth.com/",
+            "https://www.linkedin.com/in/annamunozfarre/",
+            "https://www.linkedin.com/in/jack-eckersley-68463a102/"
+        ]
+    },
+    "analysis": {
+        "company_overview": {
+            "company_name": "Punto Health",
+            "industry": "B2B, B2B2C, Digital Health, Artificial Intelligence, Cognitive Care",
+            "country": "United Kingdom",
+            "founding_date": "August 31, 2023",
+            "mission_statement": "To transform cognitive care for mild cognitive impairment and dementia, offering personalized support and monitoring that connects patients, caregivers, and healthcare providers.",
+            "key_milestones": [
+                "Founded in August 2023 by Anna Mu\u00f1oz Farr\u00e9 and Jack Eckersley.",
+                "Raised \u00a30.8M (approximately $1M USD) in seed funding.",
+                "Developed an MVP (Minimum Viable Product) of their AI-powered platform.",
+                "Preparing for European launch in 2025.",
+                "Focusing on optimizing machine learning models for personalized care plans and cognitive status assessment through speech analysis.",
+                "Building PuntoCare (for patients and caregivers) and PuntoClinic (for healthcare professionals) components of the platform."
+            ],
+            "current_status": "Seed stage startup with a functional MVP, actively preparing for European market launch in 2025. The company is focused on refining its AI algorithms and scaling its infrastructure. Punto Health is also actively seeking partnerships and further funding to support its expansion plans.",
+            "unique_value_proposition": "Punto Health offers an AI-driven platform that provides personalized and continuous cognitive care for patients with mild cognitive impairment and dementia. It addresses the current fragmented and reactive care system by connecting patients, caregivers, and healthcare providers through a unified platform. The platform leverages AI to deliver personalized care plans, cognitive assessments, and continuous monitoring, aiming to improve dementia management across all stages. The company's speech analysis technology for cognitive assessment is a key differentiator."
+        }
+    }
+}

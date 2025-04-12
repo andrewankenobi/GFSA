@@ -1,0 +1,56 @@
+{
+    "metadata": {
+        "startup_name": "ShareID",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20240412_225325",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.shareid.ai/",
+            "https://www.linkedin.com/in/sarasebti/",
+            "https://www.linkedin.com/in/sawsenrezig/",
+            "https://www.crunchbase.com/organization/shareid",
+            "https://www.google.com"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Sara Sebti",
+                    "title": "Co-founder & CEO",
+                    "background": "According to her LinkedIn profile, Sara Sebti is the Co-founder & CEO of ShareID. Her profile indicates experience in the tech industry. Further details about her specific prior roles and education can be found on her LinkedIn page.",
+                    "linkedin_url": "https://www.linkedin.com/in/sarasebti/",
+                    "expertise": "CEO, Identity Verification, Authentication"
+                },
+                {
+                    "name": "Sawsen Rezig",
+                    "title": "Co-founder & CTO",
+                    "background": "According to her LinkedIn profile, Sawsen Rezig is the Co-founder & CTO of ShareID. Her profile likely contains details about her technical background and previous experience. Further details about her specific prior roles and education can be found on her LinkedIn page.",
+                    "linkedin_url": "https://www.linkedin.com/in/sawsenrezig/",
+                    "expertise": "CTO, AI, Identity Verification, Authentication"
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "title": "Not Found",
+                    "background": "Information on key team members beyond the founders is not readily available through web search. Further research on the company's website or LinkedIn may reveal additional team members.",
+                    "linkedin_url": "Not Found",
+                    "expertise": "Not Found"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "affiliation": "Not Found",
+                    "expertise": "Not Found"
+                }
+            ],
+            "hiring_plans": [
+                "Information regarding ShareID's specific hiring plans is not available through general web searches. Checking their careers page or LinkedIn would be necessary to ascertain their current hiring needs."
+            ],
+            "organizational_structure": "As a Series A startup with 18 employees, ShareID likely has a relatively flat organizational structure. The founders (CEO and CTO) likely have direct oversight over different functional areas (e.g., product, engineering, marketing, sales). More detailed information is not available without internal information."
+        }
+    }
+}

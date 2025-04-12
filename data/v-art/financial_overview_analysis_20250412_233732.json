@@ -1,0 +1,36 @@
+{
+    "metadata": {
+        "startup_name": "V-Art",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20240703_000937",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://v-art.digital/",
+            "https://www.crunchbase.com/organization/v-art-digital",
+            "https://ain.capital/2023/11/02/v-art-google-accelerator/"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Seed",
+                    "amount": "1.4M",
+                    "date": "Not Found",
+                    "investors": "Not Found",
+                    "source": "https://www.crunchbase.com/organization/v-art-digital"
+                }
+            ],
+            "revenue": "Information regarding V-Art's specific revenue figures is not publicly available. Based on their stage (Seed) and product stage (MVP), revenue generation is likely still in its early phases, potentially focusing on pilot programs or early customer acquisition.",
+            "profitability": "Given V-Art's Seed stage and focus on scaling their platform, it is highly unlikely that they are currently profitable. They are likely prioritizing growth and development over immediate profitability.",
+            "burn_rate": "Specific burn rate information for V-Art is not publicly available. As a Seed-stage startup with 5 employees, their burn rate would depend heavily on factors such as salaries, marketing expenses, technology infrastructure costs, and legal/compliance fees. Without more specific data, it's difficult to provide an estimate.",
+            "runway": "Given the $1.4M seed funding, estimating the runway requires knowledge of the burn rate. Assuming a monthly burn rate of $30,000 - $50,000 (a reasonable estimate for a startup of this size), the runway would be approximately 28-46 months. However, this is a rough estimate, and the actual runway could be significantly different.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Specific customer acquisition cost (CAC) data for V-Art is not publicly available. CAC will likely vary depending on the channels they use to acquire customers (e.g., online advertising, industry events, direct sales).",
+                "lifetime_value": "Specific lifetime value (LTV) data for V-Art is not publicly available. LTV will depend on factors such as customer retention rates, average deal size, and frequency of transactions.",
+                "gross_margin": "Gross margin information for V-Art is not publicly available. As a data licensing platform, their gross margin will depend on the pricing structure, the cost of acquiring and managing data, and the fees charged to customers."
+            }
+        }
+    }
+}

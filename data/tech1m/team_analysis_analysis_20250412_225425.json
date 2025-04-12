@@ -1,0 +1,65 @@
+{
+    "metadata": {
+        "startup_name": "Tech1M",
+        "analysis_area": "team_analysis",
+        "analysis_timestamp": "20241027_173500",
+        "model_used": "gemini-2.0-flash",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.tech1m.com/",
+            "https://www.linkedin.com/in/damilolaogunmoye/",
+            "https://www.linkedin.com/in/tommie-edwards-51929277/"
+        ]
+    },
+    "analysis": {
+        "team_analysis": {
+            "founders": [
+                {
+                    "name": "Tommie Edwards",
+                    "role": "Co-Founder",
+                    "linkedin_url": "https://www.linkedin.com/in/tommie-edwards-51929277/",
+                    "background": "According to LinkedIn, Tommie Edwards is a Co-Founder at Tech1M. Further details regarding specific skills and experience require more in-depth research.",
+                    "expertise": "Not Found"
+                },
+                {
+                    "name": "Damilola Ogunmoye",
+                    "role": "Co-Founder",
+                    "linkedin_url": "https://www.linkedin.com/in/damilolaogunmoye/",
+                    "background": "According to LinkedIn, Damilola Ogunmoye is a Co-Founder at Tech1M. Further details regarding specific skills and experience require more in-depth research.",
+                    "expertise": "Not Found"
+                }
+            ],
+            "key_team_members": [
+                {
+                    "name": "Not Found",
+                    "role": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "background": "Information about key team members beyond the founders is not readily available through web search.",
+                    "expertise": "Not Found"
+                }
+            ],
+            "advisors": [
+                {
+                    "name": "Not Found",
+                    "role": "Not Found",
+                    "linkedin_url": "Not Found",
+                    "background": "Information about advisors is not readily available through web search.",
+                    "expertise": "Not Found"
+                }
+            ],
+            "hiring_plans": [
+                {
+                    "description": "Given Tech1M's focus on AI and global talent acquisition, it's likely they will be hiring for roles in software engineering (AI/ML), data science, HR technology, and sales/marketing. Since they are in the Google Accelerator program to supercharge the development of their AI Interview Agent, it is likely that they will be hiring for roles related to AI and software development.",
+                    "skills": [
+                        "AI/ML Engineering",
+                        "Data Science",
+                        "HR Technology",
+                        "Sales",
+                        "Marketing"
+                    ]
+                }
+            ],
+            "organizational_structure": "As a startup with 9 employees, Tech1M likely has a flat organizational structure. The founders are probably heavily involved in day-to-day operations and decision-making. More specific information is unavailable."
+        }
+    }
+}

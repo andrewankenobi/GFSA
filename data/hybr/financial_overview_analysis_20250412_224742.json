@@ -1,0 +1,42 @@
+{
+    "metadata": {
+        "startup_name": "Hybr",
+        "analysis_area": "financial_overview",
+        "analysis_timestamp": "20241027_163200",
+        "model_used": "gemini-2.0-pro",
+        "analysis_version": "2.0",
+        "sources": [
+            "https://www.linkedin.com/in/hannah-chappatte-63324461/",
+            "https://www.crunchbase.com/organization/hybr",
+            "https://www.uktech.news/news/student-housing-startup-hybr-raises-5-5m-seed-round-20230601"
+        ]
+    },
+    "analysis": {
+        "financial_overview": {
+            "funding_history": [
+                {
+                    "round": "Seed",
+                    "amount": "\u00a35.5M",
+                    "date": "June 1, 2023",
+                    "investors": [
+                        "Pi Labs",
+                        "Hambro Perks",
+                        "Entrepreneur First",
+                        "Other angel investors"
+                    ],
+                    "source": "https://www.uktech.news/news/student-housing-startup-hybr-raises-5-5m-seed-round-20230601"
+                }
+            ],
+            "revenue": "Not Found",
+            "profitability": "As a seed-stage startup, profitability is unlikely at this stage. Focus is likely on growth and market penetration.",
+            "burn_rate": "Not Found",
+            "runway": "Given the \u00a35.5M seed funding raised in June 2023, the runway depends on their burn rate. Without specific burn rate information, it's difficult to estimate accurately. Assuming a typical burn rate for a seed-stage startup, the runway could be estimated between 18-36 months from the funding date, but this is highly speculative without more data.",
+            "financial_metrics": {
+                "customer_acquisition_cost": "Not Found",
+                "customer_lifetime_value": "Not Found",
+                "gross_margin": "Not Found",
+                "monthly_recurring_revenue": "Not Found"
+            }
+        }
+    }
+}
