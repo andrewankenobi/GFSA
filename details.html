@@ -271,6 +271,33 @@
             white-space: normal;
         }
 
+        .credits {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .credits p {
+            margin: 0.5rem 0;
+        }
+
+        .credits strong {
+            color: var(--text-primary);
+        }
+
+        .credits a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .credits a:hover {
+            text-decoration: underline;
+        }
+
         .priority-high, .impact-high, .likelihood-high { background: rgba(217, 48, 37, 0.1); color: #d93025; }
         .priority-medium, .impact-medium, .likelihood-medium { background: rgba(251, 188, 4, 0.1); color: #f29900; }
         .priority-low, .impact-low, .likelihood-low { background: rgba(30, 142, 62, 0.1); color: #1e8e3e; }
@@ -1771,24 +1798,33 @@
             adjustContainerHeights(); // Call here after setting innerHTML
         }
 
+        // --- Consolidate DOMContentLoaded Listeners --- START
         document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM fully loaded and parsed");
+
+            // Load startup details initially
+            loadStartupDetails();
+
+            // Setup Chat
             const chatInput = document.getElementById('chatInput');
             const chatSubmit = document.getElementById('chatSubmit');
-            
-            chatSubmit.addEventListener('click', handleChatSubmit);
-            chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    handleChatSubmit();
-                }
-            });
+            if (chatInput && chatSubmit) {
+                chatSubmit.addEventListener('click', handleChatSubmit);
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        handleChatSubmit();
+                    }
+                });
+                console.log("Chat listeners attached.");
+            } else {
+                console.error("Chat input or submit button not found!");
+            }
 
-            loadStartupDetails();
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
+            // Setup Generate Report Button
             const generateReportButton = document.getElementById('generateReportButton');
             if (generateReportButton) {
                 generateReportButton.addEventListener('click', async () => {
+                    // ... (Keep existing PDF generation logic here) ...
                     const button = generateReportButton;
                     const originalText = button.innerHTML;
                     
@@ -1864,11 +1900,14 @@
                             setTimeout(() => errorMessage.remove(), 300);
                         }, 3000);
                     }
+                    // ... (End of PDF generation logic) ...
                 });
+                console.log("Generate Report listener attached.");
+            } else {
+                console.error("Generate Report button not found!");
             }
-        });
 
-        document.addEventListener('DOMContentLoaded', () => {
+            // Setup Refresh Analysis Button
             const refreshButton = document.getElementById('refreshAnalysisButton');
             if (refreshButton) {
                 refreshButton.addEventListener('click', async () => {
@@ -1876,6 +1915,7 @@
                     const originalText = button.innerHTML;
                     
                     try {
+                        console.log("Refresh button clicked."); // Log button click
                         button.disabled = true;
                         button.innerHTML = 'Refreshing...';
                         
@@ -1909,21 +1949,49 @@
 
                         const data = await response.json(); // Only parse if response.ok (implied by reaching here)
                         
-                        const successMessage = document.createElement('div');
-                        successMessage.style.cssText = `
-                            position: fixed;
-                            bottom: 20px;
-                            right: 20px;
-                            background: #10b981;
-                            color: white;
-                            padding: 0.75rem 1.5rem;
-                            border-radius: 0.5rem;
-                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                            z-index: 1000;
-                            animation: slideIn 0.3s ease-out;
-                        `;
-                        successMessage.textContent = 'Research refresh started! Checking for completion...';
-                        document.body.appendChild(successMessage);
+                        // --- Show Initial Status Immediately --- START
+                        console.log("Attempting to show initial status..."); 
+                        const statusContainer = document.getElementById('refreshStatusContainer');
+                        const statusText = document.getElementById('refreshStatusText');
+                        const progressBarContainer = document.getElementById('refreshProgressBarContainer');
+                        const progressBar = document.getElementById('refreshProgressBar');
+                        
+                        // Check if elements were found before trying to modify them
+                        if (statusContainer && statusText && progressBarContainer && progressBar) {
+                            console.log("Status elements found. Displaying...");
+                            statusContainer.style.display = 'block';
+                            progressBarContainer.style.display = 'block';
+                            progressBar.style.width = '0%'; 
+                            statusText.textContent = 'Initiated...';
+                        } else {
+                            console.error("One or more status display elements not found!", 
+                                { statusContainer, statusText, progressBarContainer, progressBar });
+                            // Optionally throw an error or alert the user
+                            throw new Error("UI Error: Could not find status display elements.");
+                        }
+                        // --- Show Initial Status Immediately --- END
+
+                        // --- Start Polling for Status --- START
+                        startStatusPolling(startupName);
+                        // --- Start Polling for Status --- END
+
+                        // --- Remove the immediate popup, rely on status area --- START
+                        // const successMessage = document.createElement('div');
+                        // successMessage.style.cssText = `
+                        //     position: fixed;
+                        //     bottom: 20px;
+                        //     right: 20px;
+                        //     background: #10b981;
+                        //     color: white;
+                        //     padding: 0.75rem 1.5rem;
+                        //     border-radius: 0.5rem;
+                        //     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                        //     z-index: 1000;
+                        //     animation: slideIn 0.3s ease-out;
+                        // `;
+                        // successMessage.textContent = 'Research refresh started! Checking for completion...';
+                        // document.body.appendChild(successMessage);
+                        // --- Remove the immediate popup, rely on status area --- END
 
                         const startupFileName = startupName.toLowerCase().replace(/ /g, '_');
                         const analysisFilePath = `data/results/analysis_${startupFileName}.json`;
@@ -1932,65 +2000,164 @@
                             try {
                                 const response = await fetch(analysisFilePath);
                                 if (response.ok) {
+                                    console.log("New analysis file found. Reloading page.");
+                                    if (statusIntervalId) clearInterval(statusIntervalId); // Stop polling before reload
                                     window.location.reload();
                                 } else {
                                     setTimeout(checkForNewFile, 5000);
                                 }
                             } catch (error) {
-                                setTimeout(checkForNewFile, 5000);
+                                console.error("Error checking for new file:", error);
+                                setTimeout(checkForNewFile, 5000); // Keep trying even on fetch error
                             }
                         };
 
                         // Start checking after a short delay to allow the process to potentially start
                         setTimeout(checkForNewFile, 2000);
                         
-                        setTimeout(() => {
-                            successMessage.style.animation = 'slideOut 0.3s ease-out';
-                            setTimeout(() => successMessage.remove(), 300);
-                        }, 5000);
+                        // --- Remove the timeout for the popup message --- START
+                        // setTimeout(() => {
+                        //     successMessage.style.animation = 'slideOut 0.3s ease-out';
+                        //     setTimeout(() => successMessage.remove(), 300);
+                        // }, 5000);
+                        // --- Remove the timeout for the popup message --- END
                         
                     } catch (error) {
                         console.error('Error refreshing analysis:', error);
                         button.innerHTML = originalText;
                         button.disabled = false;
                         
-                        const errorMessage = document.createElement('div');
-                        errorMessage.style.cssText = `
-                            position: fixed;
-                            bottom: 20px;
-                            right: 20px;
-                            background: #ef4444;
-                            color: white;
-                            padding: 0.75rem 1.5rem;
-                            border-radius: 0.5rem;
-                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                            z-index: 1000;
-                            animation: slideIn 0.3s ease-out;
-                        `;
-                        errorMessage.textContent = `Error: ${error.message}`;
-                        document.body.appendChild(errorMessage);
-                        
-                        setTimeout(() => {
-                            errorMessage.style.animation = 'slideOut 0.3s ease-out';
-                            setTimeout(() => errorMessage.remove(), 5000);
-                        }, 5000);
+                        // Display error in the status area if possible
+                        const statusTextEl = document.getElementById('refreshStatusText');
+                        if (statusTextEl) {
+                             const statusContainerEl = document.getElementById('refreshStatusContainer');
+                             if(statusContainerEl) statusContainerEl.style.display = 'block'; // Ensure visible
+                             statusTextEl.textContent = `Error: ${error.message}`;
+                             statusTextEl.style.color = '#ef4444'; // Make error red
+                        } else {
+                            // Fallback to popup if status area fails
+                            const errorMessage = document.createElement('div');
+                            errorMessage.style.cssText = `
+                                position: fixed;
+                                bottom: 20px;
+                                right: 20px;
+                                background: #ef4444;
+                                color: white;
+                                padding: 0.75rem 1.5rem;
+                                border-radius: 0.5rem;
+                                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                                z-index: 1000;
+                                animation: slideIn 0.3s ease-out;
+                            `;
+                            errorMessage.textContent = `Error: ${error.message}`;
+                            document.body.appendChild(errorMessage);
+                            
+                            setTimeout(() => {
+                                errorMessage.style.animation = 'slideOut 0.3s ease-out';
+                                setTimeout(() => errorMessage.remove(), 5000);
+                            }, 5000);
+                        }
                     }
                 });
+                 console.log("Refresh Analysis listener attached.");
+            } else {
+                 console.error("Refresh Analysis button not found!");
             }
-        });
 
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
+            // Setup animation style
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            console.log("Animation styles added.");
+
+        });
+        // --- Consolidate DOMContentLoaded Listeners --- END
+
+        // --- START: Status Polling Functions --- 
+        function startStatusPolling(startupName) {
+            const statusContainer = document.getElementById('refreshStatusContainer');
+            const statusText = document.getElementById('refreshStatusText');
+            const refreshButton = document.getElementById('refreshAnalysisButton');
+            const progressBarContainer = document.getElementById('refreshProgressBarContainer');
+            const progressBar = document.getElementById('refreshProgressBar');
+
+            console.log("startStatusPolling called. Found elements:", 
+                { statusContainer, statusText, refreshButton, progressBarContainer, progressBar }); // Log element finding
+
+            if (statusIntervalId) {
+                clearInterval(statusIntervalId); // Clear any existing interval
             }
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
+
+            statusContainer.style.display = 'block';
+            progressBarContainer.style.display = 'block';
+            progressBar.style.width = '0%'; 
+            statusText.textContent = 'Initiated...';
+            refreshButton.disabled = true; // Disable button while polling
+
+            statusIntervalId = setInterval(async () => {
+                console.log("Polling for status..."); // Log each poll attempt
+                try {
+                    const statusResponse = await fetch(`/api/research-status?startup=${encodeURIComponent(startupName)}`);
+                    if (!statusResponse.ok) {
+                        console.error('Status check failed:', statusResponse.status);
+                        statusText.textContent = `Error checking status (${statusResponse.status})`;
+                        // Decide whether to stop polling on error or keep trying
+                        // clearInterval(statusIntervalId);
+                        // refreshButton.disabled = false;
+                        return; 
+                    }
+                    
+                    const statusData = await statusResponse.json();
+
+                    if (statusData.is_running) {
+                        let progressPercent = 0;
+                        if (statusData.total_areas > 0) {
+                            progressPercent = (statusData.completed_areas.length / statusData.total_areas) * 100;
+                        }
+                        progressBar.style.width = `${progressPercent}%`;
+
+                        let currentStatusMsg = 'Running...';
+                        if (statusData.status === 'starting_analysis') {
+                            currentStatusMsg = 'Starting Analysis...';
+                        } else if (statusData.status.startsWith('analyzing_')) {
+                            currentStatusMsg = `Analyzing: ${statusData.current_area.replace(/_/g, ' ')}... (${statusData.completed_areas.length}/${statusData.total_areas})`;
+                        } else if (statusData.status.startsWith('completed_')) {
+                             currentStatusMsg = `Completed: ${statusData.current_area.replace(/_/g, ' ')} (${statusData.completed_areas.length}/${statusData.total_areas})...`;
+                        } else if (statusData.status === 'assembling_final_json') {
+                            currentStatusMsg = 'Assembling final report...';
+                             progressBar.style.width = `99%`; // Show near completion
+                        }
+                        statusText.textContent = currentStatusMsg;
+                    } else {
+                        // Process finished or not running
+                        clearInterval(statusIntervalId);
+                        statusIntervalId = null;
+                        statusText.textContent = 'Finished (or not running). Waiting for file check...';
+                        progressBar.style.width = '100%';
+                        progressBarContainer.style.display = 'none'; // Hide progress bar on completion
+                        // Keep button disabled until page reloads or file check fails
+                        // refreshButton.disabled = false; 
+                    }
+
+                } catch (error) {
+                    console.error('Error during status polling:', error);
+                    statusText.textContent = 'Polling Error';
+                    // Optionally stop polling on error
+                    // clearInterval(statusIntervalId);
+                    // refreshButton.disabled = false;
+                }
+            }, 3000); // Poll every 3 seconds
+        }
+        // --- END: Status Polling Functions --- 
 
         async function handleChatSubmit() {
             const input = document.getElementById('chatInput');
@@ -2058,194 +2225,18 @@
 
         let statusIntervalId = null; // Variable to hold the interval ID for polling
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const refreshButton = document.getElementById('refreshAnalysisButton');
-            if (refreshButton) {
-                refreshButton.addEventListener('click', async () => {
-                    const button = refreshButton;
-                    const originalText = button.innerHTML;
-                    
-                    try {
-                        button.disabled = true;
-                        button.innerHTML = 'Refreshing...';
-                        
-                        const urlParams = new URLSearchParams(window.location.search);
-                        const startupName = urlParams.get('startup');
-                        
-                        if (!startupName) {
-                            throw new Error('No startup specified in URL');
-                        }
-
-                        const response = await fetch('http://localhost:5002/api/run-research', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ 
-                                startup_name: startupName,
-                                workers: 1,
-                                batch_size: 1 // Note: research.py doesn't use batch_size from here
-                            })
-                        });
-
-                        // --- Updated Error Handling --- START
-                        if (response.status === 409) { // Handle Conflict (lock file exists)
-                            throw new Error('Another research process is already running. Please wait a few moments and try again.');
-                        } else if (!response.ok) { // Handle other errors
-                            const errorData = await response.json().catch(() => ({ error: `Server returned status ${response.status}` }));
-                            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
-                        }
-                        // --- Updated Error Handling --- END
-
-                        const data = await response.json(); // Only parse if response.ok (implied by reaching here)
-                        
-                        // --- Start Polling for Status --- START
-                        startStatusPolling(startupName);
-                        // --- Start Polling for Status --- END
-
-                        const successMessage = document.createElement('div');
-                        successMessage.style.cssText = `
-                            position: fixed;
-                            bottom: 20px;
-                            right: 20px;
-                            background: #10b981;
-                            color: white;
-                            padding: 0.75rem 1.5rem;
-                            border-radius: 0.5rem;
-                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                            z-index: 1000;
-                            animation: slideIn 0.3s ease-out;
-                        `;
-                        successMessage.textContent = 'Research refresh started! Checking for completion...';
-                        document.body.appendChild(successMessage);
-
-                        const startupFileName = startupName.toLowerCase().replace(/ /g, '_');
-                        const analysisFilePath = `data/results/analysis_${startupFileName}.json`;
-                        
-                        const checkForNewFile = async () => {
-                            try {
-                                const response = await fetch(analysisFilePath);
-                                if (response.ok) {
-                                    window.location.reload();
-                                } else {
-                                    setTimeout(checkForNewFile, 5000);
-                                }
-                            } catch (error) {
-                                setTimeout(checkForNewFile, 5000);
-                            }
-                        };
-
-                        // Start checking after a short delay to allow the process to potentially start
-                        setTimeout(checkForNewFile, 2000);
-                        
-                        setTimeout(() => {
-                            successMessage.style.animation = 'slideOut 0.3s ease-out';
-                            setTimeout(() => successMessage.remove(), 300);
-                        }, 5000);
-                        
-                    } catch (error) {
-                        console.error('Error refreshing analysis:', error);
-                        button.innerHTML = originalText;
-                        button.disabled = false;
-                        
-                        const errorMessage = document.createElement('div');
-                        errorMessage.style.cssText = `
-                            position: fixed;
-                            bottom: 20px;
-                            right: 20px;
-                            background: #ef4444;
-                            color: white;
-                            padding: 0.75rem 1.5rem;
-                            border-radius: 0.5rem;
-                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                            z-index: 1000;
-                            animation: slideIn 0.3s ease-out;
-                        `;
-                        errorMessage.textContent = `Error: ${error.message}`;
-                        document.body.appendChild(errorMessage);
-                        
-                        setTimeout(() => {
-                            errorMessage.style.animation = 'slideOut 0.3s ease-out';
-                            setTimeout(() => errorMessage.remove(), 5000);
-                        }, 5000);
-                    }
-                });
-            }
-        });
-
-        // --- START: Status Polling Functions --- 
-        function startStatusPolling(startupName) {
-            const statusContainer = document.getElementById('refreshStatusContainer');
-            const statusText = document.getElementById('refreshStatusText');
-            const refreshButton = document.getElementById('refreshAnalysisButton');
-            const progressBarContainer = document.getElementById('refreshProgressBarContainer');
-            const progressBar = document.getElementById('refreshProgressBar');
-
-            if (statusIntervalId) {
-                clearInterval(statusIntervalId); // Clear any existing interval
-            }
-
-            statusContainer.style.display = 'block';
-            progressBarContainer.style.display = 'block';
-            progressBar.style.width = '0%'; 
-            statusText.textContent = 'Initiated...';
-            refreshButton.disabled = true; // Disable button while polling
-
-            statusIntervalId = setInterval(async () => {
-                try {
-                    const statusResponse = await fetch(`/api/research-status?startup=${encodeURIComponent(startupName)}`);
-                    if (!statusResponse.ok) {
-                        console.error('Status check failed:', statusResponse.status);
-                        statusText.textContent = `Error checking status (${statusResponse.status})`;
-                        // Decide whether to stop polling on error or keep trying
-                        // clearInterval(statusIntervalId);
-                        // refreshButton.disabled = false;
-                        return; 
-                    }
-                    
-                    const statusData = await statusResponse.json();
-
-                    if (statusData.is_running) {
-                        let progressPercent = 0;
-                        if (statusData.total_areas > 0) {
-                            progressPercent = (statusData.completed_areas.length / statusData.total_areas) * 100;
-                        }
-                        progressBar.style.width = `${progressPercent}%`;
-
-                        let currentStatusMsg = 'Running...';
-                        if (statusData.status === 'starting_analysis') {
-                            currentStatusMsg = 'Starting Analysis...';
-                        } else if (statusData.status.startsWith('analyzing_')) {
-                            currentStatusMsg = `Analyzing: ${statusData.current_area.replace(/_/g, ' ')}... (${statusData.completed_areas.length}/${statusData.total_areas})`;
-                        } else if (statusData.status.startsWith('completed_')) {
-                             currentStatusMsg = `Completed: ${statusData.current_area.replace(/_/g, ' ')} (${statusData.completed_areas.length}/${statusData.total_areas})...`;
-                        } else if (statusData.status === 'assembling_final_json') {
-                            currentStatusMsg = 'Assembling final report...';
-                             progressBar.style.width = `99%`; // Show near completion
-                        }
-                        statusText.textContent = currentStatusMsg;
-                    } else {
-                        // Process finished or not running
-                        clearInterval(statusIntervalId);
-                        statusIntervalId = null;
-                        statusText.textContent = 'Finished (or not running). Waiting for file check...';
-                        progressBar.style.width = '100%';
-                        progressBarContainer.style.display = 'none'; // Hide progress bar on completion
-                        // Keep button disabled until page reloads or file check fails
-                        // refreshButton.disabled = false; 
-                    }
-
-                } catch (error) {
-                    console.error('Error during status polling:', error);
-                    statusText.textContent = 'Polling Error';
-                    // Optionally stop polling on error
-                    // clearInterval(statusIntervalId);
-                    // refreshButton.disabled = false;
-                }
-            }, 3000); // Poll every 3 seconds
-        }
-        // --- END: Status Polling Functions --- 
-
     </script>
+
+<div class="credits">
+    <p><strong>Google for Startups</strong></p>
+    <p>A program designed to accelerate the growth of seed to Series A startups.</p>
+    <p>Equity-free support • Technical mentorship • Strategic guidance</p>
+    <p>Learn more at <a href="https://startup.google.com/programs/accelerator/" target="_blank">Google for Startups Accelerator</a></p>
+</div>
+
+<footer>
+    &copy; <script>document.write(new Date().getFullYear());</script> Copyright. Made with love by <a href="https://github.com/andrewankenobi/GFSA" style="color: var(--primary-color); text-decoration: none;">andre wan kenobi</a>
+</footer>
+
 </body>
 </html>
