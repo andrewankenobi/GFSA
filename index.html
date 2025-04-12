@@ -328,21 +328,13 @@
             <img src="gfsa.png" alt="Google for Startups" />
         </div>
         <div class="header">
-            <h1>AI First 2025 Berlin Cohort</h1>
+          
             <div class="berlin-illustration">
                 <img src="berlin.gif" alt="Berlin Skyline" />
             </div>
-            <div class="header-buttons">
-                <a href="https://drive.google.com/corp/drive/u/0/folders/1OnF_htznYaqXK2r3Lr-E9lVRptJhx5vz" class="material-button" target="_blank">
-                    <i>📚</i> Reports & Booklet
-                </a>
-                <a href="https://notebooklm.google.com/notebook/844748b8-7149-4315-afb3-1eea9f9d9a48" class="material-button" target="_blank">
-                    <i>📝</i> NotebookLM
-                </a>
-                <a href="https://notebooklm.google.com/notebook/844748b8-7149-4315-afb3-1eea9f9d9a48/audio" class="material-button" target="_blank">
-                    <i>🎧</i> Listen to Podcast
-                </a>
-            </div>
+
+            <h1>AI First 2025 Berlin Cohort</h1>
+            
             <div class="search-container">
                 <input type="text" class="search-input" placeholder="Search by startup name, industry, or country..." id="searchInput">
             </div>
@@ -368,35 +360,35 @@
 
         async function loadData() {
             try {
-                console.log('Attempting to load startup data...');
-                // Try to load the most recent analysis file
-                const response = await fetch('analysis_20250327_084704.json');
-                
+                console.log('Attempting to load startup data from startups.json...');
+                // Load the high-level startup data from startups.json
+                const response = await fetch('startups.json');
+
                 if (!response.ok) {
-                    console.error('Failed to load data:', {
+                    console.error('Failed to load startups.json:', {
                         status: response.status,
                         statusText: response.statusText,
                         url: response.url
                     });
-                    throw new Error(`Could not load analysis file (Status: ${response.status}). Please ensure it exists at: analysis_20250327_084704.json`);
+                    throw new Error(`Could not load startups.json (Status: ${response.status}). Please ensure the file exists.`);
                 }
 
                 const contentType = response.headers.get("content-type");
                 if (!contentType || !contentType.includes("application/json")) {
-                    console.error('Invalid content type:', contentType);
-                    throw new Error(`Expected JSON but got ${contentType}`);
+                    console.error('Invalid content type for startups.json:', contentType);
+                    throw new Error(`Expected JSON but got ${contentType} from startups.json`);
                 }
-                
+
                 const data = await response.json();
-                console.log(`Successfully loaded ${data.length} startups from JSON file`);
-                
+                console.log(`Successfully loaded ${data.length} startups from startups.json`);
+
                 if (!Array.isArray(data)) {
-                    console.error('Data is not an array:', data);
-                    throw new Error('Invalid data format: expected an array of startups');
+                    console.error('Data from startups.json is not an array:', data);
+                    throw new Error('Invalid data format: expected an array of startups in startups.json');
                 }
 
                 globalStartups = data;
-                displayStartups(data);
+                displayStartups(data); // Use the data from startups.json
                 setupSearch();
             } catch (error) {
                 console.error('Error loading data:', error);
@@ -406,9 +398,9 @@
                         ${error.message}<br><br>
                         <small>Please check:</small>
                         <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-                            <li>The file exists at: analysis_20250327_084704.json</li>
+                            <li>The file exists at: startups.json</li>
                             <li>You're running a local server (e.g., python -m http.server 8000)</li>
-                            <li>The JSON file is valid and contains an array of startups</li>
+                            <li>The startups.json file is valid and contains an array of startups</li>
                         </ul>
                         <div style="margin-top: 1rem;">
                             <button onclick="loadData()" style="
@@ -433,10 +425,11 @@
             searchInput.addEventListener('input', (e) => {
                 const searchTerm = e.target.value.toLowerCase();
                 const filteredStartups = globalStartups.filter(startup => {
-                    const { metadata } = startup;
-                    return metadata.startup_name.toLowerCase().includes(searchTerm) ||
-                           metadata.industry.toLowerCase().includes(searchTerm) ||
-                           metadata.country.toLowerCase().includes(searchTerm);
+                    // Search based on fields available in startups.json
+                    return (startup.startup_name?.toLowerCase().includes(searchTerm)) ||
+                           (startup.business_model?.toLowerCase().includes(searchTerm)) || // Using business_model as industry here
+                           (startup.country?.toLowerCase().includes(searchTerm)) ||
+                           (startup.overview?.toLowerCase().includes(searchTerm));
                 });
                 console.log(`Found ${filteredStartups.length} startups matching search: "${searchTerm}"`);
                 displayStartups(filteredStartups);
@@ -448,48 +441,51 @@
             grid.innerHTML = '';
 
             // Sort startups alphabetically by name
-            const sortedStartups = [...startups].sort((a, b) => 
-                a.metadata.startup_name.localeCompare(b.metadata.startup_name)
+            const sortedStartups = [...startups].sort((a, b) =>
+                a.startup_name.localeCompare(b.startup_name)
             );
 
-            // Log the total number of startups for debugging
             console.log(`Total startups to display: ${sortedStartups.length}`);
 
             sortedStartups.forEach((startup, index) => {
                 try {
-                    console.log(`Displaying startup ${index + 1}: ${startup.metadata.startup_name}`);
-                    const { metadata, analysis } = startup;
+                    console.log(`Displaying startup ${index + 1}: ${startup.startup_name}`);
                     const card = document.createElement('div');
                     card.className = 'startup-card';
 
-                    // Safely access nested properties
-                    const overview = analysis?.company_overview || {};
-                    const description = overview?.description || 'No description available';
-                    
+                    // Use data directly from the startup object (from startups.json)
+                    const name = startup.startup_name || 'Unknown Startup';
+                    const industry = startup.business_model || 'Unknown Industry'; // Using business_model as industry
+                    const country = startup.country || 'Unknown Location';
+                    const stage = startup.stage || 'N/A';
+                    const employees = startup.no_of_employees || 'N/A';
+                    const overview = startup.overview || 'No description available';
+                    const founded = startup.date_founded || 'N/A';
+
                     // Create a truncated description (first 150 characters)
-                    const truncatedDescription = description.length > 150 
-                        ? description.substring(0, 150) + '...' 
-                        : description;
+                    const truncatedOverview = overview.length > 150
+                        ? overview.substring(0, 150) + '...'
+                        : overview;
 
                     card.innerHTML = `
                         <div class="startup-name">
-                            <a href="details.html?startup=${encodeURIComponent(metadata.startup_name)}" style="text-decoration: none; color: inherit;">
-                                ${metadata.startup_name}
+                            <a href="details.html?startup=${encodeURIComponent(name)}" style="text-decoration: none; color: inherit;">
+                                ${name}
                             </a>
                         </div>
-                        <div class="startup-industry">${metadata.industry || 'Unknown Industry'} | ${metadata.country || 'Unknown Location'}</div>
+                        <div class="startup-industry">${industry} | ${country}</div>
                         <div class="startup-details">
                             <div class="detail-item">
-                                <span class="detail-label">Stage:</span> ${overview.company_stage || 'N/A'}
+                                <span class="detail-label">Stage:</span> ${stage}
                             </div>
                             <div class="detail-item">
-                                <span class="detail-label">Employees:</span> ${overview.employee_count || 'N/A'}
+                                <span class="detail-label">Employees:</span> ${employees}
                             </div>
                             <div class="detail-item">
-                                <span class="detail-label">Description:</span> ${truncatedDescription}
+                                <span class="detail-label">Description:</span> ${truncatedOverview}
                             </div>
                             <div class="detail-item">
-                                <span class="detail-label">Founded:</span> ${overview.founding_date || 'N/A'}
+                                <span class="detail-label">Founded:</span> ${founded}
                             </div>
                         </div>
                     `;

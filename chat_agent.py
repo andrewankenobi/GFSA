@@ -10,158 +10,105 @@ import re
 import json
 from dotenv import load_dotenv
 import os
+import logging
 
-# Load environment variables
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('chat_agent.log'), # Log to a separate file
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
+
+# Load environment variables from .env file
 load_dotenv()
 
 # Configure Gemini
 api_key = os.getenv('GEMINI_API_KEY')
 if not api_key:
+    logger.error("GEMINI_API_KEY not found in environment variables")
     raise ValueError("GEMINI_API_KEY not found in environment variables")
 
 # Initialize Gemini
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel('gemini-2.0-flash')
 
-# Load startup data
-with open('data/results/analysis_20250327_084704.json', 'r') as f:
-    STARTUP_DATA = json.load(f)
+# Initialize the generative model directly (needed by get_agent_response)
+try:
+    model = genai.GenerativeModel('gemini-2.0-flash')
+    logger.info(f"Chat agent model initialized: {model.model_name}")
+except Exception as e:
+    logger.error(f"Failed to initialize generative model: {e}")
+    model = None # Handle inability to create model
 
-# Create a dictionary for quick startup lookups
-STARTUP_DICT = {startup['metadata']['startup_name']: startup for startup in STARTUP_DATA}
+def get_agent_response(user_query: str, startup_context: dict):
+    """Generates a response from the chatbot based on the user query and startup context."""
+    logger.info(f"Received query: '{user_query}' for startup: {startup_context.get('metadata', {}).get('startup_name', 'Unknown')}")
 
-class StartupSearchTool(Tool):
-    def __init__(self):
-        super().__init__(
-            name="Startup Search",
-            func=self.search_startups,
-            description="Search for information about startups in our database"
-        )
-    
-    def search_startups(self, query: str) -> str:
-        results = []
-        query = query.lower()
-        for startup in STARTUP_DATA:
-            if (query in startup['metadata']['startup_name'].lower() or 
-                query in startup['analysis']['company_overview'].get('description', '').lower() or
-                query in startup['metadata'].get('industry', '').lower()):
-                results.append(startup)
-        
-        if not results:
-            return "No startups found matching your query."
-        
-        return json.dumps(results, indent=2)
+    if not model:
+        logger.error("Chat model not initialized. Cannot generate response.")
+        return "Error: The chat model is currently unavailable."
 
-class GeminiAgent:
-    def __init__(self):
-        self.model = model
-        self.startup_search = StartupSearchTool()
-        self.memory = []
+    if not startup_context or not isinstance(startup_context, dict):
+        logger.error("Invalid or missing startup_context provided.")
+        return "Error: Could not load the context for this startup to answer the question."
 
-    def _create_prompt(self, query: str, startup_context: dict = None) -> str:
-        context = ""
-        if startup_context:
-            context = f"""
-Current startup context:
-Name: {startup_context['metadata']['startup_name']}
-Industry: {startup_context['metadata']['industry']}
-Description: {startup_context['analysis']['company_overview']['description']}
-"""
+    # Define the system prompt (moved inside function for clarity or keep global if preferred)
+    SYSTEM_PROMPT = (
+        "You are Ment-hoff, a helpful AI assistant specialized in analyzing startup information "
+        "based on provided context data from the Google for Startups AI First 2025 Berlin Cohort analysis. "
+        "Your goal is to answer questions accurately and concisely about the specific startup context you are given. "
+        "If the answer is not available in the provided context, clearly state that the information is not available in the analysis data. "
+        "Do not hallucinate or make up information. Stick strictly to the provided JSON context for the startup."
+    )
 
-        # Base system prompt that guides the agent's behavior
-        system_prompt = """You are an expert startup analyst assistant having a natural conversation with the user. Follow these guidelines:
+    # Construct the prompt with context
+    context_str = json.dumps(startup_context, indent=2)
+    prompt = f"{SYSTEM_PROMPT}\n\nStartup Context Data:\n```json\n{context_str}\n```\n\nUser Query: {user_query}\n\nMent-hoff Response:"
 
-1. Keep responses conversational and concise (2-3 short paragraphs max)
+    try:
+        # Generate content using the model
+        response = model.generate_content(prompt)
 
-2. Structure your responses naturally:
-   - Brief introduction or acknowledgment
-   - 2-3 main points or suggestions
-   - One follow-up question to continue the conversation
+        # Extract the text response
+        agent_response = response.text
 
-3. Use minimal formatting:
-   - Only use plain text (no bold or italic)
-   - Use - for bullet point lists (keep lists to 3 items max)
-   - Add a blank line between main points
+        logger.info(f"Generated response: '{agent_response[:100]}...'")
+        return agent_response
 
-4. When making suggestions:
-   - Keep them focused and specific
-   - Briefly explain why each suggestion matters
-   - Connect them to the startup's context
-
-5. Be conversational:
-   - Use natural language
-   - Avoid technical jargon unless necessary
-   - Ask engaging follow-up questions
-
-Remember: Write as if you're having a friendly chat with a colleague - clear, helpful, and engaging."""
-
-        # Combine system prompt with context and conversation history
-        prompt = f"""{system_prompt}
-
-{context}
-
-Previous conversation:
-{self._format_memory()}
-
-User query: {query}
-
-Provide a natural, conversational response that keeps the discussion going."""
-
-        return prompt
-
-    def _format_memory(self) -> str:
-        if not self.memory:
-            return "No previous conversation."
-        # Only keep last 3 exchanges for context
-        return "\n".join([f"User: {q}\nAssistant: {a}" for q, a in self.memory[-3:]])
-
-    async def get_response(self, query: str, startup_context: dict = None) -> str:
+    except Exception as e:
+        logger.error(f"Error generating content from model: {e}")
+        logger.exception("Traceback for model generation error:")
+        # Check for specific API errors if needed
         try:
-            prompt = self._create_prompt(query, startup_context)
-            
-            response = self.model.generate_content(
-                prompt,
-                generation_config={
-                    'temperature': 0.7,
-                    'top_p': 1,
-                    'top_k': 32,
-                    'max_output_tokens': 1000,  # Reduced for more focused responses
-                },
-                safety_settings={
-                    'HARM_CATEGORY_HARASSMENT': 'block_none',
-                    'HARM_CATEGORY_HATE_SPEECH': 'block_none',
-                    'HARM_CATEGORY_SEXUALLY_EXPLICIT': 'block_none',
-                    'HARM_CATEGORY_DANGEROUS_CONTENT': 'block_none'
-                }
-            )
+             if hasattr(response, 'prompt_feedback') and response.prompt_feedback.block_reason:
+                  logger.error(f"Content blocked: {response.prompt_feedback.block_reason}")
+                  return f"Sorry, my response was blocked due to: {response.prompt_feedback.block_reason}"
+        except Exception as feedback_error:
+             logger.error(f"Error accessing prompt feedback: {feedback_error}")
 
-            # Store in memory
-            self.memory.append((query, response.text))
-            
-            return response.text
-
-        except Exception as e:
-            return f"Error generating response: {str(e)}"
-
-    def search_startup(self, query: str) -> dict:
-        """Search for a startup in the database."""
-        return self.startup_search.search_startups(query)
-
-# Create a singleton instance
-agent = GeminiAgent()
-
-async def get_agent_response(query: str, startup_context: dict = None) -> str:
-    """Get a response from the agent."""
-    return await agent.get_response(query, startup_context)
+        return f"Sorry, I encountered an error while processing your request: {e}"
 
 if __name__ == "__main__":
-    print("Startup Analysis Assistant initialized! Ask me anything about the startups or related topics.")
-    print("Type 'quit' to exit.")
-    
-    while True:
-        query = input("\nYou: ")
-        if query.lower() == 'quit':
-            break
-        
-        response = get_agent_response(query)
-        print("\nAssistant:", response) 
+    print("Chat Agent module loaded. Use server.py to interact or run local tests.")
+    # Example of how to test locally:
+    # try:
+    #     sample_file_path = 'data/results/analysis_hybr.json' # Choose a file
+    #     with open(sample_file_path, 'r') as f:
+    #         test_context = json.load(f)
+    #     if model and test_context:
+    #          print(f"\n--- Local Test (using {sample_file_path}) ---")
+    #          while True:
+    #              query = input("\nYou (type 'quit' to exit test): ")
+    #              if query.lower() == 'quit':
+    #                  break
+    #              response = get_agent_response(query, test_context)
+    #              print("\nMent-hoff:", response)
+    #     else:
+    #          print("Model not initialized or test context not loaded.")
+    # except FileNotFoundError:
+    #     print(f"Test context file not found: {sample_file_path}")
+    # except Exception as e:
+    #     print(f"Error in local test setup: {e}") 

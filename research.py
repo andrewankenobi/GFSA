@@ -1,16 +1,103 @@
+import sys
+print("--- research.py sys.path ---")
+print(sys.path)
+print("---------------------------")
+
 import json
 import os
 import time
 import logging
 from datetime import datetime
 from typing import List, Dict, Optional
-import google.generativeai as genai
-from google.generativeai import types
+import sys
+import google.generativeai as genai_main
+from google.genai.types import GenerateContentConfig, Tool, GoogleSearch
+import re
 import backoff
 from pathlib import Path
 from dotenv import load_dotenv
 import concurrent.futures
 from tqdm import tqdm
+import argparse
+import shutil
+
+# Define the analysis structure
+ANALYSIS_STRUCTURE = {
+    "analysis": {
+        "company_overview": {
+            "company_name": "",
+            "industry": "",
+            "country": "",
+            "founding_date": "",
+            "mission_statement": "",
+            "key_milestones": [],
+            "current_status": "",
+            "unique_value_proposition": ""
+        },
+        "product_analysis": {
+            "product_description": "",
+            "core_features": [],
+            "technology_stack": [],
+            "development_stage": "",
+            "user_feedback": "",
+            "product_roadmap": []
+        },
+        "market_analysis": {
+            "target_market": "",
+            "market_size": "",
+            "growth_potential": "",
+            "market_trends": [],
+            "customer_segments": [],
+            "market_challenges": []
+        },
+        "business_model": {
+            "revenue_streams": [],
+            "pricing_strategy": "",
+            "customer_acquisition": "",
+            "partnerships": [],
+            "scaling_strategy": ""
+        },
+        "financial_overview": {
+            "funding_history": [],
+            "revenue": "",
+            "profitability": "",
+            "burn_rate": "",
+            "runway": "",
+            "financial_metrics": {}
+        },
+        "team_analysis": {
+            "founders": [],
+            "key_team_members": [],
+            "advisors": [],
+            "hiring_plans": [],
+            "organizational_structure": ""
+        },
+        "competitive_advantage": {
+            "unique_selling_points": [],
+            "barriers_to_entry": [],
+            "intellectual_property": [],
+            "competitive_landscape": []
+        },
+        "risk_assessment": {
+            "market_risks": [],
+            "operational_risks": [],
+            "financial_risks": [],
+            "mitigation_strategies": []
+        },
+        "growth_strategy": {
+            "short_term_goals": [],
+            "long_term_vision": "",
+            "expansion_plans": [],
+            "scaling_approach": ""
+        },
+        "recommendations": {
+            "strategic_recommendations": [],
+            "operational_recommendations": [],
+            "growth_recommendations": [],
+            "risk_mitigation_recommendations": []
+        }
+    }
+}
 
 # Configure logging
 logging.basicConfig(
@@ -26,32 +113,86 @@ logger = logging.getLogger(__name__)
 # Load environment variables from .env file
 load_dotenv()
 
+# Configuration
+# Set to True to use grounding with Vertex AI Search or Google Search
+# Set to False to use the model without grounding (potentially less accurate but simpler)
+USE_GROUNDING = True
+
+# --- Configure GenAI Library --- START ---
+# Import genai and configure API key at the module level
+# from google import genai # <-- Keep this commented or remove # REMOVE
+# from google.generativeai import configure # <-- Import configure directly # REMOVE
+
+import sys
+# print(f"DEBUG: sys.path = {sys.path}") # <-- Keep or remove debug print
+api_key = os.getenv('GEMINI_API_KEY')
+if not api_key:
+    raise ValueError("GEMINI_API_KEY not found in environment variables")
+genai_main.configure(api_key=api_key) # Use the alias for the main module
+# configure(api_key=api_key) # REMOVE
+logger.info("Google Generative AI library configured.")
+# --- Configure GenAI Library --- END ---
+
+# --- Class Definition ---
+# Need to make sure the model uses the correct genai reference now
+# from google import generativeai as genai # <-- Import with alias for the class # REMOVE
+
 class StartupResearch:
     def __init__(self):
-        # Set up logging
-        logging.basicConfig(
-            level=logging.INFO,
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            handlers=[
-                logging.FileHandler('startup_research.log'),
-                logging.StreamHandler()
-            ]
-        )
-        self.logger = logging.getLogger(__name__)
+        # Set up logging (ensure it's initialized if not done globally)
+        # logging.basicConfig(...) # Might be redundant if configured globally
+        self.logger = logging.getLogger(__name__) # Use the global logger
         self.logger.info("Initializing StartupResearch")
 
-        # Load environment variables
-        load_dotenv()
-        api_key = os.getenv('GEMINI_API_KEY')
-        if not api_key:
-            raise ValueError("GEMINI_API_KEY not found in environment variables")
+        # Define model ID
+        self.model_id = 'gemini-2.0-flash'
 
-        # Configure the API
-        genai.configure(api_key=api_key)
+        # Define safety settings
+        self.safety_settings = [
+            {
+                "category": "HARM_CATEGORY_HARASSMENT",
+                "threshold": "BLOCK_NONE"
+            },
+            {
+                "category": "HARM_CATEGORY_HATE_SPEECH",
+                "threshold": "BLOCK_NONE"
+            },
+            {
+                "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                "threshold": "BLOCK_NONE"
+            },
+            {
+                "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+                "threshold": "BLOCK_NONE"
+            }
+        ]
+
+        # Define DEFAULT generation config PARAMS (as dict)
+        self.default_generation_params = {
+            "temperature": 0.7,
+            "top_p": 0.8,
+            "top_k": 40,
+            "max_output_tokens": 2048,
+        }
+
+        # Get the model instance, passing base config dictionary
+        self.model = genai_main.GenerativeModel(
+            model_name=self.model_id,
+            safety_settings=self.safety_settings
+            # Removed: generation_config=self.default_generation_params
+        )
+        self.logger.info(f"Initialized model: {self.model_id}")
         
-        # Initialize the model
-        self.model = genai.GenerativeModel('gemini-2.0-flash')
-        
+        # Configure the grounding tool instance once
+        self.google_search_tool = None
+        if USE_GROUNDING:
+            try:
+                self.google_search_tool = Tool(google_search=GoogleSearch())
+                self.logger.info("Initialized Google Search grounding tool.")
+            except Exception as tool_error:
+                 self.logger.error(f"Failed to initialize Google Search tool: {tool_error}")
+                 self.google_search_tool = None # Ensure it's None if initialization fails
+
         # Set up directories
         self.data_dir = Path('data')
         self.archive_dir = self.data_dir / 'archive'
@@ -59,437 +200,447 @@ class StartupResearch:
         
         for directory in [self.data_dir, self.archive_dir, self.results_dir]:
             directory.mkdir(parents=True, exist_ok=True)
-            self.logger.info(f"Created directory: {directory}")
+            self.logger.info(f"Ensured directory exists: {directory}")
 
-    def analyze_startup(self, startup):
-        self.logger.info(f"Starting analysis for startup: {startup['Startup Name']}")
-        
-        # Save raw response before processing
-        raw_dir = self.data_dir / 'raw'
-        raw_dir.mkdir(exist_ok=True)
-        
-        # Create the prompt with search context and additional information
-        prompt = f"""
-        Analyze the following startup and provide an extremely detailed report. Use web search extensively to gather comprehensive information.
-        
-        Startup Information:
-        Name: {startup['Startup Name']}
-        Industry: {startup['Industry']}
-        Country: {startup['Country']}
-        
-        Additional Information:
-        Founders: {', '.join(startup['Additional Info']['founders'])}
-        Founded: {startup['Additional Info']['date_founded']}
-        Stage: {startup['Additional Info']['stage']}
-        Website: {startup['Additional Info']['website']}
-        Fundraising: {startup['Additional Info']['fundraising']}
-        Product Stage: {startup['Additional Info']['product_stage']}
-        Employees: {startup['Additional Info']['no_of_employees']}
-        
-        Overview:
-        {startup['Additional Info']['overview']}
-        
-        Program Expectations:
-        {startup['Additional Info']['expectations_for_the_program']}
-        
-        IMPORTANT INSTRUCTIONS:
-        1. Your response must be a valid JSON object
-        2. Provide extremely detailed information in each section
-        3. For founders and team members, include:
-           - Educational background
-           - Previous work experience
-           - Notable achievements
-           - Areas of expertise
-           - Social media presence (LinkedIn, Twitter)
-        4. For market analysis:
-           - Include specific market size figures with sources
-           - Detailed competitor analysis with strengths/weaknesses
-           - Regulatory environment
-           - Market dynamics and drivers
-        5. For financial information:
-           - Detailed breakdown of funding rounds
-           - Valuation metrics and comparables
-           - Burn rate and runway estimates
-           - Revenue projections if available
-        6. Use web search to verify and enrich all information
-        
-        Please provide a comprehensive analysis in JSON format with the following structure:
-        {{
-            "metadata": {{
-                "startup_name": "{startup['Startup Name']}",
-                "industry": "{startup['Industry']}",
-                "country": "{startup['Country']}",
-                "analysis_timestamp": "<current_timestamp>",
-                "model_used": "gemini-2.0-flash",
-                "analysis_version": "2.0",
-                "sources": []
-            }},
-            "analysis": {{
-                "company_overview": {{
-                    "description": "",
-                    "founding_date": "",
-                    "founders": [
-                        {{
-                            "name": "",
-                            "title": "",
-                            "education": [],
-                            "work_experience": [],
-                            "achievements": [],
-                            "expertise": [],
-                            "social_profiles": {{}}
-                        }}
-                    ],
-                    "headquarters": "",
-                    "company_stage": "",
-                    "employee_count": "",
-                    "key_milestones": []
-                }},
-                "product_analysis": {{
-                    "main_products": [
-                        {{
-                            "name": "",
-                            "description": "",
-                            "key_features": [],
-                            "target_users": "",
-                            "pricing": "",
-                            "competitive_position": ""
-                        }}
-                    ],
-                    "unique_features": [],
-                    "target_market": {{
-                        "primary_segments": [],
-                        "market_size": "",
-                        "user_demographics": "",
-                        "geographical_focus": ""
-                    }},
-                    "technology_stack": {{
-                        "frontend": [],
-                        "backend": [],
-                        "infrastructure": [],
-                        "third_party_services": [],
-                        "notable_technical_achievements": []
-                    }}
-                }},
-                "market_analysis": {{
-                    "market_size": {{
-                        "total_addressable_market": "",
-                        "serviceable_addressable_market": "",
-                        "serviceable_obtainable_market": "",
-                        "growth_rate": "",
-                        "key_drivers": []
-                    }},
-                    "competitors": [
-                        {{
-                            "name": "",
-                            "description": "",
-                            "strengths": [],
-                            "weaknesses": [],
-                            "market_share": "",
-                            "competitive_advantage": ""
-                        }}
-                    ],
-                    "market_trends": [],
-                    "regulatory_environment": {{
-                        "current_regulations": [],
-                        "upcoming_changes": [],
-                        "compliance_requirements": []
-                    }},
-                    "growth_potential": ""
-                }},
-                "business_model": {{
-                    "revenue_streams": [
-                        {{
-                            "type": "",
-                            "description": "",
-                            "contribution": "",
-                            "growth_potential": ""
-                        }}
-                    ],
-                    "pricing_strategy": {{
-                        "model": "",
-                        "price_points": [],
-                        "comparison_with_competitors": ""
-                    }},
-                    "customer_acquisition": {{
-                        "channels": [],
-                        "cac": "",
-                        "ltv": "",
-                        "conversion_rates": "",
-                        "retention_metrics": ""
-                    }},
-                    "partnerships": [
-                        {{
-                            "partner": "",
-                            "type": "",
-                            "benefits": [],
-                            "status": ""
-                        }}
-                    ]
-                }},
-                "financial_overview": {{
-                    "funding_rounds": [
-                        {{
-                            "round": "",
-                            "date": "",
-                            "amount": "",
-                            "lead_investors": [],
-                            "valuation": "",
-                            "key_terms": ""
-                        }}
-                    ],
-                    "total_funding": "",
-                    "key_investors": [
-                        {{
-                            "name": "",
-                            "type": "",
-                            "portfolio_focus": "",
-                            "investment_thesis": ""
-                        }}
-                    ],
-                    "valuation": {{
-                        "current_valuation": "",
-                        "valuation_metrics": [],
-                        "comparable_companies": [],
-                        "key_drivers": []
-                    }},
-                    "financial_metrics": {{
-                        "revenue": "",
-                        "burn_rate": "",
-                        "runway": "",
-                        "unit_economics": "",
-                        "path_to_profitability": ""
-                    }}
-                }},
-                "team_analysis": {{
-                    "leadership_team": [
-                        {{
-                            "name": "",
-                            "title": "",
-                            "background": {{
-                                "education": [],
-                                "work_experience": [],
-                                "achievements": []
-                            }},
-                            "expertise": [],
-                            "responsibilities": []
-                        }}
-                    ],
-                    "team_size": "",
-                    "key_hires": [
-                        {{
-                            "role": "",
-                            "requirements": [],
-                            "impact": ""
-                        }}
-                    ],
-                    "expertise": [],
-                    "culture_and_values": [],
-                    "recruitment_strategy": ""
-                }},
-                "competitive_advantage": {{
-                    "unique_selling_points": [],
-                    "barriers_to_entry": [],
-                    "patents_ip": {{
-                        "patents": [],
-                        "trademarks": [],
-                        "trade_secrets": [],
-                        "licensing_agreements": []
-                    }},
-                    "network_effects": "",
-                    "brand_value": ""
-                }},
-                "risk_assessment": {{
-                    "market_risks": [
-                        {{
-                            "risk": "",
-                            "likelihood": "",
-                            "impact": "",
-                            "mitigation": ""
-                        }}
-                    ],
-                    "operational_risks": [
-                        {{
-                            "risk": "",
-                            "likelihood": "",
-                            "impact": "",
-                            "mitigation": ""
-                        }}
-                    ],
-                    "financial_risks": [
-                        {{
-                            "risk": "",
-                            "likelihood": "",
-                            "impact": "",
-                            "mitigation": ""
-                        }}
-                    ],
-                    "mitigation_strategies": []
-                }},
-                "growth_strategy": {{
-                    "expansion_plans": {{
-                        "geographic": [],
-                        "product": [],
-                        "market": [],
-                        "timeline": ""
-                    }},
-                    "product_roadmap": {{
-                        "short_term": [],
-                        "medium_term": [],
-                        "long_term": [],
-                        "key_initiatives": []
-                    }},
-                    "market_expansion": {{
-                        "target_markets": [],
-                        "entry_strategy": "",
-                        "success_metrics": [],
-                        "resource_requirements": ""
-                    }}
-                }},
-                "recommendations": {{
-                    "investment_potential": {{
-                        "recommendation": "",
-                        "rationale": [],
-                        "risk_factors": [],
-                        "expected_returns": ""
-                    }},
-                    "key_opportunities": [],
-                    "areas_of_concern": [],
-                    "strategic_suggestions": []
-                }}
-            }}
-        }}
+    def archive_existing_startup_data(self, startup_name):
+        """Moves existing files from a startup's data directory to the archive."""
+        startup_dir_name = startup_name.lower().replace(' ', '_')
+        startup_path = self.data_dir / startup_dir_name
+        archive_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-        IMPORTANT: Your response must be a valid JSON object. Do not include any text before or after the JSON.
-        Use web search extensively to gather accurate and up-to-date information about the startup.
-        """
+        if startup_path.exists() and startup_path.is_dir():
+            self.logger.info(f"Archiving existing files for startup: {startup_name} from {startup_path}")
+            files_to_archive = list(startup_path.iterdir()) # Get files before moving
+            if not files_to_archive:
+                self.logger.info(f"No files found in {startup_path} to archive.")
+                return
 
+            for file_path in files_to_archive:
+                if file_path.is_file():
+                    # Create a unique name for the archived file
+                    archive_file_name = f"{startup_dir_name}_{file_path.stem}_{archive_timestamp}{file_path.suffix}"
+                    destination_path = self.archive_dir / archive_file_name
+                    try:
+                        shutil.move(str(file_path), str(destination_path))
+                        self.logger.info(f"Archived {file_path.name} to {destination_path}")
+                    except Exception as e:
+                        self.logger.error(f"Error archiving {file_path.name}: {e}")
+            # Optionally remove the startup directory if it's now empty
+            # try:
+            #     if not any(startup_path.iterdir()): # Check if empty
+            #         startup_path.rmdir()
+            #         self.logger.info(f"Removed empty directory: {startup_path}")
+            # except Exception as e:
+            #     self.logger.error(f"Could not remove directory {startup_path}: {e}")
+        else:
+            self.logger.info(f"No existing data directory found for startup: {startup_name} at {startup_path}")
+
+    def _extract_and_parse_json(self, response_text, area_name="aggregation"):
+        """Extracts JSON from text, cleaning Markdown fences and common issues."""
+        cleaned_text = ""
+        json_str = ""
         try:
-            # Generate response with search enabled
-            response = self.model.generate_content(
-                prompt,
-                generation_config={
-                    'temperature': 0.7,
-                    'top_p': 1,
-                    'top_k': 32,
-                    'max_output_tokens': 8192,
-                },
-                safety_settings=[
-                    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
-                    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
-                    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
-                    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"}
-                ]
-            )
+            # 1. Remove Markdown fences and trim whitespace
+            cleaned_text = re.sub(r"^```json\\s*|\\s*```$", "", response_text.strip())
 
-            # Save raw response
-            raw_filename = raw_dir / f"{startup['Startup Name'].replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}_raw.json"
-            
-            # Clean the response text before saving
-            response_text = response.text.strip()
-            if response_text.startswith("```json"):
-                response_text = response_text[7:]
-            if response_text.endswith("```"):
-                response_text = response_text[:-3]
-            response_text = response_text.strip()
-            
-            with open(raw_filename, 'w') as f:
-                f.write(response_text)
-            self.logger.info(f"Saved raw response to {raw_filename}")
+            # 2. Find the first '{' and last '}'
+            start_idx = cleaned_text.find('{')
+            end_idx = cleaned_text.rfind('}') + 1
 
-            # Extract and parse the JSON response
-            try:
-                # Parse JSON (using already cleaned response_text)
-                analysis_data = json.loads(response_text)
-                self.logger.info(f"Successfully analyzed startup: {startup['Startup Name']}")
-                return analysis_data
-                
-            except json.JSONDecodeError as e:
-                self.logger.error(f"Failed to parse JSON response for {startup['Startup Name']}: {e}")
-                # Create a structured response from text
-                sections = response_text.split('\n\n')
-                structured_response = {
-                    "metadata": {
-                        "startup_name": startup['Startup Name'],
-                        "industry": startup['Industry'],
-                        "country": startup['Country'],
-                        "analysis_timestamp": datetime.now().isoformat(),
-                        "model_used": "gemini-2.0-flash",
-                        "analysis_version": "2.0",
-                        "note": "Fallback structured format due to JSON parsing error"
-                    },
-                    "analysis": {
-                        "raw_sections": sections
-                    }
-                }
-                return structured_response
-                
+            if start_idx != -1 and end_idx != -1:
+                json_str = cleaned_text[start_idx:end_idx]
+
+                # 3. Attempt to parse the JSON
+                parsed_json = json.loads(json_str)
+                return parsed_json
+            else:
+                logging.error(f"Could not find valid JSON structure in response for {area_name}")
+                logging.debug(f"Cleaned text for {area_name}: {cleaned_text}")
+                return None
+        except json.JSONDecodeError as e:
+            # Enhanced logging
+            logging.error(f"JSON parsing error for {area_name}: {e.msg} at line {e.lineno} col {e.colno}")
+            # Log the vicinity of the error in the potentially problematic string
+            problematic_text = json_str if json_str else cleaned_text # Use json_str if available, else cleaned_text
+            # Calculate start/end for vicinity log, ensuring bounds are valid
+            vicinity_start = max(0, e.pos - 50)
+            vicinity_end = min(len(problematic_text), e.pos + 50)
+            logging.error(f"Problematic JSON text segment for {area_name} (approx vicinity of error): {problematic_text[vicinity_start:vicinity_end]}")
+            # Log the full string that was attempted to be parsed
+            logging.debug(f"Full cleaned JSON string attempted for {area_name}: {json_str if json_str else 'N/A'}")
+            # Log the original raw response for deeper debugging if needed
+            logging.debug(f"Original response text for {area_name}: {response_text}")
+            return None
         except Exception as e:
-            self.logger.error(f"Error analyzing startup {startup['Startup Name']}: {e}")
+            logging.error(f"Unexpected error during JSON extraction for {area_name}: {str(e)}")
+            logging.exception(f"Traceback for unexpected JSON extraction error for {area_name}:") # Log traceback
             return None
 
-    def process_batch(self, startups, batch_size=20, max_workers=20):
-        self.logger.info(f"Processing batch of {len(startups)} startups with {max_workers} parallel workers")
-        results = []
+    def assemble_final_json(self, startup_data, analysis_files: List[str]):
+        """Assemble the final JSON from individual analysis files found at the given paths."""
+        self.logger.info(f"Assembling final JSON for {startup_data['startup_name']} from {len(analysis_files)} files.")
         
+        # Start with the base structure including metadata placeholders
+        final_json_output = {
+            "metadata": {
+                "startup_name": startup_data['startup_name'],
+                "industry": startup_data.get('industry', ''),
+                "country": startup_data.get('country', ''),
+                "assembly_timestamp": datetime.now().strftime("%Y%m%d_%H%M%S"),
+                "model_used_for_areas": self.model_id, # Assuming same model for all areas
+                "analysis_version": "2.0",
+                "sources": [], # Could potentially aggregate sources later
+                "missing_areas": sorted(list(ANALYSIS_STRUCTURE['analysis'].keys())), # Start assuming all are missing
+                "assembly_status": "in_progress"
+            },
+            "analysis": {} # Initialize empty analysis dict
+        }
+
+        present_areas = set()
+        aggregated_sources = set() # Use a set to avoid duplicate sources
+
+        # Initialize analysis section with empty structures from ANALYSIS_STRUCTURE
+        for area_key, structure in ANALYSIS_STRUCTURE['analysis'].items():
+            final_json_output['analysis'][area_key] = structure
+
+        for file_path_str in analysis_files:
+            file_path = Path(file_path_str) # Convert string path to Path object
+            try:
+                if not file_path.exists():
+                    self.logger.warning(f"Analysis file not found during assembly: {file_path}, skipping.")
+                    continue
+
+                with open(file_path, 'r') as f:
+                    area_analysis = json.load(f)
+
+                # Basic validation of the loaded JSON structure
+                if not isinstance(area_analysis, dict) or "metadata" not in area_analysis or "analysis" not in area_analysis:
+                    self.logger.warning(f"Invalid structure in analysis file {file_path}, skipping.")
+                    continue
+
+                analysis_area = area_analysis["metadata"].get("analysis_area")
+                if not analysis_area or analysis_area not in ANALYSIS_STRUCTURE['analysis']:
+                    self.logger.warning(f"Could not determine valid analysis area from metadata in {file_path}, skipping.")
+                    continue
+                
+                # Add the area as present
+                present_areas.add(analysis_area)
+                
+                # Merge the specific area's analysis data
+                # Ensure the area key exists in the loaded analysis section
+                if analysis_area in area_analysis["analysis"]:
+                    # Overwrite the placeholder with the actual analysis data for this area
+                    final_json_output['analysis'][analysis_area] = area_analysis["analysis"][analysis_area]
+                    self.logger.debug(f"Merged analysis data for area '{analysis_area}' from {file_path}")
+                else:
+                     self.logger.warning(f"Analysis area '{analysis_area}' key not found within the 'analysis' section of {file_path}")
+
+
+                # Aggregate sources (optional)
+                sources = area_analysis["metadata"].get("sources", [])
+                if isinstance(sources, list):
+                    aggregated_sources.update(sources)
+
+            except json.JSONDecodeError as e:
+                self.logger.error(f"JSON decoding error processing {file_path}: {e}")
+            except Exception as e:
+                self.logger.error(f"Unexpected error processing {file_path}: {e}")
+
+        # Update metadata based on processed files
+        all_expected_areas = set(ANALYSIS_STRUCTURE['analysis'].keys())
+        missing_areas = sorted(list(all_expected_areas - present_areas))
+        final_json_output['metadata']['missing_areas'] = missing_areas
+        final_json_output['metadata']['sources'] = sorted(list(aggregated_sources))
+        
+        if not missing_areas:
+            final_json_output['metadata']['assembly_status'] = "completed_all_areas"
+            self.logger.info(f"Successfully assembled final JSON for {startup_data['startup_name']} - All areas present.")
+        else:
+            final_json_output['metadata']['assembly_status'] = "completed_missing_areas"
+            self.logger.warning(f"Assembled final JSON for {startup_data['startup_name']} - Missing areas: {missing_areas}")
+
+        return final_json_output
+
+    def analyze_startup(self, startup_data):
+        """Analyze a single startup using Gemini API for areas, then assemble."""
+        startup_dir_name = "" # Initialize for use in final saving
+        try:
+            # Ensure startup_dir uses Path object and correct naming
+            startup_dir_name = startup_data['startup_name'].lower().replace(' ', '_')
+            startup_dir = self.data_dir / startup_dir_name # Use Path object
+            startup_dir.mkdir(parents=True, exist_ok=True) # Changed from os.makedirs
+
+            # Define analysis areas
+            analysis_areas = [
+                'company_overview',
+                'product_analysis',
+                'market_analysis',
+                'business_model',
+                'financial_overview',
+                'team_analysis',
+                'competitive_advantage',
+                'risk_assessment',
+                'growth_strategy',
+                'recommendations'
+            ]
+            
+            # Initialize the area analyses dictionary and list for file paths
+            area_analyses_data = {} # Stores parsed JSON data (optional, if needed elsewhere)
+            area_analysis_files = [] # Stores paths to the generated JSON files
+            
+            # --- Prepare GenerationConfig with tools --- START
+            analysis_gen_config = None # Use None if no tools needed or tool init failed
+            if USE_GROUNDING and self.google_search_tool:
+                try:
+                    # Create GenerateContentConfig with the tool AND default params
+                    analysis_gen_config = GenerateContentConfig(
+                        tools=[self.google_search_tool],
+                        **self.default_generation_params # Unpack default params here
+                    )
+                    self.logger.info("Using Google Search grounding for startup area analysis.")
+                except Exception as config_error:
+                     self.logger.error(f"Failed to create GenerateContentConfig for area analysis: {config_error}")
+                     analysis_gen_config = self.default_generation_params # Fallback to default dict
+                else:
+                    analysis_gen_config = self.default_generation_params # Use default dict if no grounding
+            # --- Prepare GenerationConfig with tools --- END
+
+            # Analyze each area separately
+            for area in analysis_areas:
+                try:
+                    # Create area-specific prompt
+                    area_prompt = f"""
+                    Analyze the following startup focusing specifically on the {area} area. Use web search extensively to gather comprehensive information.
+
+                    Startup Information:
+                    Name: {startup_data['startup_name']}
+                    Industry: {startup_data.get('industry', '')}
+                    Country: {startup_data.get('country', '')}
+
+                    Additional Information:
+                    Founders: {', '.join(startup_data.get('founders', []))}
+                    Founded: {startup_data.get('date_founded', '')}
+                    Stage: {startup_data.get('stage', '')}
+                    Website: {startup_data.get('website', '')}
+                    Fundraising: {startup_data.get('fundraising', '')}
+                    Product Stage: {startup_data.get('product_stage', '')}
+                    Employees: {startup_data.get('no_of_employees', '')}
+
+                    Overview:
+                    {startup_data.get('overview', '')}
+
+                    Program Expectations:
+                    {startup_data.get('expectations_for_the_program', '')}
+
+                    IMPORTANT INSTRUCTIONS:
+                    1. Your response must be a valid JSON object
+                    2. Provide extremely detailed information for the {area} section
+                    3. Use web search to verify and enrich all information
+                    4. For team analysis specifically:
+                       - Search for each founder's name with variations (e.g., "Hannah Chappatte LinkedIn", "Hannah Chappatte Hybr", "Hannah Chappatte founder")
+                       - Check the company's website for team information
+                       - Look for press releases or news articles mentioning the team
+                       - Search for company profiles on Crunchbase, LinkedIn, and other startup databases
+                       - If a founder's LinkedIn profile is found, include the full URL
+                    5. Only include specific details (like URLs, funding amounts, dates, etc.) if they are found and verified through web search. If a specific piece of information cannot be found or verified via search, explicitly state 'Not Found' or leave the corresponding JSON field empty/null. Do NOT invent information or URLs.
+
+                    Please provide a comprehensive analysis in JSON format with the following structure:
+                    {{
+                        "metadata": {{
+                            "startup_name": "{startup_data['startup_name']}",
+                            "analysis_area": "{area}",
+                            "analysis_timestamp": "{datetime.now().strftime("%Y%m%d_%H%M%S")}",
+                            "model_used": "gemini-2.0-flash",
+                            "analysis_version": "2.0",
+                            "sources": []
+                        }},
+                        "analysis": {{
+                            "{area}": {json.dumps(ANALYSIS_STRUCTURE['analysis'][area], indent=4)}
+                        }}
+                    }}
+
+                    Use web search extensively to gather accurate and up-to-date information about the startup.
+
+                    ABSOLUTELY CRITICAL: Your entire response must contain ONLY ONE single, valid JSON object matching the structure above. Do NOT repeat the JSON structure, and do not include ANY text before the opening '{{' or after the final '}}'.
+                    """
+                    
+                    # Generate content for this area using the model instance
+                    response = self.model.generate_content(
+                        contents=[area_prompt],
+                        # Pass the config object (or dict) to override model's default config
+                        generation_config=analysis_gen_config
+                    )
+                    
+                    # Process the response
+                    response_text = response.text
+
+                    # Try to extract JSON from the response
+                    try:
+                        # 1. Remove Markdown fences and trim whitespace
+                        cleaned_text = re.sub(r"^```json\s*|\s*```$", "", response_text.strip())
+
+                        # 2. Find the first '{' and last '}'
+                        start_idx = cleaned_text.find('{')
+                        end_idx = cleaned_text.rfind('}') + 1
+
+                        if start_idx != -1 and end_idx != -1:
+                            json_str = cleaned_text[start_idx:end_idx]
+                            # 3. Attempt to parse the JSON
+                            area_analysis = json.loads(json_str)
+
+                            # Store the area analysis data (optional)
+                            area_analyses_data[area] = area_analysis
+                            logging.info(f"Successfully processed {area} for {startup_data['startup_name']}")
+
+                            # Save the parsed JSON to a file and store the path
+                            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                            json_file_path = startup_dir / f"{area}_analysis_{timestamp}.json" # Use Path object
+                            try:
+                                with open(json_file_path, 'w') as f:
+                                    json.dump(area_analysis, f, indent=4)
+                                logging.info(f"Saved parsed JSON for {area} to {json_file_path}")
+                                area_analysis_files.append(str(json_file_path)) # Add the file path string to the list
+                            except Exception as save_error:
+                                logging.error(f"Failed to save JSON for {area} to {json_file_path}: {save_error}")
+
+                        else:
+                            logging.error(f"Could not find valid JSON structure in response for {area}")
+                            logging.debug(f"Cleaned text for {area}: {cleaned_text}")
+                    except json.JSONDecodeError as e:
+                        logging.error(f"JSON parsing error for {area}: {str(e)}")
+                        # Log the problematic segment if possible
+                        problematic_segment = cleaned_text[start_idx:end_idx] if 'start_idx' in locals() and 'end_idx' in locals() and start_idx !=-1 and end_idx != -1 else "N/A"
+                        logging.error(f"Problematic JSON string segment for {area}: {problematic_segment}")
+                        logging.debug(f"Original response text for {area}: {response_text}")
+                except Exception as e:
+                    logging.error(f"Error analyzing {area} for {startup_data['startup_name']}: {str(e)}")
+                    continue # Continue to the next area if one fails
+            
+            # Assemble the final JSON using the list of generated file paths
+            final_result = self.assemble_final_json(startup_data, area_analysis_files) # Pass startup_data and the list of file paths
+
+            if final_result and isinstance(final_result, dict): # Check if we got a dictionary back
+                # --- Archive existing and save new result --- START
+                if not startup_dir_name:
+                     startup_dir_name = startup_data.get('startup_name', 'unknown').lower().replace(' ', '_')
+
+                # Define the primary (non-timestamped) filename
+                primary_file_name = f"analysis_{startup_dir_name}.json"
+                primary_file_path = self.results_dir / primary_file_name
+
+                # Check for existing file and archive it
+                if primary_file_path.exists():
+                    try:
+                        archive_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                        archive_file_name = f"analysis_{startup_dir_name}_{archive_timestamp}.json"
+                        archive_destination = self.archive_dir / archive_file_name
+                        shutil.move(str(primary_file_path), str(archive_destination))
+                        self.logger.info(f"Archived existing result file {primary_file_name} to {archive_destination}")
+                    except Exception as archive_err:
+                        self.logger.error(f"Failed to archive existing result file {primary_file_name}: {archive_err}")
+                        # Decide if you want to continue and overwrite, or fail here. Overwriting for now.
+
+                # Save the new result to the primary filename
+                try:
+                    with open(primary_file_path, 'w') as f:
+                        json.dump(final_result, f, indent=4)
+
+                    # Log success/failure based on assembly status
+                    assembly_status = final_result.get("metadata", {}).get("assembly_status")
+                    if assembly_status == "failed_critical_assembly":
+                         logging.error(f"Completed run for {startup_data['startup_name']} but with CRITICAL ASSEMBLY FAILURE, saved error data to {primary_file_path}")
+                    else:
+                        missing_areas_reported = final_result.get("metadata", {}).get("missing_areas", [])
+                        if missing_areas_reported:
+                            logging.info(f"Successfully completed analysis for {startup_data['startup_name']} (missing areas: {missing_areas_reported}), saved to {primary_file_path}")
+                        else:
+                             logging.info(f"Successfully completed analysis for {startup_data['startup_name']} (all areas present), saved to {primary_file_path}")
+
+                    return True # Indicate success as a file was generated
+                except Exception as save_error:
+                    logging.error(f"Failed to save final assembled result for {startup_data['startup_name']} to {primary_file_path}: {save_error}")
+                    return False # Indicate failure if saving failed
+                # --- Archive existing and save new result --- END
+            else:
+                # This case means assemble_final_json failed badly and didn't return a dict
+                logging.error(f"Failed to generate final assembled analysis for {startup_data['startup_name']} - assemble_final_json returned unexpected type or None: {type(final_result)}")
+                return False # Indicate failure
+
+        except Exception as e:
+            logging.error(f"Critical error analyzing startup {startup_data['startup_name']}: {str(e)}")
+            # raise # Re-raising might stop the whole batch process
+            return False # Indicate failure
+
+    def process_batch(self, startups_to_process, batch_size=2, max_workers=10): # Renamed arg
+        self.logger.info(f"Processing batch of {len(startups_to_process)} startups with {max_workers} parallel workers")
+        successful_analyses = 0
+        failed_analyses = 0
+
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             # Create a progress bar
-            with tqdm(total=len(startups), desc="Analyzing startups") as pbar:
+            with tqdm(total=len(startups_to_process), desc="Analyzing startups") as pbar:
                 # Submit all tasks
                 future_to_startup = {
-                    executor.submit(self.analyze_startup, startup): startup 
-                    for startup in startups
+                    executor.submit(self.analyze_startup, startup): startup
+                    for startup in startups_to_process
                 }
                 
                 # Process completed tasks as they finish
                 for future in concurrent.futures.as_completed(future_to_startup):
                     startup = future_to_startup[future]
                     try:
-                        result = future.result()
-                        if result:
-                            results.append(result)
+                        success = future.result() # analyze_startup now returns True/False
+                        if success:
+                            successful_analyses += 1
+                        else:
+                            failed_analyses += 1
+                            # Error logged within analyze_startup or assemble_final_json
                     except Exception as e:
-                        self.logger.error(f"Error processing {startup['Startup Name']}: {e}")
+                        # This catches errors *outside* the analyze_startup try/except
+                        self.logger.error(f"Unhandled error processing {startup['startup_name']}: {e}")
+                        failed_analyses += 1
                     finally:
                         pbar.update(1)
-        
-        return results
 
-    def save_results(self, results):
-        if not results:
-            self.logger.warning("No results to save")
+        self.logger.info(f"Batch processing complete. Successful: {successful_analyses}, Failed: {failed_analyses}")
+        # No longer returns results list, results are saved individually per startup
+
+    def run_research(self, target_startup_name=None, batch_size=10, max_workers=10): # Added target_startup_name
+        self.logger.info(f"Starting research process. Target: {target_startup_name or 'All Startups'}")
+        all_startups = load_startups()
+        if not all_startups:
+            self.logger.error("No startups loaded, exiting.")
             return
 
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"analysis_{timestamp}.json"  # Save directly in root directory
-        
-        try:
-            with open(filename, 'w') as f:
-                json.dump(results, f, indent=2)
-            self.logger.info(f"Results saved to {filename}")
-        except Exception as e:
-            self.logger.error(f"Error saving results: {e}")
+        # Filter startups if a target name is provided
+        startups_to_process = []
+        if target_startup_name:
+            found = False
+            for startup in all_startups:
+                if startup['startup_name'].lower() == target_startup_name.lower():
+                    startups_to_process.append(startup)
+                    found = True
+                    break # Found the target startup
+            if not found:
+                self.logger.error(f"Startup '{target_startup_name}' not found in startups.json. Exiting.")
+                return
+            self.logger.info(f"Processing single startup: {target_startup_name}")
+        else:
+            startups_to_process = all_startups
+            self.logger.info(f"Processing all {len(startups_to_process)} loaded startups.")
 
-    def archive_old_files(self, max_files=10):
-        self.logger.info("Archiving old result files")
-        result_files = sorted(self.results_dir.glob('analysis_*.json'))
-        if len(result_files) > max_files:
-            for file in result_files[:-max_files]:
-                try:
-                    file.rename(self.archive_dir / file.name)
-                    self.logger.info(f"Archived {file.name}")
-                except Exception as e:
-                    self.logger.error(f"Error archiving {file.name}: {e}")
+        # --- Pre-run Archiving ---
+        self.logger.info("Starting pre-run archiving of existing startup data...")
+        for startup in startups_to_process:
+            self.archive_existing_startup_data(startup['startup_name'])
+        self.logger.info("Pre-run archiving complete.")
+        # --- End Pre-run Archiving ---
 
-    def run_research(self, batch_size=20, max_workers=20):
-        self.logger.info("Starting research process")
-        startups = load_startups()
-        if not startups:
-            self.logger.error("No startups loaded")
-            return
-        
-        results = self.process_batch(startups, batch_size, max_workers)
-        self.save_results(results)
-        self.archive_old_files()
+        if not startups_to_process:
+             self.logger.warning("No startups selected for processing after filtering.")
+             return
+
+        self.process_batch(startups_to_process, batch_size, max_workers)
         self.logger.info("Research process completed")
 
 def load_startups():
@@ -500,30 +651,68 @@ def load_startups():
         # Transform the data to match the expected format
         startups = []
         for startup in startups_data:
+            # Basic check for required key
+            if 'startup_name' not in startup or not startup['startup_name']:
+                logging.warning(f"Skipping entry due to missing or empty 'startup_name': {startup}")
+                continue
+
             transformed_startup = {
-                'Startup Name': startup['startup_name'],
-                'Country': startup['country'],
-                'Industry': startup['business_model'],  # Using business_model as industry
-                'Additional Info': {  # Store additional fields for potential use in analysis
-                    'founders': startup['founders'],
-                    'date_founded': startup['date_founded'],
-                    'stage': startup['stage'],
-                    'website': startup['website'],
-                    'fundraising': startup['fundraising'],
-                    'product_stage': startup['product_stage'],
-                    'no_of_employees': startup['no_of_employees'],
-                    'overview': startup['overview'],
-                    'expectations_for_the_program': startup['expectations_for_the_program']
-                }
+                'startup_name': startup['startup_name'],
+                # Use .get() for optional fields
+                'industry': startup.get('business_model', ''), # Assuming business_model maps to industry
+                'country': startup.get('country', 'N/A'),
+                'founders': startup.get('founders', []),
+                'date_founded': startup.get('date_founded', ''),
+                'stage': startup.get('stage', ''),
+                'website': startup.get('website', ''),
+                'fundraising': startup.get('fundraising', ''),
+                'product_stage': startup.get('product_stage', ''),
+                'no_of_employees': startup.get('no_of_employees', ''),
+                'overview': startup.get('overview', ''),
+                'expectations_for_the_program': startup.get('expectations_for_the_program', '')
             }
             startups.append(transformed_startup)
             
         logging.info(f"Loaded {len(startups)} startups from JSON")
         return startups
+    except FileNotFoundError:
+        logging.error("Error: startups.json not found.")
+        return None
+    except json.JSONDecodeError as e:
+         logging.error(f"Error decoding startups.json: {e}")
+         return None
     except Exception as e:
-        logging.error(f"Error loading startups from JSON: {e}")
+        logging.error(f"Unexpected error loading startups from JSON: {e}")
         return None
 
 if __name__ == "__main__":
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description="Run startup research analysis.")
+    parser.add_argument(
+        "--startup",
+        type=str,
+        help="Optional: Specify the name of a single startup to analyze."
+    )
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=10,
+        help="Optional: Number of parallel workers (default: 10)."
+    )
+    parser.add_argument(
+        "--batchsize",
+        type=int,
+        default=2, # Reduced default batch size
+        help="Optional: Batch size for processing (default: 2)."
+    )
+
+    # Parse arguments
+    args = parser.parse_args()
+
+    # Run the researcher
     researcher = StartupResearch()
-    researcher.run_research() 
+    researcher.run_research(
+        target_startup_name=args.startup,
+        max_workers=args.workers,
+        batch_size=args.batchsize # Pass batch size
+    ) 

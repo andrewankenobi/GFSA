@@ -4,18 +4,27 @@ import google.generativeai as genai
 from google.generativeai import types
 import json
 import logging
-from chat_agent import agent, get_agent_response
+from chat_agent import get_agent_response
 import asyncio
 import os
 import traceback
 from functools import wraps
+from pathlib import Path
+import subprocess
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('server.log'), # Log server events
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
 
 # Configure Flask app
-app = Flask(__name__, static_folder='.')
+app = Flask(__name__, static_folder='.', static_url_path='')
 
 # Configure CORS properly
 CORS(app, resources={
@@ -249,15 +258,47 @@ async def chat():
 def serve_index():
     return send_from_directory('.', 'index.html')
 
-@app.route('/<path:path>')
-def serve_file(path):
-    return send_from_directory('.', path)
+@app.route('/details.html')
+def details():
+    return send_from_directory('.', 'details.html')
+
+@app.route('/data/results/<path:filename>')
+def serve_analysis_file(filename):
+    # Basic security: prevent directory traversal
+    if '..' in filename or filename.startswith('/'):
+        logger.warning(f"Attempted directory traversal: {filename}")
+        return "Invalid path", 400
+    safe_path = os.path.join('data', 'results', filename)
+    logger.info(f"Serving analysis file: {safe_path}")
+    # Use send_from_directory for safer file serving
+    return send_from_directory(os.path.join('data', 'results'), filename)
+
+@app.route('/startups.json')
+def serve_startups_list():
+    logger.info("Serving startups.json list")
+    return send_from_directory('.', 'startups.json')
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    # Basic security: prevent serving sensitive files
+    if filename.endswith('.py') or filename.endswith('.env') or '..' in filename or filename.startswith('/'):
+        logger.warning(f"Attempted access to restricted file: {filename}")
+        return "Access denied", 403
+    return send_from_directory('.', filename)
 
 if __name__ == '__main__':
+    # Make sure log directory exists relative to script location or CWD
+    log_dir = Path('logs')
     try:
-        port = int(os.getenv('PORT', 5000))
-        logger.info(f"Starting server on port {port}")
-        app.run(host='0.0.0.0', port=port, debug=True)
-    except Exception as e:
-        logger.error(f"Failed to start server: {str(e)}")
-        logger.error(traceback.format_exc()) 
+        log_dir.mkdir(exist_ok=True)
+        # Update FileHandler paths if logging to a specific directory
+        # Note: FileHandler paths need adjustment if logs are intended for 'logs/' folder
+        # e.g., logging.FileHandler(log_dir / 'server.log')
+    except OSError as e:
+         logger.error(f"Could not create log directory {log_dir}: {e}")
+
+    # Change the default port to 5002
+    port = int(os.environ.get('PORT', 5002))
+    logger.info(f"Starting Flask server on http://0.0.0.0:{port}")
+    # Set debug=False for production if desired
+    app.run(debug=True, host='0.0.0.0', port=port) 

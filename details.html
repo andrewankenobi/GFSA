@@ -112,60 +112,88 @@
             cursor: not-allowed;
         }
 
+        .refresh-analysis-button {
+            padding: 0.75rem 1.25rem;
+            background-color: #d93025;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            font-size: 0.9375rem;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .refresh-analysis-button:hover {
+            background-color: #b31412;
+        }
+
+        .refresh-analysis-button:disabled {
+            background-color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .detail-card {
             background: var(--card-background);
             border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .detail-card:hover {
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             border-color: transparent;
+            transform: translateY(-2px);
         }
 
         .section-title {
-            font-size: 1.125rem;
+            font-size: 1.25rem;
             font-weight: 500;
             color: var(--text-primary);
-            margin-bottom: 1rem;
-            padding-bottom: 0.375rem;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
         }
 
         .detail-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
         }
 
         .detail-item {
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
         }
 
         .detail-label {
             font-weight: 500;
             color: var(--text-secondary);
-            margin-bottom: 0.125rem;
+            margin-bottom: 0.5rem;
             display: block;
-            font-size: 0.8125rem;
+            font-size: 0.875rem;
+            letter-spacing: 0.3px;
         }
 
         .list-item {
-            margin-bottom: 0.25rem;
-            padding-left: 1rem;
+            margin-bottom: 0.5rem;
+            padding-left: 1.25rem;
             position: relative;
-            font-size: 0.875rem;
-            line-height: 1.4;
+            font-size: 0.9375rem;
+            line-height: 1.6;
         }
 
         .list-item::before {
@@ -177,8 +205,9 @@
 
         .detail-value {
             color: var(--text-primary);
-            line-height: 1.4;
-            font-size: 0.875rem;
+            line-height: 1.6;
+            font-size: 0.9375rem;
+            margin-bottom: 0.5rem;
         }
 
         .detail-value .list-item:last-child {
@@ -581,6 +610,47 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        /* Added Quick Links Styling */
+        .quick-links-container {
+            background: var(--card-background);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .quick-links-container:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-color: transparent;
+        }
+
+        .quick-links-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem; /* Added margin top */
+        }
+
+        .quick-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #f1f3f4;
+            color: var(--text-secondary);
+            border-radius: 16px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .quick-link:hover {
+            background-color: #e8eaed;
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+        /* End Quick Links Styling */
     </style>
 </head>
 <body>
@@ -592,6 +662,7 @@
             <h1>Loading...</h1>
             <div class="header-buttons">
                 <a href="index.html" class="back-button">← Back to List</a>
+                <button id="refreshAnalysisButton" class="refresh-analysis-button">↻ Refresh Analysis</button>
                 <button id="generateReportButton" class="generate-report-button">Generate Report</button>
             </div>
         </div>
@@ -608,6 +679,12 @@
                 <button id="chatSubmit" class="chat-submit">Send</button>
             </div>
         </div>
+        <div id="quickLinksContainer" class="quick-links-container">
+            <div class="section-title">Quick Links</div>
+            <div class="quick-links-grid">
+                <div class="loading">Loading links...</div>
+            </div>
+        </div>
         <div id="detailsContainer">
             <div class="loading">Loading...</div>
         </div>
@@ -620,48 +697,57 @@
                 const startupName = urlParams.get('startup');
                 
                 if (!startupName) {
-                    throw new Error('No startup specified');
+                    throw new Error('No startup specified in URL query parameter (e.g., ?startup=StartupName)');
                 }
 
-                const response = await fetch('analysis_20250327_084704.json');
+                // Format the startup name for the filename (lowercase, replace spaces with underscores)
+                const startupFileName = startupName.toLowerCase().replace(/ /g, '_');
+                const analysisFilePath = `data/results/analysis_${startupFileName}.json`;
+
+                console.log(`Attempting to load: ${analysisFilePath}`);
+
+                const response = await fetch(analysisFilePath);
                 if (!response.ok) {
-                    throw new Error(`Could not load analysis file. Please ensure it exists in the root directory.`);
+                    throw new Error(`Could not load analysis file '${analysisFilePath}'. Status: ${response.status}. Please ensure the file exists and the research script ran successfully.`);
                 }
-                
-                const data = await response.json();
-                console.log('Loaded data structure:', JSON.stringify(data, null, 2));
-                
-                const startup = data.find(s => s.metadata.startup_name === startupName);
-                
-                if (!startup) {
-                    throw new Error(`Startup "${startupName}" not found in the analysis data`);
-                }
+
+                const startupData = await response.json(); // Expecting a single JSON object now
+                console.log('Loaded data structure:', JSON.stringify(startupData, null, 2));
+
+                // No need to find the startup in an array anymore
+                // const startup = data.find(s => s.metadata.startup_name === startupName);
+                // if (!startup) {
+                //    throw new Error(`Startup "${startupName}" not found in the analysis data`);
+                // }
 
                 // Validate startup data structure
-                if (!startup.metadata || !startup.analysis) {
-                    console.error('Invalid startup data structure:', startup);
-                    throw new Error('Invalid startup data structure - missing required fields');
+                if (!startupData.metadata || !startupData.analysis) {
+                    console.error('Invalid startup data structure:', startupData);
+                    throw new Error('Invalid startup data structure - missing required fields (metadata or analysis)');
                 }
 
-                // Validate company overview
-                if (!startup.analysis.company_overview) {
-                    console.error('Missing company overview:', startup.analysis);
-                    throw new Error('Invalid startup data - missing company overview');
-                }
+                // Validate company overview existence (optional, as assembly adds placeholders)
+                // if (!startupData.analysis.company_overview) {
+                //    console.error('Missing company overview:', startupData.analysis);
+                //    throw new Error('Invalid startup data - missing company overview');
+                // }
 
-                displayStartupDetails(startup);
+                // Pass the single startup object directly
+                displayStartupDetails(startupData);
             } catch (error) {
                 console.error('Detailed error:', error);
                 console.error('Error stack:', error.stack);
                 document.getElementById('detailsContainer').innerHTML = `
                     <div class="error">
-                        <strong>Error loading startup details</strong><br>
+                        <strong>Error loading startup details for '${startupName || "Not Specified"}'</strong><br>
                         ${error.message}<br><br>
                         <small>Debug information:</small><br>
                         <pre style="margin-top: 0.5rem; font-size: 0.8rem; white-space: pre-wrap;">${error.stack}</pre><br>
-                        <small>If you just ran the analysis, make sure the file exists at: data/results/analysis_20250327_084704.json</small>
+                        <small>If you just ran the analysis, make sure the file exists at: ${analysisFilePath || 'data/results/analysis_...'}</small>
                     </div>
                 `;
+                // Also update header title on error
+                 document.querySelector('.header h1').textContent = `Error Loading ${startupName || 'Startup'}`;
             }
         }
 
@@ -677,14 +763,21 @@
 
                 // Store startup data for report generation and trigger AI analysis
                 window.currentStartup = startup;
-                generateAIAnalysis(startup);
+                generateAIAnalysis(startup); // Assuming this function still works with the structure
 
-                // Validate data before rendering
-                if (!analysis.company_overview) {
-                    throw new Error('Missing company overview data');
+                // Check for critical assembly failure reported in metadata
+                if (metadata.assembly_status === 'failed_critical_assembly') {
+                    container.innerHTML = `<div class="error"><strong>Critical Assembly Failure:</strong> The final analysis file for ${metadata.startup_name} could not be assembled correctly. Error: ${metadata.error_message || 'Unknown assembly error'}. Raw area data might be available in the data/${metadata.startup_name.toLowerCase().replace(' ', '_')} directory.</div>`;
+                    return; // Stop further rendering
                 }
 
-                let html = `
+                // Check for missing areas and display a warning if needed
+                let missingAreasWarning = '';
+                if (metadata.missing_areas && metadata.missing_areas.length > 0) {
+                     missingAreasWarning = `<div class="error" style="background: #feefc3; color: #6d4d00; border-color: rgba(254, 239, 195, 0.5);"><strong>Note:</strong> The following analysis sections could not be generated due to errors and contain placeholder data: ${metadata.missing_areas.join(', ')}</div>`;
+                }
+
+                let html = `${missingAreasWarning}
                     <div class="grid-container">
                         <!-- Basic Info Card -->
                         <div class="detail-card">
@@ -704,79 +797,64 @@
                                 </div>
                                 <div class="detail-item">
                                     <span class="detail-label">Founded</span>
-                                    <div class="detail-value">${analysis.company_overview.founding_date || 'N/A'}</div>
+                                    <div class="detail-value">${analysis?.company_overview?.founding_date || 'N/A'}</div>
                                 </div>
                                 <div class="detail-item">
                                     <span class="detail-label">Stage</span>
-                                    <div class="detail-value">${analysis.company_overview.company_stage || 'N/A'}</div>
+                                    <div class="detail-value">${analysis?.financial_overview?.funding_history?.[0]?.stage || analysis?.company_overview?.current_status || 'N/A'}</div>
                                 </div>
                                 <div class="detail-item">
                                     <span class="detail-label">Employees</span>
-                                    <div class="detail-value">${analysis.company_overview.employee_count || 'N/A'}</div>
+                                    <div class="detail-value">${analysis?.team_analysis?.organizational_structure || (analysis?.team_analysis?.hiring_plans?.[0] || 'N/A')}</div>
                                 </div>
                             </div>
                             <div class="sub-section">
                                 <span class="detail-label">Description</span>
-                                <div class="detail-value">${analysis.company_overview.description || 'No description available'}</div>
+                                <div class="detail-value">${analysis?.company_overview?.description || analysis?.company_overview?.mission_statement || analysis?.company_overview?.unique_value_proposition || 'No description available'}</div>
                             </div>
                         </div>
                 `;
 
-                // Only add sections if they exist and have data
-                if (analysis.company_overview.founders && analysis.company_overview.founders.length > 0) {
-                    html += `
-                        <!-- Founders Section -->
-                        <div class="detail-card">
-                            <div class="section-title">Founders</div>
-                            <div class="founders-container">
-                                ${renderFounders(analysis.company_overview.founders)}
+                // Render sections dynamically based on ANALYSIS_STRUCTURE keys
+                const renderOrder = [
+                    'company_overview', 'team_analysis', 'product_analysis',
+                    'market_analysis', 'business_model', 'financial_overview',
+                    'competitive_advantage', 'risk_assessment', 'growth_strategy',
+                    'recommendations'
+                ];
+
+                renderOrder.forEach(areaKey => {
+                    if (analysis[areaKey]) {
+                        // Get the actual analysis data from the nested structure
+                        const areaData = analysis[areaKey] || {};
+                        html += `
+                            <div class="detail-card" id="${areaKey}">
+                                <div class="section-title">${areaKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</div>
+                                ${renderSection(areaData, areaKey)}
                             </div>
-                        </div>
-                    `;
-                }
+                        `;
+                    }
+                });
 
-                if (analysis.product_analysis) {
-                    html += `
-                        <!-- Product Analysis Card -->
-                        <div class="detail-card">
-                            <div class="section-title">Products</div>
-                            ${renderProducts(analysis.product_analysis)}
-                        </div>
-                    `;
-                }
-
-                if (analysis.market_analysis) {
-                    html += `
-                        <!-- Market Analysis Card -->
-                        <div class="detail-card">
-                            <div class="section-title">Market Analysis</div>
-                            ${renderMarketAnalysis(analysis.market_analysis)}
-                        </div>
-                    `;
-                }
-
-                if (analysis.business_model) {
-                    html += `
-                        <!-- Business Model Card -->
-                        <div class="detail-card">
-                            <div class="section-title">Business Model</div>
-                            ${renderBusinessModel(analysis.business_model)}
-                        </div>
-                    `;
-                }
-
-                if (analysis.product_analysis?.technology_stack) {
-                    html += `
-                        <!-- Technology Stack Card -->
-                        <div class="detail-card">
-                            <div class="section-title">Technology Stack</div>
-                            ${renderTechStack(analysis.product_analysis.technology_stack)}
-                        </div>
-                    `;
-                }
-
-                html += '</div>';
+                html += '</div>'; // Close grid-container
                 container.innerHTML = html;
+
+                // Generate and insert Quick Links AFTER rendering cards
+                let quickLinksHtml = '<div class="section-title">Quick Links</div><div class="quick-links-grid">';
+                 let hasLinks = false;
+                 renderOrder.forEach(areaKey => {
+                     if (analysis[areaKey]) { // Only add links for sections that exist in the data
+                         hasLinks = true;
+                         quickLinksHtml += `<a href="#${areaKey}" class="quick-link">${areaKey.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</a>`;
+                     }
+                 });
+                 quickLinksHtml += '</div>';
+
+                if (hasLinks) {
+                    document.getElementById('quickLinksContainer').innerHTML = quickLinksHtml;
+                } else {
+                    document.getElementById('quickLinksContainer').innerHTML = '<div class="section-title">Quick Links</div><div class="quick-links-grid">No sections found to link to.</div>'; // Handle case with no links
+                }
 
             } catch (error) {
                 console.error('Error in displayStartupDetails:', error);
@@ -790,381 +868,126 @@
             }
         }
 
-        function renderFounders(founders) {
-            if (!founders || founders.length === 0) return '<div class="detail-value">No founder information available</div>';
-
-            return founders.map((founder, index) => `
-                <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">Name</span>
-                        <div class="detail-value">${founder.name}</div>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Title</span>
-                        <div class="detail-value">${founder.title}</div>
-                    </div>
-                    ${founder.education && founder.education.length > 0 ? `
-                        <div class="detail-item">
-                            <span class="detail-label">Education</span>
-                            ${renderList(founder.education)}
-                        </div>
-                    ` : ''}
-                    ${founder.work_experience && founder.work_experience.length > 0 ? `
-                        <div class="detail-item">
-                            <span class="detail-label">Work Experience</span>
-                            ${renderList(founder.work_experience)}
-                        </div>
-                    ` : ''}
-                    ${founder.achievements && founder.achievements.length > 0 ? `
-                        <div class="detail-item">
-                            <span class="detail-label">Achievements</span>
-                            ${renderList(founder.achievements)}
-                        </div>
-                    ` : ''}
-                    ${founder.expertise && founder.expertise.length > 0 ? `
-                        <div class="detail-item">
-                            <span class="detail-label">Expertise</span>
-                            ${renderList(founder.expertise)}
-                        </div>
-                    ` : ''}
-                </div>
-                ${index < founders.length - 1 ? '<hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">' : ''}
-            `).join('');
-        }
-
-        function renderProducts(productAnalysis) {
-            if (!productAnalysis || !productAnalysis.main_products) return '<div class="detail-value">No product information available</div>';
-
-            let html = '';
-            if (productAnalysis.main_products && productAnalysis.main_products.length > 0) {
-                html += productAnalysis.main_products.map((product, index) => `
-                    <div class="detail-item">
-                        <div class="sub-title">Product ${index + 1}: ${product.name}</div>
-                        <div class="detail-value">${product.description}</div>
-                        ${product.key_features ? `
-                            <div class="sub-section">
-                                <span class="detail-label">Key Features</span>
-                                ${renderList(product.key_features)}
-                            </div>
-                        ` : ''}
-                        ${product.target_users ? `
-                            <div class="sub-section">
-                                <span class="detail-label">Target Users</span>
-                                <div class="detail-value">${product.target_users}</div>
-                            </div>
-                        ` : ''}
-                        ${product.pricing ? `
-                            <div class="sub-section">
-                                <span class="detail-label">Pricing</span>
-                                <div class="detail-value">${product.pricing}</div>
-                            </div>
-                        ` : ''}
-                    </div>
-                `).join('<hr style="margin: 1rem 0; border: none; border-top: 1px solid #e5e7eb;">');
+        function renderSection(sectionData, sectionKey) {
+            if (!sectionData || typeof sectionData !== 'object') {
+                console.warn(`Invalid data for section ${sectionKey}:`, sectionData);
+                return '<div class="detail-value">No data available or invalid format</div>';
             }
 
-            if (productAnalysis.unique_features) {
-                html += `
-                    <div class="sub-section">
-                        <span class="detail-label">Unique Features</span>
-                        ${renderList(productAnalysis.unique_features)}
-                    </div>
-                `;
-            }
+            let html = '<div class="detail-grid">';
+            const expectedKeys = Object.keys(ANALYSIS_STRUCTURE.analysis[sectionKey] || {});
 
+            expectedKeys.forEach(key => {
+                const value = sectionData[key];
+                html += '<div class="detail-item">';
+                html += `<span class="detail-label">${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>`;
+                html += renderValue(value);
+                html += '</div>';
+            });
+
+            html += '</div>';
             return html;
         }
 
-        function renderMarketAnalysis(marketAnalysis) {
-            if (!marketAnalysis) return '<div class="detail-value">No market analysis available</div>';
-
-            let html = '';
-
-            // Market Size
-            if (marketAnalysis.market_size) {
-                html += `
-                    <div class="detail-item">
-                        <span class="detail-label">Market Size</span>
-                        <div class="detail-value">
-                            ${marketAnalysis.market_size.total_addressable_market || 'N/A'}
-                        </div>
-                    </div>
-                    ${marketAnalysis.market_size.growth_rate ? `
-                        <div class="detail-item">
-                            <span class="detail-label">Growth Rate</span>
-                            <div class="detail-value">${marketAnalysis.market_size.growth_rate}</div>
-                        </div>
-                    ` : ''}
-                `;
+        function renderValue(value) {
+            if (value === null || value === undefined || value === '') {
+                return '<div class="detail-value">N/A</div>';
             }
 
-            // Market Trends
-            if (marketAnalysis.market_trends) {
-                html += `
-                    <div class="sub-section">
-                        <span class="detail-label">Market Trends</span>
-                        ${renderList(marketAnalysis.market_trends)}
-                    </div>
-                `;
-            }
-
-            // Competitors
-            if (marketAnalysis.competitors) {
-                html += `
-                    <div class="sub-section">
-                        <span class="detail-label">Competitors</span>
-                        ${renderCompetitors(marketAnalysis.competitors)}
-                    </div>
-                `;
-            }
-
-            // Regulatory Environment
-            if (marketAnalysis.regulatory_environment) {
-                html += `
-                    <div class="sub-section">
-                        <span class="detail-label">Regulatory Environment</span>
-                        ${renderRegulatoryEnvironment(marketAnalysis.regulatory_environment)}
-                    </div>
-                `;
-            }
-
-            return html;
-        }
-
-        function renderBusinessModel(businessModel) {
-            try {
-                if (!businessModel) return '<div class="detail-value">No business model information available</div>';
-
-                let html = '';
-
-                // Revenue Streams
-                if (businessModel.revenue_streams) {
-                    html += `
-                        <div class="detail-item">
-                            <span class="detail-label">Revenue Streams</span>
-                            ${renderRevenueStreams(businessModel.revenue_streams)}
-                        </div>
-                    `;
+            if (Array.isArray(value)) {
+                if (value.length === 0) {
+                    return '<div class="detail-value">N/A</div>';
                 }
-
-                // Pricing Strategy
-                if (businessModel.pricing_strategy) {
-                    html += `
-                        <div class="sub-section">
-                            <span class="detail-label">Pricing Strategy</span>
-                            <div class="detail-value">${businessModel.pricing_strategy.model || ''}</div>
-                            ${businessModel.pricing_strategy.price_points ? `
-                                <div class="detail-value">
-                                    ${renderList(businessModel.pricing_strategy.price_points)}
-                                </div>
-                            ` : ''}
-                        </div>
-                    `;
+                if (typeof value[0] === 'object' && value[0] !== null) {
+                    return value.map(item => {
+                        if (typeof item !== 'object' || item === null) return '';
+                        let itemHtml = '<div class="founder-card">';
+                        for (const [itemKey, itemValue] of Object.entries(item)) {
+                            itemHtml += `<div class="detail-item">
+                                <span class="detail-label">${itemKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
+                                ${renderValue(itemValue)}
+                            </div>`;
+                        }
+                        itemHtml += '</div>';
+                        return itemHtml;
+                    }).join('');
+                } else {
+                    return renderList(value);
                 }
-
-                // Customer Acquisition
-                if (businessModel.customer_acquisition) {
-                    html += `
-                        <div class="sub-section">
-                            <span class="detail-label">Customer Acquisition</span>
-                            ${renderList(businessModel.customer_acquisition.channels || [])}
-                        </div>
-                    `;
+            } else if (typeof value === 'object' && value !== null) {
+                let subHtml = '<div class="sub-section">';
+                let hasSubData = false;
+                for (const [subKey, subValue] of Object.entries(value)) {
+                    hasSubData = true;
+                    subHtml += `<div class="detail-item">
+                        <span class="detail-label">${subKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
+                        ${renderValue(subValue)}
+                    </div>`;
                 }
-
-                // Partnerships
-                if (businessModel.partnerships) {
-                    html += `
-                        <div class="sub-section">
-                            <span class="detail-label">Partnerships</span>
-                            ${renderPartnerships(businessModel.partnerships)}
-                        </div>
-                    `;
-                }
-
-                return html || '<div class="detail-value">No business model information available</div>';
-            } catch (error) {
-                console.error('Error rendering business model:', error);
-                return `
-                    <div class="error">
-                        Error rendering business model: ${error.message}
-                        <br>
-                        <small>Please check the data structure in the console.</small>
-                    </div>
-                `;
+                subHtml += '</div>';
+                return hasSubData ? subHtml : '<div class="detail-value">N/A</div>';
+            } else {
+                const escapedValue = String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                return `<div class="detail-value">${escapedValue}</div>`;
             }
         }
 
-        function renderTechStack(techStack) {
-            if (!techStack) return '<div class="detail-value">No technology stack information available</div>';
-
-            let html = '';
-
-            for (const [category, technologies] of Object.entries(techStack)) {
-                if (Array.isArray(technologies) && technologies.length > 0) {
-                    html += `
-                        <div class="detail-item">
-                            <span class="detail-label">${category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
-                            ${renderList(technologies)}
-                        </div>
-                    `;
+        // --- ANALYSIS_STRUCTURE Definition (needed for placeholder checks) ---
+        // IMPORTANT: This needs to be kept in sync with the Python definition!
+        const ANALYSIS_STRUCTURE = {
+            analysis: {
+                company_overview: {
+                    company_name: "", industry: "", country: "", founding_date: "",
+                    mission_statement: "", key_milestones: [], current_status: "",
+                    unique_value_proposition: ""
+                },
+                product_analysis: {
+                    product_description: "", core_features: [], technology_stack: [],
+                    development_stage: "", user_feedback: "", product_roadmap: []
+                },
+                market_analysis: {
+                    target_market: "", market_size: "", growth_potential: "",
+                    market_trends: [], customer_segments: [], market_challenges: []
+                },
+                business_model: {
+                    revenue_streams: [], pricing_strategy: "", customer_acquisition: "",
+                    partnerships: [], scaling_strategy: ""
+                },
+                financial_overview: {
+                    funding_history: [], revenue: "", profitability: "", burn_rate: "",
+                    runway: "", financial_metrics: {}
+                },
+                team_analysis: {
+                    founders: [], key_team_members: [], advisors: [],
+                    hiring_plans: [], organizational_structure: ""
+                },
+                competitive_advantage: {
+                    unique_selling_points: [], barriers_to_entry: [], intellectual_property: [],
+                    competitive_landscape: []
+                },
+                risk_assessment: {
+                    market_risks: [], operational_risks: [], financial_risks: [],
+                    mitigation_strategies: []
+                },
+                growth_strategy: {
+                    short_term_goals: [], long_term_vision: "", expansion_plans: [],
+                    scaling_approach: ""
+                },
+                recommendations: {
+                    strategic_recommendations: [], operational_recommendations: [],
+                    growth_recommendations: [], risk_mitigation_recommendations: []
                 }
             }
+        };
 
-            return html;
-        }
-
+        // --- Existing helper functions (renderList, etc.) ---
+        // Ensure these functions are defined above or included here.
+        // Example for renderList (assuming it exists elsewhere or needs adding):
         function renderList(items) {
-            // Handle non-array inputs
-            if (!items) return '<div class="detail-value">No data available</div>';
-            
-            // Convert string to array if it's a single string
-            if (typeof items === 'string') {
-                items = [items];
-            }
-            
-            // Ensure items is an array
-            if (!Array.isArray(items)) {
-                console.warn('Expected array for renderList but got:', typeof items, items);
-                return '<div class="detail-value">Invalid data format</div>';
-            }
-            
-            if (items.length === 0) return '<div class="detail-value">No data available</div>';
-            
-            return `
-                <div class="detail-value">
-                    ${items.map(item => `<div class="list-item">${item}</div>`).join('')}
-                </div>
-            `;
-        }
-
-        function renderCompetitors(competitors) {
-            if (!competitors || competitors.length === 0) return '<div class="detail-value">No competitor data available</div>';
-            
-            return competitors.map(competitor => `
-                <div class="detail-value">
-                    <strong>${competitor.name}</strong>
-                    <div class="detail-value">${competitor.description}</div>
-                    <div class="sub-section">
-                        <span class="detail-label">Strengths</span>
-                        ${renderList(competitor.strengths)}
-                    </div>
-                    <div class="sub-section">
-                        <span class="detail-label">Weaknesses</span>
-                        ${renderList(competitor.weaknesses)}
-                    </div>
-                </div>
-            `).join('<hr style="margin: 0.75rem 0; border: none; border-top: 1px solid #e5e7eb;">');
-        }
-
-        function renderRevenueStreams(streams) {
-            try {
-                if (!streams) return '<div class="detail-value">No revenue stream data available</div>';
-                
-                // If streams is a string, wrap it in an array
-                if (typeof streams === 'string') {
-                    streams = [{ type: 'Revenue Stream', description: streams }];
-                }
-                
-                // If streams is not an array, convert it to array format
-                if (!Array.isArray(streams)) {
-                    console.warn('Revenue streams is not an array:', streams);
-                    if (typeof streams === 'object') {
-                        streams = [streams];
-                    } else {
-                        return '<div class="detail-value">Invalid revenue stream data format</div>';
-                    }
-                }
-                
-                if (streams.length === 0) return '<div class="detail-value">No revenue stream data available</div>';
-                
-                return streams.map(stream => `
-                    <div class="detail-value">
-                        <strong>${stream.type || 'Revenue Stream'}</strong>
-                        <div class="detail-value">${stream.description || ''}</div>
-                        ${stream.contribution ? `<div class="detail-value"><strong>Contribution:</strong> ${stream.contribution}</div>` : ''}
-                        ${stream.growth_potential ? `<div class="detail-value"><strong>Growth Potential:</strong> ${stream.growth_potential}</div>` : ''}
-                    </div>
-                `).join('<hr style="margin: 0.75rem 0; border: none; border-top: 1px solid #e5e7eb;">');
-            } catch (error) {
-                console.error('Error rendering revenue streams:', error);
-                return '<div class="error">Error rendering revenue streams</div>';
-            }
-        }
-
-        function renderRegulatoryEnvironment(regulatory) {
-            if (!regulatory) return '';
-
-            let html = '';
-            
-            if (regulatory.current_regulations) {
-                html += `
-                    <div class="detail-value">
-                        <span class="sub-title">Current Regulations</span>
-                        ${renderList(regulatory.current_regulations)}
-                    </div>
-                `;
-            }
-
-            if (regulatory.upcoming_changes) {
-                html += `
-                    <div class="detail-value">
-                        <span class="sub-title">Upcoming Changes</span>
-                        ${renderList(regulatory.upcoming_changes)}
-                    </div>
-                `;
-            }
-
-            if (regulatory.compliance_requirements) {
-                html += `
-                    <div class="detail-value">
-                        <span class="sub-title">Compliance Requirements</span>
-                        ${renderList(regulatory.compliance_requirements)}
-                    </div>
-                `;
-            }
-
-            return html;
-        }
-
-        function renderPartnerships(partnerships) {
-            try {
-                if (!partnerships) return '<div class="detail-value">No partnership data available</div>';
-                
-                // If partnerships is a string, wrap it in an array
-                if (typeof partnerships === 'string') {
-                    partnerships = [{ partner: 'Partner', description: partnerships }];
-                }
-                
-                // If partnerships is not an array, convert it to array format
-                if (!Array.isArray(partnerships)) {
-                    console.warn('Partnerships is not an array:', partnerships);
-                    if (typeof partnerships === 'object') {
-                        partnerships = [partnerships];
-                    } else {
-                        return '<div class="detail-value">Invalid partnerships data format</div>';
-                    }
-                }
-                
-                if (partnerships.length === 0) return '<div class="detail-value">No partnership data available</div>';
-                
-                return partnerships.map(partnership => `
-                    <div class="detail-value">
-                        <strong>${partnership.partner || 'Partner'}</strong>
-                        ${partnership.type ? `<div class="detail-value"><strong>Type:</strong> ${partnership.type}</div>` : ''}
-                        ${partnership.benefits ? `
-                            <div class="detail-value">
-                                <span class="sub-title">Benefits</span>
-                                ${renderList(partnership.benefits)}
-                            </div>
-                        ` : ''}
-                        ${partnership.status ? `<div class="detail-value"><strong>Status:</strong> ${partnership.status}</div>` : ''}
-                    </div>
-                `).join('<hr style="margin: 0.75rem 0; border: none; border-top: 1px solid #e5e7eb;">');
-            } catch (error) {
-                console.error('Error rendering partnerships:', error);
-                return '<div class="error">Error rendering partnerships</div>';
-            }
+            if (!items) return '<div class="detail-value">N/A</div>';
+            if (typeof items === 'string') items = [items];
+            if (!Array.isArray(items) || items.length === 0) return '<div class="detail-value">N/A</div>';
+            return `<div class="detail-value">${items.map(item => `<div class="list-item">${item}</div>`).join('')}</div>`;
         }
 
         async function generateAIAnalysis(startup) {
@@ -1180,33 +1003,35 @@
             
             // Prepare the data for the API
             const analysisData = {
-                startup_name: metadata.startup_name,
-                industry: metadata.industry,
-                country: metadata.country,
-                description: analysis.company_overview.description,
-                product_info: analysis.product_analysis,
-                market_info: analysis.market_analysis,
-                business_model: analysis.business_model
+                startup_name: metadata.startup_name || '',
+                industry: metadata.industry || '',
+                description: analysis.company_overview?.description || 
+                           analysis.company_overview?.mission_statement || 
+                           analysis.company_overview?.unique_value_proposition || 
+                           'No description available',
+                country: metadata.country || '',
+                product_info: analysis.product_analysis || {},
+                market_info: analysis.market_analysis || {},
+                business_model: analysis.business_model || {}
             };
 
+            // Validate required fields
+            if (!analysisData.startup_name || !analysisData.industry || !analysisData.description) {
+                throw new Error('Missing required fields for AI analysis. Required: startup_name, industry, description');
+            }
+
             try {
-                console.log('Preparing to send data to API:', {
-                    url: 'http://localhost:5000/api/analyze-startup',
+                console.log('Preparing to send data to AI API:', {
+                    url: 'http://localhost:5002/api/analyze-startup',
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    data: analysisData
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    data: analysisData // Make sure this structure matches backend expectations
                 });
-                
-                const response = await fetch('http://localhost:5000/api/analyze-startup', {
+
+                const response = await fetch('http://localhost:5002/api/analyze-startup', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(analysisData)
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(analysisData) // Send the prepared data
                 });
 
                 console.log('Received response:', {
@@ -1396,6 +1221,122 @@
             }
         });
 
+        // Initialize refresh analysis functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const refreshButton = document.getElementById('refreshAnalysisButton');
+            if (refreshButton) {
+                refreshButton.addEventListener('click', async () => {
+                    const button = refreshButton;
+                    const originalText = button.innerHTML;
+                    
+                    try {
+                        button.disabled = true;
+                        button.innerHTML = 'Refreshing...';
+                        
+                        // Get current startup name
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const startupName = urlParams.get('startup');
+                        
+                        if (!startupName) {
+                            throw new Error('No startup specified in URL');
+                        }
+
+                        // Call the research script endpoint
+                        const response = await fetch('http://localhost:5002/api/run-research', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ 
+                                startup_name: startupName,
+                                workers: 1,  // Run with a single worker for one startup
+                                batch_size: 1  // Process one startup at a time
+                            })
+                        });
+
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+                        }
+
+                        const data = await response.json();
+                        
+                        // Show success message with more detailed status
+                        const successMessage = document.createElement('div');
+                        successMessage.style.cssText = `
+                            position: fixed;
+                            bottom: 20px;
+                            right: 20px;
+                            background: #10b981;
+                            color: white;
+                            padding: 0.75rem 1.5rem;
+                            border-radius: 0.5rem;
+                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                            z-index: 1000;
+                            animation: slideIn 0.3s ease-out;
+                        `;
+                        successMessage.textContent = 'Research refresh started! Checking for completion...';
+                        document.body.appendChild(successMessage);
+
+                        // Poll for the new analysis file
+                        const startupFileName = startupName.toLowerCase().replace(/ /g, '_');
+                        const analysisFilePath = `data/results/analysis_${startupFileName}.json`;
+                        
+                        const checkForNewFile = async () => {
+                            try {
+                                const response = await fetch(analysisFilePath);
+                                if (response.ok) {
+                                    // File exists, reload the page
+                                    window.location.reload();
+                                } else {
+                                    // File not ready yet, check again in 5 seconds
+                                    setTimeout(checkForNewFile, 5000);
+                                }
+                            } catch (error) {
+                                // Error checking file, try again in 5 seconds
+                                setTimeout(checkForNewFile, 5000);
+                            }
+                        };
+
+                        // Start polling
+                        checkForNewFile();
+                        
+                        // Remove success message after 5 seconds
+                        setTimeout(() => {
+                            successMessage.style.animation = 'slideOut 0.3s ease-out';
+                            setTimeout(() => successMessage.remove(), 300);
+                        }, 5000);
+                        
+                    } catch (error) {
+                        console.error('Error refreshing analysis:', error);
+                        button.innerHTML = originalText;
+                        button.disabled = false;
+                        
+                        const errorMessage = document.createElement('div');
+                        errorMessage.style.cssText = `
+                            position: fixed;
+                            bottom: 20px;
+                            right: 20px;
+                            background: #ef4444;
+                            color: white;
+                            padding: 0.75rem 1.5rem;
+                            border-radius: 0.5rem;
+                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                            z-index: 1000;
+                            animation: slideIn 0.3s ease-out;
+                        `;
+                        errorMessage.textContent = `Error: ${error.message}`;
+                        document.body.appendChild(errorMessage);
+                        
+                        setTimeout(() => {
+                            errorMessage.style.animation = 'slideOut 0.3s ease-out';
+                            setTimeout(() => errorMessage.remove(), 5000);
+                        }, 5000);
+                    }
+                });
+            }
+        });
+
         // Add animation keyframes
         const style = document.createElement('style');
         style.textContent = `
@@ -1430,20 +1371,24 @@
             
             try {
                 const startup = window.currentStartup;
+                if (!startup) {
+                    throw new Error("Startup context not loaded.");
+                }
                 
-                const response = await fetch('http://localhost:5000/api/chat', {
+                const response = await fetch('http://localhost:5002/api/chat', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
                         query,
-                        startup_context: startup
+                        startup_context: startup // Send the whole startup object as context
                     })
                 });
                 
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                     const errorData = await response.json().catch(() => ({ error: `HTTP error! status: ${response.status}` }));
+                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
                 }
                 
                 const data = await response.json();

@@ -13,4 +13,4 @@ fi
 
 # Start the Flask server
 echo "Starting backend server..."
-python server.py 
+Python3 server.py 
