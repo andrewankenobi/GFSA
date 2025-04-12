@@ -145,13 +145,13 @@
         }
 
         .detail-card {
-            background: var(--card-background);
+            background-color: var(--card-background);
             border-radius: 16px;
-            padding: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
             margin-bottom: 2rem;
             border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .detail-card:hover {
@@ -161,13 +161,122 @@
         }
 
         .section-title {
-            font-size: 1.25rem;
+            font-size: 1.125rem;
             font-weight: 500;
             color: var(--text-primary);
             margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.75rem;
             border-bottom: 2px solid var(--border-color);
+            letter-spacing: 0.3px;
+            font-variant: small-caps;
         }
+
+        .detail-item {
+            margin-bottom: 1.25rem;
+            display: block;
+        }
+
+        .detail-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: none;
+            letter-spacing: 0.3px;
+            font-variant: small-caps;
+        }
+
+        .detail-value {
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-value .list-item {
+            margin-bottom: 0.5rem;
+            padding-left: 1.25rem;
+            position: relative;
+            font-size: 0.9375rem;
+        }
+        .detail-value .list-item::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+         .detail-value .list-item:last-child {
+             margin-bottom: 0;
+         }
+
+        .subsection-item-container {
+            position: relative;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: #f8f9fa;
+            margin-bottom: 1rem;
+            break-inside: avoid;
+        }
+         .subsection-item-container .detail-item {
+             margin-bottom: 0.5rem;
+         }
+          .subsection-item-container .detail-item:last-child {
+              margin-bottom: 0;
+          }
+
+        .recommendation-item-container {
+            position: relative;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: #f8f9fa;
+            break-inside: avoid;
+        }
+
+        .recommendation-tags-top-right {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+         .recommendation-detail-item {
+            margin-bottom: 1rem;
+         }
+          .recommendation-detail-item .detail-label {
+            margin-bottom: 0.25rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+         }
+         .recommendation-detail-item .detail-value {
+             margin-left: 0;
+             font-size: 0.9375rem;
+         }
+
+        .recommendation-tag, .risk-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: #f1f3f4;
+            color: var(--text-secondary);
+            white-space: normal;
+        }
+
+        .priority-high, .impact-high, .likelihood-high { background: rgba(217, 48, 37, 0.1); color: #d93025; }
+        .priority-medium, .impact-medium, .likelihood-medium { background: rgba(251, 188, 4, 0.1); color: #f29900; }
+        .priority-low, .impact-low, .likelihood-low { background: rgba(30, 142, 62, 0.1); color: #1e8e3e; }
+        .effort-high { background-color: #e0e7ff; color: #3730a3; }
+        .effort-medium { background-color: #e0f2fe; color: #075985; }
+        .effort-low { background-color: #f0fdf4; color: #16a34a; }
 
         .detail-grid {
             display: grid;
@@ -175,43 +284,52 @@
             gap: 1.5rem;
         }
 
-        .detail-item {
-            margin-bottom: 1rem;
+        /* New Grid for specifically 2 columns */
+        .two-column-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
         }
 
-        .detail-label {
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            display: block;
-            font-size: 0.875rem;
-            letter-spacing: 0.3px;
+        /* Grid for specifically 3 columns */
+        .three-column-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
         }
 
-        .list-item {
-            margin-bottom: 0.5rem;
-            padding-left: 1.25rem;
-            position: relative;
-            font-size: 0.9375rem;
-            line-height: 1.6;
+        /* Custom grid for Business Model */
+        .custom-business-model-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Define 2 columns */
+            gap: 1.5rem;
+        }
+        /* Style for partnerships item to span columns */
+        .business-model-partnerships {
+             grid-column: 1 / 3; /* Span across both columns */
         }
 
-        .list-item::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--primary-color);
+        .business-model-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
-
-        .detail-value {
-            color: var(--text-primary);
-            line-height: 1.6;
-            font-size: 0.9375rem;
-            margin-bottom: 0.5rem;
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
-
-        .detail-value .list-item:last-child {
-            margin-bottom: 0;
+        .risks-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .quick-links-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
         }
 
         .error {
@@ -321,11 +439,11 @@
         }
 
         .follow-up-icon.technical {
-            color: #1e8e3e;  /* Google green */
+            color: #1e8e3e;
         }
 
         .follow-up-icon.business {
-            color: #1a73e8;  /* Google blue */
+            color: #1a73e8;
         }
 
         .follow-up-content {
@@ -611,7 +729,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Added Quick Links Styling */
         .quick-links-container {
             background: var(--card-background);
             border-radius: 16px;
@@ -624,13 +741,6 @@
         .quick-links-container:hover {
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             border-color: transparent;
-        }
-
-        .quick-links-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1rem; /* Added margin top */
         }
 
         .quick-link {
@@ -650,7 +760,11 @@
             color: var(--text-primary);
             transform: translateY(-1px);
         }
-        /* End Quick Links Styling */
+
+        .placeholder-text { color: var(--text-secondary); font-style: italic; font-size: 0.9rem; }
+        .subsection-title { font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1rem; margin-top: 1.5rem; }
+        .subsection-subtitle { font-size: 1rem; font-weight: 500; color: var(--text-secondary); margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .paragraph-text { white-space: pre-wrap; }
     </style>
 </head>
 <body>
@@ -700,7 +814,6 @@
                     throw new Error('No startup specified in URL query parameter (e.g., ?startup=StartupName)');
                 }
 
-                // Format the startup name for the filename (lowercase, replace spaces with underscores)
                 const startupFileName = startupName.toLowerCase().replace(/ /g, '_');
                 const analysisFilePath = `data/results/analysis_${startupFileName}.json`;
 
@@ -711,28 +824,14 @@
                     throw new Error(`Could not load analysis file '${analysisFilePath}'. Status: ${response.status}. Please ensure the file exists and the research script ran successfully.`);
                 }
 
-                const startupData = await response.json(); // Expecting a single JSON object now
+                const startupData = await response.json();
                 console.log('Loaded data structure:', JSON.stringify(startupData, null, 2));
 
-                // No need to find the startup in an array anymore
-                // const startup = data.find(s => s.metadata.startup_name === startupName);
-                // if (!startup) {
-                //    throw new Error(`Startup "${startupName}" not found in the analysis data`);
-                // }
-
-                // Validate startup data structure
                 if (!startupData.metadata || !startupData.analysis) {
                     console.error('Invalid startup data structure:', startupData);
                     throw new Error('Invalid startup data structure - missing required fields (metadata or analysis)');
                 }
 
-                // Validate company overview existence (optional, as assembly adds placeholders)
-                // if (!startupData.analysis.company_overview) {
-                //    console.error('Missing company overview:', startupData.analysis);
-                //    throw new Error('Invalid startup data - missing company overview');
-                // }
-
-                // Pass the single startup object directly
                 displayStartupDetails(startupData);
             } catch (error) {
                 console.error('Detailed error:', error);
@@ -746,8 +845,7 @@
                         <small>If you just ran the analysis, make sure the file exists at: ${analysisFilePath || 'data/results/analysis_...'}</small>
                     </div>
                 `;
-                // Also update header title on error
-                 document.querySelector('.header h1').textContent = `Error Loading ${startupName || 'Startup'}`;
+                document.querySelector('.header h1').textContent = `Error Loading ${startupName || 'Startup'}`;
             }
         }
 
@@ -755,95 +853,109 @@
             try {
                 console.log('Displaying startup details for:', startup.metadata.startup_name);
                 const { metadata, analysis } = startup;
-                const container = document.getElementById('detailsContainer');
-                
-                // Update the page title and header
+                const detailsContainer = document.getElementById('detailsContainer');
+                const aiAnalysisContainer = document.getElementById('aiAnalysisContainer');
+
                 document.title = metadata.startup_name;
                 document.querySelector('.header h1').textContent = metadata.startup_name;
 
-                // Store startup data for report generation and trigger AI analysis
                 window.currentStartup = startup;
-                generateAIAnalysis(startup); // Assuming this function still works with the structure
+                generateAIAnalysis(startup);
 
-                // Check for critical assembly failure reported in metadata
                 if (metadata.assembly_status === 'failed_critical_assembly') {
-                    container.innerHTML = `<div class="error"><strong>Critical Assembly Failure:</strong> The final analysis file for ${metadata.startup_name} could not be assembled correctly. Error: ${metadata.error_message || 'Unknown assembly error'}. Raw area data might be available in the data/${metadata.startup_name.toLowerCase().replace(' ', '_')} directory.</div>`;
-                    return; // Stop further rendering
+                    detailsContainer.innerHTML = `<div class="error"><strong>Critical Assembly Failure:</strong> The final analysis file for ${metadata.startup_name} could not be assembled correctly. Error: ${metadata.error_message || 'Unknown assembly error'}. Raw area data might be available in the data/${metadata.startup_name.toLowerCase().replace(' ', '_')} directory.</div>`;
+                    aiAnalysisContainer.innerHTML = '';
+                    document.getElementById('quickLinksContainer').innerHTML = '';
+                    return;
                 }
 
-                // Check for missing areas and display a warning if needed
                 let missingAreasWarning = '';
+                const trulyMissingOrEmptyAreas = [];
                 if (metadata.missing_areas && metadata.missing_areas.length > 0) {
-                     missingAreasWarning = `<div class="error" style="background: #feefc3; color: #6d4d00; border-color: rgba(254, 239, 195, 0.5);"><strong>Note:</strong> The following analysis sections could not be generated due to errors and contain placeholder data: ${metadata.missing_areas.join(', ')}</div>`;
+                    metadata.missing_areas.forEach(areaKey => {
+                        const areaData = analysis[areaKey];
+                        let isEmpty = true;
+                        if (areaData && typeof areaData === 'object') {
+                            for (const key in areaData) {
+                                const value = areaData[key];
+                                if (Array.isArray(value) && value.length > 0) {
+                                    if (value.some(item => item && (typeof item !== 'object' || Object.keys(item).length > 0))) {
+                                        isEmpty = false;
+                                        break;
+                                    }
+                                } else if (!Array.isArray(value) && value) {
+                                    isEmpty = false;
+                                    break;
+                                }
+                            }
+                        } else if (areaData) {
+                            isEmpty = false; 
+                        }
+                        
+                        if (!areaData || isEmpty) {
+                            trulyMissingOrEmptyAreas.push(areaKey);
+                        }
+                    });
+                }
+                
+                if (trulyMissingOrEmptyAreas.length > 0 && !trulyMissingOrEmptyAreas.includes('risk_assessment')) {
+                     missingAreasWarning = `<div class="error" style="background: #feefc3; color: #6d4d00; border-color: rgba(254, 239, 195, 0.5); margin-bottom: 1.5rem;"><strong>Note:</strong> The following analysis sections could not be generated or contain only placeholder data: ${trulyMissingOrEmptyAreas.filter(a => a !== 'risk_assessment' && a !== 'company_overview').join(', ')}</div>`;
                 }
 
-                let html = `${missingAreasWarning}
-                    <div class="grid-container">
-                        <!-- Basic Info Card -->
-                        <div class="detail-card">
-                            <div class="section-title">Basic Information</div>
-                            <div class="detail-grid">
-                                <div class="detail-item">
-                                    <span class="detail-label">Company Name</span>
-                                    <div class="detail-value">${metadata.startup_name || 'N/A'}</div>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Industry</span>
-                                    <div class="detail-value">${metadata.industry || 'N/A'}</div>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Country</span>
-                                    <div class="detail-value">${metadata.country || 'N/A'}</div>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Founded</span>
-                                    <div class="detail-value">${analysis?.company_overview?.founding_date || 'N/A'}</div>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Stage</span>
-                                    <div class="detail-value">${analysis?.financial_overview?.funding_history?.[0]?.stage || analysis?.company_overview?.current_status || 'N/A'}</div>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Employees</span>
-                                    <div class="detail-value">${analysis?.team_analysis?.organizational_structure || (analysis?.team_analysis?.hiring_plans?.[0] || 'N/A')}</div>
-                                </div>
-                            </div>
-                            <div class="sub-section">
-                                <span class="detail-label">Description</span>
-                                <div class="detail-value">${analysis?.company_overview?.description || analysis?.company_overview?.mission_statement || analysis?.company_overview?.unique_value_proposition || 'No description available'}</div>
-                            </div>
-                        </div>
-                `;
+                let detailsHtml = `${missingAreasWarning}<div class="grid-container">`;
 
-                // Render sections dynamically based on ANALYSIS_STRUCTURE keys
                 const renderOrder = [
-                    'company_overview', 'team_analysis', 'product_analysis',
+                    'company_overview',
+                    'team_analysis', 'product_analysis',
                     'market_analysis', 'business_model', 'financial_overview',
                     'competitive_advantage', 'risk_assessment', 'growth_strategy',
                     'recommendations'
                 ];
 
                 renderOrder.forEach(areaKey => {
-                    if (analysis[areaKey]) {
-                        // Get the actual analysis data from the nested structure
-                        const areaData = analysis[areaKey] || {};
-                        html += `
-                            <div class="detail-card" id="${areaKey}">
-                                <div class="section-title">${areaKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</div>
-                                ${renderSection(areaData, areaKey)}
-                            </div>
-                        `;
+                    const areaData = analysis[areaKey];
+                    
+                    let hasContent = false;
+                    if (areaData && typeof areaData === 'object') {
+                        for (const key in areaData) {
+                            const value = areaData[key];
+                            if (Array.isArray(value) && value.length > 0) {
+                                if (value.some(item => item && (typeof item !== 'object' || Object.keys(item).length > 0))) {
+                                    hasContent = true;
+                                    break;
+                                }
+                            } else if (!Array.isArray(value) && value) {
+                                hasContent = true;
+                                break;
+                            }
+                        }
+                    } else if (areaData) {
+                         hasContent = true;
+                    }
+                    
+                    if (areaKey === 'risk_assessment' && !hasContent) {
+                        return;
+                    }
+                    
+                    if (areaData) { 
+                        detailsHtml += `
+                            <div class="detail-card" id="${areaKey}" data-section-key="${areaKey}">
+                                <div class="section-title">${areaKey.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</div>
+                                ${renderSection(areaData || {}, areaKey)}
+                        </div>
+                    `;
                     }
                 });
 
-                html += '</div>'; // Close grid-container
-                container.innerHTML = html;
+                detailsHtml += '</div>';
+                
+                // CORRECTLY Populate the main details container
+                detailsContainer.innerHTML = detailsHtml; 
 
-                // Generate and insert Quick Links AFTER rendering cards
                 let quickLinksHtml = '<div class="section-title">Quick Links</div><div class="quick-links-grid">';
                  let hasLinks = false;
-                 renderOrder.forEach(areaKey => {
-                     if (analysis[areaKey]) { // Only add links for sections that exist in the data
+                 ['company_overview', ...renderOrder].forEach(areaKey => {
+                     if (analysis[areaKey]) {
                          hasLinks = true;
                          quickLinksHtml += `<a href="#${areaKey}" class="quick-link">${areaKey.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</a>`;
                      }
@@ -853,7 +965,7 @@
                 if (hasLinks) {
                     document.getElementById('quickLinksContainer').innerHTML = quickLinksHtml;
                 } else {
-                    document.getElementById('quickLinksContainer').innerHTML = '<div class="section-title">Quick Links</div><div class="quick-links-grid">No sections found to link to.</div>'; // Handle case with no links
+                    document.getElementById('quickLinksContainer').innerHTML = '<div class="section-title">Quick Links</div><div class="quick-links-grid">No sections found to link to.</div>';
                 }
 
             } catch (error) {
@@ -874,22 +986,171 @@
                 return '<div class="detail-value">No data available or invalid format</div>';
             }
 
-            let html = '<div class="detail-grid">';
             const expectedKeys = Object.keys(ANALYSIS_STRUCTURE.analysis[sectionKey] || {});
+            let html = '';
 
-            expectedKeys.forEach(key => {
-                const value = sectionData[key];
-                html += '<div class="detail-item">';
-                html += `<span class="detail-label">${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>`;
-                html += renderValue(value);
-                html += '</div>';
-            });
+            // Define sections for different layouts
+            const threeColumnSections = ['product_analysis', 'market_analysis', 'financial_overview'];
+            const twoColumnSections = ['competitive_advantage', 'growth_strategy'];
+            const responsiveBoxSections = [
+                'company_overview', 'team_analysis', 
+            ];
 
-            html += '</div>';
+             // --- 3-Column Box Layout ---
+             if (threeColumnSections.includes(sectionKey)) {
+                 html += '<div class="three-column-detail-grid">';
+                 expectedKeys.forEach(key => {
+                    const value = sectionData[key];
+                    if (value !== null && value !== undefined && value !== '' && !(Array.isArray(value) && value.length === 0)) {
+                        html += '<div class="subsection-item-container">';
+                        html += '<div class="detail-item" style="margin:0; padding:0; border:0; background:none;">';
+                        html += `<span class="detail-label">${key.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</span>`;
+                        html += renderValue(value, key, sectionKey);
+                        html += '</div>';
+                        html += '</div>';
+                    }
+                });
+                 html += '</div>';
+             }
+            // --- 2-Column Box Layout (New) ---
+            else if (twoColumnSections.includes(sectionKey)) {
+                 html += '<div class="two-column-detail-grid">';
+                 expectedKeys.forEach(key => {
+                    const value = sectionData[key];
+                    if (value !== null && value !== undefined && value !== '' && !(Array.isArray(value) && value.length === 0)) {
+                        html += '<div class="subsection-item-container">';
+                        html += '<div class="detail-item" style="margin:0; padding:0; border:0; background:none;">';
+                        html += `<span class="detail-label">${key.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</span>`;
+                        html += renderValue(value, key, sectionKey);
+                        html += '</div>';
+                        html += '</div>';
+                    }
+                });
+                 html += '</div>';
+            }
+            // --- Responsive Box Layout ---
+            else if (responsiveBoxSections.includes(sectionKey)) {
+                 html += '<div class="detail-grid">';
+                 expectedKeys.forEach(key => {
+                    const value = sectionData[key];
+                    if (value !== null && value !== undefined && value !== '' && !(Array.isArray(value) && value.length === 0)) {
+                        html += '<div class="subsection-item-container">';
+                        html += '<div class="detail-item" style="margin:0; padding:0; border:0; background:none;">';
+                        html += `<span class="detail-label">${key.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</span>`;
+                        html += renderValue(value, key, sectionKey);
+                        html += '</div>';
+                        html += '</div>';
+                    }
+                });
+                 html += '</div>';
+            }
+            // --- Custom Layout for Business Model (Restore This Logic) ---
+            else if (sectionKey === 'business_model') {
+                html += '<div class="custom-business-model-grid">';
+                const renderOrder = [
+                    'revenue_streams', 'scaling_strategy', // Row 1
+                    'customer_acquisition', 'pricing_strategy', // Row 2
+                    'partnerships' // Row 3
+                ];
+
+                renderOrder.forEach(key => {
+                     if (expectedKeys.includes(key)) { // Check if key exists in expected structure
+                         const value = sectionData[key];
+                         if (value !== null && value !== undefined && value !== '' && !(Array.isArray(value) && value.length === 0)) {
+                            const itemClass = (key === 'partnerships') ? 'business-model-partnerships' : '';
+                            html += `<div class="subsection-item-container ${itemClass}">`; 
+                            html += '<div class="detail-item" style="margin:0; padding:0; border:0; background:none;">';
+                            html += `<span class="detail-label">${key.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</span>`;
+                            html += renderValue(value, key, sectionKey);
+                            html += '</div>';
+                            html += '</div>';
+                         }
+                    }
+                });
+                html += '</div>'; 
+            }
+            // --- Custom Layout for Recommendations (Keep As Is) ---
+            else if (sectionKey === 'recommendations') {
+                 // ... (Existing Recommendation rendering logic - unchanged) ...
+                 expectedKeys.forEach(key => {
+                    const recommendationsList = sectionData[key];
+                    if (Array.isArray(recommendationsList) && recommendationsList.length > 0) {
+                        if (!recommendationsList.every(item => item.recommendation === 'N/A')) {
+                            html += `<div class="detail-item" style="grid-column: 1 / -1;">`;
+                            html += `<h4>${key.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</h4>`;
+                            html += '<div class="recommendations-grid">';
+                            html += renderValue(recommendationsList, key, sectionKey);
+                            html += '</div>';
+                            html += '</div>';
+                        }
+                    }
+                });
+            }
+            // --- Custom Layout for Risk Assessment (Groups Risks and Mitigations) ---
+            else if (sectionKey === 'risk_assessment') {
+                 const riskCategories = ['market_risks', 'operational_risks', 'financial_risks'];
+                 const riskDisplayNames = { market_risks: "Market Risks", operational_risks: "Operational Risks", financial_risks: "Financial Risks" };
+                 const allMitigations = sectionData['mitigation_strategies'] || [];
+
+                 html += '<div class="risk-assessment-container">'; // Add a container for the whole section
+
+                 riskCategories.forEach(categoryKey => {
+                    const displayName = riskDisplayNames[categoryKey];
+                    const risks = sectionData[categoryKey]?.filter(r => r.risk !== 'N/A') || []; 
+                    const relevantMitigations = allMitigations.filter(m => m['risk_area']?.toLowerCase() === displayName.toLowerCase() && m.strategy !== 'N/A');
+
+                    if (risks.length > 0 || relevantMitigations.length > 0) {
+                        html += `<div class="detail-item risk-category-group" style="grid-column: 1 / -1;">`; // Container for the combined section
+                        // Combined Heading (Optional - or keep separate as below)
+                        // html += `<h4 class="subsection-title">${displayName} Risks and Mitigation Strategies</h4>`;
+
+                        // Render Risks Title and Grid
+                        if (risks.length > 0) {
+                            html += `<h4 class="subsection-title">${displayName}</h4>`; // Title for risks
+                            html += '<div class="risks-grid">'; 
+                            html += renderValue(risks, categoryKey, sectionKey); 
+                            html += '</div>'; 
+                        } else {
+                            // Optionally show title even if no risks, or hide title too
+                            // html += `<h4 class="subsection-title">${displayName}</h4>`;
+                            // html += '<p class="placeholder-text">No specific risks identified for this category.</p>';
+                        }
+
+                        // Render Mitigation Title and Grid
+                        if (relevantMitigations.length > 0) {
+                            html += `<h5 class="subsection-subtitle">Mitigation Strategies for ${displayName}</h5>`; 
+                            html += '<div class="risks-grid">';
+                            html += renderValue(relevantMitigations, 'mitigation_strategies', sectionKey); 
+                            html += '</div>';
+                        } else {
+                             // If there were risks but no mitigations, optionally note it
+                             if (risks.length > 0) {
+                                 html += '<p class="placeholder-text" style="margin-top: 1.5rem;">No specific mitigation strategies identified for this category.</p>';
+                             }
+                        }
+
+                        html += '</div>'; // Close combined section container
+                    }
+                 });
+                  html += '</div>'; // Close risk-assessment-container
+            }
+            // --- Fallback ---
+            else {
+                 console.warn(`Section ${sectionKey} did not match any specific layout.`);
+                 html += '<div class="detail-grid">'; // Default to responsive grid
+                 Object.entries(sectionData).forEach(([key, value]) => {
+                      html += '<div class="detail-item">';
+                      html += `<span class="detail-label">${key.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</span>`;
+                      html += renderValue(value, key, sectionKey);
+                      html += '</div>';
+                 });
+                 html += '</div>';
+            }
+
             return html;
         }
 
-        function renderValue(value) {
+        function renderValue(value, parentKey = '', sectionKey = '') {
             if (value === null || value === undefined || value === '') {
                 return '<div class="detail-value">N/A</div>';
             }
@@ -898,42 +1159,133 @@
                 if (value.length === 0) {
                     return '<div class="detail-value">N/A</div>';
                 }
-                if (typeof value[0] === 'object' && value[0] !== null) {
+                if (typeof value[0] === 'object' && value[0] !== null && sectionKey === 'recommendations') {
                     return value.map(item => {
-                        if (typeof item !== 'object' || item === null) return '';
-                        let itemHtml = '<div class="founder-card">';
+                        if (typeof item !== 'object' || item === null || item.recommendation === 'N/A') return '';
+
+                        let itemHtml = '<div class="recommendation-item-container">';
+
+                        let tagsHtml = '<div class="recommendation-tags-top-right">';
+                        let hasTags = false;
+                        for (const tagKey in item) {
+                            if (['priority', 'impact', 'effort'].includes(tagKey.toLowerCase())) {
+                                if (item[tagKey] && item[tagKey].toUpperCase() !== 'N/A') {
+                                    hasTags = true;
+                                    const tagClass = `${tagKey.toLowerCase()}-${String(item[tagKey]).toLowerCase().replace(/\\s+/g, '-')}`;
+                                    const tagLabel = tagKey.charAt(0).toUpperCase() + tagKey.slice(1) + ": ";
+                                    tagsHtml += `<span class="recommendation-tag ${tagClass}">${tagLabel}${item[tagKey]}</span>`;
+                                }
+                            }
+                        }
+                        tagsHtml += '</div>';
+                        if(hasTags) itemHtml += tagsHtml;
+
                         for (const [itemKey, itemValue] of Object.entries(item)) {
-                            itemHtml += `<div class="detail-item">
-                                <span class="detail-label">${itemKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
-                                ${renderValue(itemValue)}
-                            </div>`;
+                             if (!['priority', 'impact', 'effort'].includes(itemKey.toLowerCase())) {
+                                 const label = itemKey.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase());
+                                 itemHtml += `<div class="recommendation-detail-item">
+                                     <span class="detail-label">${label}</span>
+                                     ${renderValue(itemValue, itemKey, sectionKey)}
+                                 </div>`;
+                             }
                         }
                         itemHtml += '</div>';
                         return itemHtml;
                     }).join('');
-                } else {
+                }
+                else if (typeof value[0] === 'object' && value[0] !== null && sectionKey === 'risk_assessment') {
+                    return value.map(item => {
+                        if (typeof item !== 'object' || item === null) return '';
+
+                        const isPlaceholder = (parentKey === 'mitigation_strategies' && item.strategy === 'N/A') ||
+                                             (['market_risks', 'operational_risks', 'financial_risks'].includes(parentKey) && item.risk === 'N/A');
+                        if (isPlaceholder) return '';
+
+                        let itemHtml = '<div class="subsection-item-container">';
+
+                        let tagsHtml = '<div class="recommendation-tags-top-right">';
+                        let hasTags = false;
+                        const tagKeys = ['likelihood', 'impact'];
+                        for (const key in item) {
+                             const lowerKey = key.toLowerCase();
+                             if (tagKeys.includes(lowerKey)) {
+                                if (item[key] && item[key].toUpperCase() !== 'N/A') {
+                                    hasTags = true;
+                                    const tagValue = String(item[key]).toLowerCase().replace(/\\s+/g, '-');
+                                    const tagClass = `${lowerKey}-${tagValue}`;
+                                    const tagLabel = key.charAt(0).toUpperCase() + key.slice(1) + ": ";
+                                    tagsHtml += `<span class="risk-tag ${tagClass}">${tagLabel}${item[key]}</span>`;
+                                }
+                            }
+                        }
+                        tagsHtml += '</div>';
+                        if(hasTags) itemHtml += tagsHtml;
+
+                        for (const [itemKey, itemValue] of Object.entries(item)) {
+                             const lowerItemKey = itemKey.toLowerCase();
+                             if (!tagKeys.includes(lowerItemKey)) {
+                                // --- ADDED: Skip rendering 'risk_area' specifically for mitigation strategies ---
+                                if (parentKey === 'mitigation_strategies' && lowerItemKey === 'risk_area') {
+                                    continue; // Skip this key-value pair
+                                }
+
+                                // Skip empty/NA values
+                                if (itemValue === null || itemValue === undefined || itemValue === '' || (typeof itemValue === 'string' && itemValue.toUpperCase() === 'N/A')) continue; 
+
+                                const label = itemKey.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase());
+                                
+                                itemHtml += `<div class="detail-item" style="margin-bottom: 0.5rem;">
+                                                 <span class="detail-label">${label}</span>
+                                                 ${renderValue(itemValue, itemKey, sectionKey)}
+                                             </div>`;
+                             }
+                        }
+                        itemHtml += '</div>';
+                        return itemHtml;
+                    }).join('');
+                }
+                else if (typeof value[0] === 'object' && value[0] !== null) {
+                    return value.map(item => {
+                         if (typeof item !== 'object' || item === null) return '';
+
+                         const isPlaceholderItem = Object.values(item).every(val => typeof val === 'string' && (val.toUpperCase() === 'NOT FOUND' || val.toUpperCase() === 'N/A'));
+                         if(isPlaceholderItem) return '';
+
+                         let itemHtml = '<div class="subsection-item-container">';
+                         for (const [itemKey, itemValue] of Object.entries(item)) {
+                              itemHtml += `<div class="detail-item">
+                                  <span class="detail-label">${itemKey.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</span>
+                                  ${renderValue(itemValue, itemKey, sectionKey)}
+                              </div>`;
+                         }
+                         itemHtml += '</div>';
+                         return itemHtml;
+                     }).join('');
+                }
+                else {
                     return renderList(value);
                 }
-            } else if (typeof value === 'object' && value !== null) {
+            }
+            else if (typeof value === 'object' && value !== null) {
                 let subHtml = '<div class="sub-section">';
                 let hasSubData = false;
                 for (const [subKey, subValue] of Object.entries(value)) {
+                     if (subValue === null || subValue === undefined || subValue === '' || (typeof subValue === 'string' && subValue.toUpperCase() === 'N/A')) continue;
                     hasSubData = true;
-                    subHtml += `<div class="detail-item">
-                        <span class="detail-label">${subKey.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
-                        ${renderValue(subValue)}
-                    </div>`;
+                     subHtml += `<div class="detail-item">
+                         <span class="detail-label">${subKey.replace(/_/g, ' ').replace(/\\b\\w/g, l => l.toUpperCase())}</span>
+                         ${renderValue(subValue, subKey, sectionKey)}
+                     </div>`;
                 }
                 subHtml += '</div>';
                 return hasSubData ? subHtml : '<div class="detail-value">N/A</div>';
-            } else {
+            }
+            else {
                 const escapedValue = String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                return `<div class="detail-value">${escapedValue}</div>`;
+                return `<div class="detail-value">${escapedValue.replace(/\\n/g, '<br>')}</div>`;
             }
         }
 
-        // --- ANALYSIS_STRUCTURE Definition (needed for placeholder checks) ---
-        // IMPORTANT: This needs to be kept in sync with the Python definition!
         const ANALYSIS_STRUCTURE = {
             analysis: {
                 company_overview: {
@@ -980,20 +1332,21 @@
             }
         };
 
-        // --- Existing helper functions (renderList, etc.) ---
-        // Ensure these functions are defined above or included here.
-        // Example for renderList (assuming it exists elsewhere or needs adding):
         function renderList(items) {
             if (!items) return '<div class="detail-value">N/A</div>';
             if (typeof items === 'string') items = [items];
-            if (!Array.isArray(items) || items.length === 0) return '<div class="detail-value">N/A</div>';
-            return `<div class="detail-value">${items.map(item => `<div class="list-item">${item}</div>`).join('')}</div>`;
+            if (!Array.isArray(items) || items.length === 0 || items.every(i => i === null || i === '' || (typeof i === 'string' && i.toUpperCase() === 'N/A'))) {
+                 return '<div class="detail-value">N/A</div>';
+             }
+            return `<div class="detail-value">${items.map(item => {
+                 const val = (item === null || item === undefined || (typeof item === 'string' && item.toUpperCase() === 'N/A')) ? 'N/A' : String(item).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                 return val === 'N/A' ? '' : `<div class="list-item">${val}</div>`;
+             }).filter(Boolean).join('') || '<div class="detail-value">N/A</div>'}</div>`;
         }
 
         async function generateAIAnalysis(startup) {
             const { metadata, analysis } = startup;
             
-            // Show loading state
             document.getElementById('aiAnalysisContainer').innerHTML = `
                 <div class="ai-analysis-card">
                     <div class="ai-badge">AI Analysis in Progress</div>
@@ -1001,7 +1354,6 @@
                 </div>
             `;
             
-            // Prepare the data for the API
             const analysisData = {
                 startup_name: metadata.startup_name || '',
                 industry: metadata.industry || '',
@@ -1015,7 +1367,6 @@
                 business_model: analysis.business_model || {}
             };
 
-            // Validate required fields
             if (!analysisData.startup_name || !analysisData.industry || !analysisData.description) {
                 throw new Error('Missing required fields for AI analysis. Required: startup_name, industry, description');
             }
@@ -1025,13 +1376,13 @@
                     url: 'http://localhost:5002/api/analyze-startup',
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    data: analysisData // Make sure this structure matches backend expectations
+                    data: analysisData
                 });
 
                 const response = await fetch('http://localhost:5002/api/analyze-startup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify(analysisData) // Send the prepared data
+                    body: JSON.stringify(analysisData)
                 });
 
                 console.log('Received response:', {
@@ -1047,7 +1398,6 @@
                     responseData = await response.json();
                     console.log('Parsed JSON response:', responseData);
                 } else {
-                    // If response is not JSON, get the text and log it
                     const text = await response.text();
                     console.error('Received non-JSON response:', {
                         contentType,
@@ -1121,7 +1471,6 @@
             `;
         }
 
-        // Initialize chat functionality
         document.addEventListener('DOMContentLoaded', () => {
             const chatInput = document.getElementById('chatInput');
             const chatSubmit = document.getElementById('chatSubmit');
@@ -1133,11 +1482,9 @@
                 }
             });
 
-            // Initialize the startup details
             loadStartupDetails();
         });
 
-        // Initialize generate report functionality
         document.addEventListener('DOMContentLoaded', () => {
             const generateReportButton = document.getElementById('generateReportButton');
             if (generateReportButton) {
@@ -1221,7 +1568,6 @@
             }
         });
 
-        // Initialize refresh analysis functionality
         document.addEventListener('DOMContentLoaded', () => {
             const refreshButton = document.getElementById('refreshAnalysisButton');
             if (refreshButton) {
@@ -1233,7 +1579,6 @@
                         button.disabled = true;
                         button.innerHTML = 'Refreshing...';
                         
-                        // Get current startup name
                         const urlParams = new URLSearchParams(window.location.search);
                         const startupName = urlParams.get('startup');
                         
@@ -1241,7 +1586,6 @@
                             throw new Error('No startup specified in URL');
                         }
 
-                        // Call the research script endpoint
                         const response = await fetch('http://localhost:5002/api/run-research', {
                             method: 'POST',
                             headers: {
@@ -1249,8 +1593,8 @@
                             },
                             body: JSON.stringify({ 
                                 startup_name: startupName,
-                                workers: 1,  // Run with a single worker for one startup
-                                batch_size: 1  // Process one startup at a time
+                                workers: 1,
+                                batch_size: 1
                             })
                         });
 
@@ -1261,7 +1605,6 @@
 
                         const data = await response.json();
                         
-                        // Show success message with more detailed status
                         const successMessage = document.createElement('div');
                         successMessage.style.cssText = `
                             position: fixed;
@@ -1278,7 +1621,6 @@
                         successMessage.textContent = 'Research refresh started! Checking for completion...';
                         document.body.appendChild(successMessage);
 
-                        // Poll for the new analysis file
                         const startupFileName = startupName.toLowerCase().replace(/ /g, '_');
                         const analysisFilePath = `data/results/analysis_${startupFileName}.json`;
                         
@@ -1286,22 +1628,17 @@
                             try {
                                 const response = await fetch(analysisFilePath);
                                 if (response.ok) {
-                                    // File exists, reload the page
                                     window.location.reload();
                                 } else {
-                                    // File not ready yet, check again in 5 seconds
                                     setTimeout(checkForNewFile, 5000);
                                 }
                             } catch (error) {
-                                // Error checking file, try again in 5 seconds
                                 setTimeout(checkForNewFile, 5000);
                             }
                         };
 
-                        // Start polling
                         checkForNewFile();
                         
-                        // Remove success message after 5 seconds
                         setTimeout(() => {
                             successMessage.style.animation = 'slideOut 0.3s ease-out';
                             setTimeout(() => successMessage.remove(), 300);
@@ -1337,7 +1674,6 @@
             }
         });
 
-        // Add animation keyframes
         const style = document.createElement('style');
         style.textContent = `
             @keyframes slideIn {
@@ -1351,7 +1687,6 @@
         `;
         document.head.appendChild(style);
 
-        // Add chat functionality
         async function handleChatSubmit() {
             const input = document.getElementById('chatInput');
             const submit = document.getElementById('chatSubmit');
@@ -1382,7 +1717,7 @@
                     },
                     body: JSON.stringify({
                         query,
-                        startup_context: startup // Send the whole startup object as context
+                        startup_context: startup
                     })
                 });
                 

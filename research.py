@@ -91,10 +91,38 @@ ANALYSIS_STRUCTURE = {
             "scaling_approach": ""
         },
         "recommendations": {
-            "strategic_recommendations": [],
-            "operational_recommendations": [],
-            "growth_recommendations": [],
-            "risk_mitigation_recommendations": []
+            "strategic_recommendations": [{
+                "recommendation": "",
+                "rationale": "",
+                "actionable_steps": [],
+                "priority": "High | Medium | Low",
+                "impact": "High | Medium | Low",
+                "effort": "High | Medium | Low"
+            }],
+            "operational_recommendations": [{
+                "recommendation": "",
+                "rationale": "",
+                "actionable_steps": [],
+                "priority": "High | Medium | Low",
+                "impact": "High | Medium | Low",
+                "effort": "High | Medium | Low"
+            }],
+            "growth_recommendations": [{
+                "recommendation": "",
+                "rationale": "",
+                "actionable_steps": [],
+                "priority": "High | Medium | Low",
+                "impact": "High | Medium | Low",
+                "effort": "High | Medium | Low"
+            }],
+            "risk_mitigation_recommendations": [{
+                "recommendation": "",
+                "rationale": "",
+                "actionable_steps": [],
+                "priority": "High | Medium | Low",
+                "impact": "High | Medium | Low",
+                "effort": "High | Medium | Low"
+            }]
         }
     }
 }
@@ -408,9 +436,31 @@ class StartupResearch:
             # Analyze each area separately
             for area in analysis_areas:
                 try:
+                    # Determine the expected structure for the prompt example
+                    example_area_structure = ANALYSIS_STRUCTURE['analysis'].get(area, {})
+                    
+                    # Special handling for recommendations to show the detailed item structure
+                    if area == 'recommendations':
+                        # Show the structure of the first item in one of the recommendation lists as example
+                        example_area_structure = {
+                            "strategic_recommendations": [
+                                {
+                                    "recommendation": "Example recommendation text...",
+                                    "rationale": "Example rationale text...",
+                                    "actionable_steps": ["Step 1...", "Step 2..."],
+                                    "priority": "High | Medium | Low",
+                                    "impact": "High | Medium | Low",
+                                    "effort": "High | Medium | Low"
+                                }
+                            ],
+                            "operational_recommendations": "[...]", # Keep others concise
+                            "growth_recommendations": "[...]",
+                            "risk_mitigation_recommendations": "[...]"
+                         }
+                    
                     # Create area-specific prompt
                     area_prompt = f"""
-                    Analyze the following startup focusing specifically on the {area} area. Use web search extensively to gather comprehensive information.
+                    Analyze the following startup focusing specifically on the **{area}** area. Use web search extensively to gather comprehensive information.
 
                     Startup Information:
                     Name: {startup_data['startup_name']}
@@ -433,35 +483,31 @@ class StartupResearch:
                     {startup_data.get('expectations_for_the_program', '')}
 
                     IMPORTANT INSTRUCTIONS:
-                    1. Your response must be a valid JSON object
-                    2. Provide extremely detailed information for the {area} section
-                    3. Use web search to verify and enrich all information
-                    4. For team analysis specifically:
-                       - Search for each founder's name with variations (e.g., "Hannah Chappatte LinkedIn", "Hannah Chappatte Hybr", "Hannah Chappatte founder")
-                       - Check the company's website for team information
-                       - Look for press releases or news articles mentioning the team
-                       - Search for company profiles on Crunchbase, LinkedIn, and other startup databases
-                       - If a founder's LinkedIn profile is found, include the full URL
-                    5. Only include specific details (like URLs, funding amounts, dates, etc.) if they are found and verified through web search. If a specific piece of information cannot be found or verified via search, explicitly state 'Not Found' or leave the corresponding JSON field empty/null. Do NOT invent information or URLs.
+                    1.  Your response **MUST** be only a single, valid JSON object. Do **NOT** include *any* text before the opening `{{` or after the final `}}`.
+                    2.  Provide extremely detailed information specifically for the `{area}` section based on web search results.
+                    3.  **Output Formatting:** Within the JSON string values, provide plain text suitable for direct rendering in HTML. **AVOID** using markdown formatting like bullet points (`*`, `-`), numbered lists, bolding (`** **`), or italics within the JSON string values. For lists of items (like core_features, actionable_steps, etc.), use JSON arrays of simple strings `["Item 1", "Item 2", "Item 3"]`.
+                    4.  Use web search to verify and enrich all information. Only include specific details (like URLs, funding amounts, dates, etc.) if they are found and verified through web search. If a specific piece of information cannot be found or verified via search, explicitly state 'Not Found' or use an empty string/array/null in the JSON.
+                    5.  **Team Analysis Specifics:** If analyzing the `team_analysis` area, search extensively for founder/team member details, including LinkedIn URLs, and include the full URL if found.
+                    6.  **Recommendations Specifics:** If analyzing the `recommendations` area, **each recommendation object** within the lists (strategic_recommendations, operational_recommendations, etc.) **MUST** include the following keys: `recommendation` (string), `rationale` (string), `actionable_steps` (array of strings), `priority` (string: "High", "Medium", or "Low"), `impact` (string: "High", "Medium", or "Low"), and `effort` (string: "High", "Medium", or "Low").
 
-                    Please provide a comprehensive analysis in JSON format with the following structure:
+                    Please provide the comprehensive analysis for the `{area}` area in the specified JSON format below:
+                    ```json
                     {{
                         "metadata": {{
                             "startup_name": "{startup_data['startup_name']}",
                             "analysis_area": "{area}",
                             "analysis_timestamp": "{datetime.now().strftime("%Y%m%d_%H%M%S")}",
-                            "model_used": "gemini-2.0-flash",
+                            "model_used": "{self.model_id}",
                             "analysis_version": "2.0",
-                            "sources": []
+                            "sources": []  // Populate this list with URLs used if possible
                         }},
                         "analysis": {{
-                            "{area}": {json.dumps(ANALYSIS_STRUCTURE['analysis'][area], indent=4)}
+                            "{area}": {json.dumps(example_area_structure, indent=4)}
                         }}
                     }}
+                    ```
 
-                    Use web search extensively to gather accurate and up-to-date information about the startup.
-
-                    ABSOLUTELY CRITICAL: Your entire response must contain ONLY ONE single, valid JSON object matching the structure above. Do NOT repeat the JSON structure, and do not include ANY text before the opening '{{' or after the final '}}'.
+                    Remember to use web search extensively and output **ONLY** the single JSON object.
                     """
                     
                     # Generate content for this area using the model instance
